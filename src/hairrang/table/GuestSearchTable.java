@@ -1,6 +1,5 @@
 package hairrang.table;
 
-
 import java.text.SimpleDateFormat;
 
 import javax.swing.ListSelectionModel;
@@ -9,15 +8,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import hairrang.dto.Guest;
+import hairrang.service.GuestService;
 
 public class GuestSearchTable extends AbstractItemTable<Guest> {
+	private GuestService gService;
+	
 	public GuestSearchTable() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	@Override
 	Object[] getColName() {
-		return new String[] {"고객번호","고객명", "생년월일", "가입일자", "전화번호", "성별", "메모"};
+		return new String[] {"고객번호", "고객명", "생년월일", "가입일자", "전화번호", "성별", "메모"};
 	}
 	//new SimpleDateFormat("yyyy-MM-dd").format(guest.getBirthday())
 	@Override
@@ -30,7 +32,6 @@ public class GuestSearchTable extends AbstractItemTable<Guest> {
 				itemList.getPhone(), 
 				itemList.getGender()==1?"여":"남", 
 				itemList.getGuestNote()
-			
 		};
 	}
 
