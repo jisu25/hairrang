@@ -1,5 +1,7 @@
 package hairrang.dao;
 
+
+import java.util.Date;
 import java.util.List;
 
 import hairrang.dto.Sales;
@@ -11,7 +13,7 @@ public interface SalesDao {
 
 	// 날짜 조건 필요함
 	// where sales_day between ( and ) 아닐까... 잘 찾아봐
-	Sales selectSalesByDate(Sales sales);
+	List<Sales> selectSalesByDate(Date before, Date after);
 	
 	// 언니쪽(고객검색)에서 필요한 메서드임 만들어야 해
 	List<Sales> selectSalesByGuestNo(Sales sales);
