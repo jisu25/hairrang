@@ -30,10 +30,9 @@ public class HairrangChart extends JPanel {
 	JTable tableResult;
 	DefaultTableModel tmodel;
 	
-	JRadioButton rdBtnTotalPrice;
-	JRadioButton rdBtnNetIncome;
-	JRadioButton rdBtnCash;
-	JRadioButton rdBtnCard;
+	JRadioButton rdbtnYearRadioButton;
+	JRadioButton rdbtnMonthRadioButton;
+	
 
 	JPanel pGraph;
 	CardLayout graphCard = new CardLayout();
@@ -89,14 +88,6 @@ public class HairrangChart extends JPanel {
 		spTable.setBounds(12, 59, 682, 241);
 		add(spTable);
 		
-		JPanel pGraph = new JPanel();
-		pGraph.setBounds(12, 310, 682, 250);
-		add(pGraph);
-		pGraph.setLayout(new CardLayout(0, 0));
-		
-		JLabel lblNewLabel = new JLabel("\uADF8\uB798\uD504");
-		pGraph.add(lblNewLabel, "name_724415271712000");
-		
 		// [테이블]
 				// 테이블 열 세팅
 				Vector<String> col = new Vector<String>(); // 열
@@ -116,17 +107,26 @@ public class HairrangChart extends JPanel {
 				TestMain.tableCellCenter(tableResult);
 
 				spTable.setViewportView(tableResult);
-
+				
+				// #그래프 패널#
+				pGraph = new JPanel();
+				pGraph.setVisible(false);
+				pGraph.setLayout(graphCard);
+				
+				pGraph.setBounds(12, 310, 682, 250);
+				add(pGraph);
+				
+		
 				
 				// #이벤트 등록#
 				HairrangChartService hcs = new  HairrangChartService(this);
 				
-				JRadioButton rdbtnYearRadioButton = new JRadioButton("\uC5F0\uB3C4\uBCC4");
+				JRadioButton rdbtnYearRadioButton = new JRadioButton("연도별");
 				buttonGroup.add(rdbtnYearRadioButton);
 				rdbtnYearRadioButton.setBounds(492, 23, 82, 33);
 				add(rdbtnYearRadioButton);
 				
-				JRadioButton rdbtnMonthRadioButton = new JRadioButton("\uC6D4\uBCC4");
+				JRadioButton rdbtnMonthRadioButton = new JRadioButton("월별");
 				buttonGroup.add(rdbtnMonthRadioButton);
 				rdbtnMonthRadioButton.setBounds(573, 28, 82, 23);
 				add(rdbtnMonthRadioButton);

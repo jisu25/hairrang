@@ -54,9 +54,10 @@ import hairrang.conn.JdbcUtil;
 						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO \r\n" + 
 						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO \r\n" + 
 						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO \r\n" + 
-						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') = ?";
+						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?";
 				ps = conn.prepareStatement(query);
 				ps.setInt(1, startYear);
+				ps.setInt(2, endYear);
 				
 
 				// 쿼리문 실행
