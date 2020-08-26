@@ -27,6 +27,7 @@ public class GuestManagementPanel extends JPanel {
 	private JTextField tfMemo;
 	private GuestService gService;
 	private JDateChooser dateChooser;
+	
 
 	/**
 	 * Create the panel.
@@ -144,8 +145,8 @@ public class GuestManagementPanel extends JPanel {
 	}
 
 	public void clearTf() {
-		tfName.setText("");
 		
+		tfName.setText("");
 		Date date = new Date();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setDate(date);

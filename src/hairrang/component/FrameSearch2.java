@@ -21,7 +21,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -307,4 +306,5 @@ public class FrameSearch2 extends JFrame implements ActionListener {
 		table.setItems(guestList);
 
 	}
+	
 }
