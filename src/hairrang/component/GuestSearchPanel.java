@@ -36,6 +36,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private JDateChooser dateChooser;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private FrameGuestSearch searchFrame;
 
 	/**
 	 * Create the panel.
@@ -178,8 +179,11 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 
 
 	private void btnSearchActionPerformed(ActionEvent e) {
-		System.out.println("검색");
+		// TODO Auto-generated method stub
 		
 	}
+
+
+
 
 }

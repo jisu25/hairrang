@@ -14,6 +14,7 @@ import hairrang.dto.Guest;
 
 public class GuestDaoImpl implements GuestDao {
 	
+	
 	private static final GuestDaoImpl instance = new GuestDaoImpl();
 	
 	private GuestDaoImpl() {};

@@ -7,12 +7,7 @@ import hairrang.dto.Guest;
 
 
 public interface GuestDao {
-	List<Guest> selectGuestByAll();
-	
-	Guest selectGuestByNo(Guest guest);
-	
-	List<Guest> selectGuestByName(Guest guest);
-	
+
 	int insertGuest(Guest guest);
 	
 	int updateGuest(Guest guest);
@@ -21,6 +16,15 @@ public interface GuestDao {
 
 	int getGuestCurrVal();
 
-	//이름으로 검색
+	List<Guest> selectGuestByAll();
+	
+	Guest selectGuestByNo(Guest guest);
+
 	List<Guest> searchGuestByName(Guest guest);
+
+	List<Guest> selectGuestByName(Guest guest);
+
+
+	//이름으로 검색
+	
 }
