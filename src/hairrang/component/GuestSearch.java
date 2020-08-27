@@ -55,6 +55,7 @@ public class GuestSearch extends JPanel implements ActionListener{
 		
 		pGuest = new GuestSearchPanel();
 		pGuest.setBounds(0, 0, 700, 190);
+		//pGuest.setMainFrame(this);
 		panel.add(pGuest);
 		
 		pBtn = new JPanel();

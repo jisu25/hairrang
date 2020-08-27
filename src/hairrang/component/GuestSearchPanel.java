@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class GuestSearchPanel extends JPanel implements ActionListener {
 	
-	private FrameGuestSearch mainFrame;
+	private GuestSearch mainFrame;
 	
 	private JTextField tfNo;
 	private JTextField tfName;
@@ -46,13 +46,13 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private ArrayList<Guest> guestList;
 	
 	
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public GuestSearchPanel() {
 		gService = new GuestService();
-		guestList = (ArrayList<Guest>) gService.getGuestList();
 		
 		initComponents();
 
@@ -136,6 +136,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		btnSearch.addActionListener(this);
 		btnSearch.setBounds(295, 33, 71, 23);
 		add(btnSearch);
+		setMainFrame(mainFrame);
 		
 		
 	}
@@ -188,14 +189,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	}
 	
 
-	public FrameGuestSearch getMainFrame() {
-		return mainFrame;
-	}
 
-
-	public void setMainFrame(FrameGuestSearch mainFrame) {
-		this.mainFrame = mainFrame;
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnSearch) {
@@ -213,6 +207,17 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	public String tfName() {
 		return tfName.getText().trim();
 	}
+
+
+	public GuestSearch getMainFrame() {
+		return mainFrame;
+	}
+
+
+	public void setMainFrame(GuestSearch mainFrame) {
+		this.mainFrame = mainFrame;
+	}
+	
 	
 	
 

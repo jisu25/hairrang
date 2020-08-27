@@ -35,12 +35,12 @@ public class SalesDaoTest {
 		List<Sales> list = dao.selectSalesByAll();
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
-		System.out.println("야광돼지번쩍번쩍");
+		
 		
 	}
 
 	
-	//@Test
+	@Test
 	public void selectSalesByGuestNo() {
 		System.out.printf("%s()%n","selectSalesByGuestNo()");
 		List<Sales> list = dao.selectSalesByGuestNo(new Sales(2));

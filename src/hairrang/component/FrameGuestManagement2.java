@@ -24,7 +24,7 @@ import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestManagementTable;
 
-public class FrameGuestManagement extends JFrame implements ActionListener {
+public class FrameGuestManagement2 extends JFrame implements ActionListener {
 
 	private GuestService gService;
 	private JPanel contentPane;
@@ -47,7 +47,7 @@ public class FrameGuestManagement extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrameGuestManagement frame = new FrameGuestManagement();
+					FrameGuestManagement2 frame = new FrameGuestManagement2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +59,7 @@ public class FrameGuestManagement extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public FrameGuestManagement() {
+	public FrameGuestManagement2() {
 		
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
@@ -74,14 +74,10 @@ public class FrameGuestManagement extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 740, 540);
 		setLayout(null);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		panel = new JPanel();
@@ -131,6 +127,16 @@ public class FrameGuestManagement extends JFrame implements ActionListener {
 		
 		table.setItems(guestList);
 		table.setComponentPopupMenu(createPopMenu());
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					Guest selectedGuest = getSelectedGuest();
+					pGuest.setGuest(selectedGuest);
+
+				}
+			}
+		});
 				
 	}
 

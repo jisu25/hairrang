@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import hairrang.chart.HairrangChart;
+import hairrang.component.GuestManagement;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 

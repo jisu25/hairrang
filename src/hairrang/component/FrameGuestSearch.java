@@ -76,7 +76,7 @@ public class FrameGuestSearch extends JFrame implements ActionListener {
 
 		pGuest = new GuestSearchPanel();
 		pGuest.setBounds(5, 5, 714, 186);
-		pGuest.setMainFrame(this);
+		
 		contentPane.add(pGuest);
 
 		pBtn = new JPanel();
