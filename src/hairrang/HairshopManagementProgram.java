@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import hairrang.chart.HairrangChart;
+import hairrang.component.SidePanel;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -51,18 +52,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private Color mainColor = new Color(153, 102, 255);
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
-	private JPanel sidePanel;
+	private SidePanel sidePanel;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 * 
-	 * @throws IOException
-	 * @throws FontFormatException
-	 */
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
 		initComponents();
@@ -78,7 +69,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.setLayout(null);
 		
 //		setTitle
-		
 
 		/* panel 정의 */
 
@@ -115,7 +105,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		/* 메뉴부 */
 		
 		String fontPath = System.getProperty("user.dir") + File.separator + "fonts" + File.separator;
-		InputStream is = HairshopManagementProgram.class.getResourceAsStream(fontPath + "GmarketSansTTFBold.ttf");
+//		InputStream is = HairshopManagementProgram.class.getResourceAsStream(fontPath + "GmarketSansTTFBold.ttf");
 		File gfont_file = new File(fontPath + "GmarketSansTTFBold.ttf");
 		Font gSansBold = Font.createFont(Font.TRUETYPE_FONT, gfont_file);
 		Font gSansBold28 = gSansBold.deriveFont(28f);
@@ -181,7 +171,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setFont(gSansBold20);
 		contentPane.add(lblMenuName);
 		
-		sidePanel = new JPanel();
+		sidePanel = new SidePanel();
 		sidePanel.setBounds(750, 90, 258, 639);
 		contentPane.add(sidePanel);
 	}
