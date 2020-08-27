@@ -1,1 +1,1 @@
-{"resources":{"Scripts/hairrang grant.sql":{"sql-editor-data-source-id":"oracle_thin-17428d7a537-3de4a5d8c5168338","default-datasource":"oracle_thin-17428d7a537-3de4a5d8c5168338","default-schema":"SYSTEM"},"Scripts/hairrang_data.sql":{"sql-editor-data-source-id":"oracle_thin-174297758a7-7785bd209b70cd9b"}}}
+{"resources":{"Scripts/hairrang - test.sql":{"default-schema":"HAIRRANG","sql-editor-data-source-id":"oracle_thin-174297758a7-7785bd209b70cd9b","default-datasource":"oracle_thin-17428ca212b-9b3a3c5c754a606"}}}
