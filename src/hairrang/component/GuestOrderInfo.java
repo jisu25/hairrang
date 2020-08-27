@@ -4,9 +4,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.activation.MailcapCommandMap;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -15,22 +19,18 @@ import hairrang.dto.Sales;
 import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 import hairrang.table.GuestOrderInfoTable;
-import hairrang.table.GuestSearchTable;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 
 public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JLabel lblNo;
 	private JLabel lblName;
 	private JLabel lblSetName;
-	private GuestSearchTable table;
 	private ArrayList<Sales> salesList;
 	private SalesService sService;
 	
 	//테스트
 	private GuestService gService;
 	private ArrayList<Guest> guestList;
-	private FrameGuestSearch mainFrame;
+	
 	//
 	
 	private JButton btnClose;
@@ -39,13 +39,15 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JLabel lblNewLabel;
 	private JPanel pTable;
 	private JScrollPane scrollPane;
-	private FrameGuestSearch guestSearch;
+	
 	private JLabel lblSetNo;
+	private GuestOrderInfoTable table;
 
 	public GuestOrderInfo() {
-		//sService = new SalesService();
-		//salesList = (ArrayList<Sales>) sService.selectSalesByAll();
-		//
+		
+		sService = new SalesService();
+		salesList = (ArrayList<Sales>) sService.selectSalesByAll();
+		
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		
@@ -54,7 +56,6 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 
 	private void initComponents() {
 		getContentPane().setLayout(null);
-		this.setMainFrame(mainFrame);
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 550, 450);
@@ -99,10 +100,9 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-
-		table = new GuestSearchTable();
+		
+		table = new GuestOrderInfoTable();
 		scrollPane.setViewportView(table);
-		table.setItems(guestList);
 	}
 
 	
@@ -111,28 +111,19 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 			this.setVisible(false);
 		}
 	}
-	
-	public FrameGuestSearch getMainFrame() {
-		return mainFrame;
-	}
 
-
-	public void setMainFrame(FrameGuestSearch mainFrame) {
-		this.mainFrame = mainFrame;
-	}
-	
-
-	public void selectGuest(String guestName) {
-		//해당 번호의 고객만 table에 셋
-		//salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(guestNo));
-		//salesList.stream().forEach(System.out::println);
-		//table.setItems(salesList);
+	public void selectGuest(int guestNo, String guestName) {
 		
-		guestList = (ArrayList<Guest>) gService.selectGuestByName(new Guest(guestName));
-		guestList.stream().forEach(System.out::println);
+		salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(guestNo));
+		lblSetNo.setText(String.valueOf(guestNo));
+		lblSetName.setText(guestName);
 		
-		
-		table.setItems(guestList);
+		System.out.println(salesList.size());
+		if(salesList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "내역없음");
+		}
+		table.setItems(salesList);
+		salesList.stream().forEach(System.out::println);
 		
 	}
 }

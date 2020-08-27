@@ -2,6 +2,7 @@ package hairrang.table;
 
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -9,8 +10,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import hairrang.dto.Guest;
+import hairrang.service.GuestService;
 
 public class GuestManagementTable extends AbstractItemTable<Guest> {
+	private GuestService gService = new GuestService();
+	private List<Guest> guestList = gService.getGuestList();
+	
 	public GuestManagementTable() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}

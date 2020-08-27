@@ -3,12 +3,8 @@ package hairrang.component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -20,24 +16,25 @@ import javax.swing.JScrollPane;
 import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestManagementTable;
-import javax.swing.JTable;
 
 public class GuestManagement extends JPanel implements ActionListener {
-	private GuestService gService;
+
+	private JPanel pBtn;
+	private JPanel pTable;
+	private JButton btnCancel;
+	private JButton btnAdd;
+	private JScrollPane scrollPane;
 	private ArrayList<Guest> guestList;
+	private GuestService gService;
+	private GuestManagementTable table;
+	private GuestManagementPanel pGuest;
 	private int curr;
 
-	/**
-	 * Create the panel.
-	 */
 	public GuestManagement() {
+
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		curr = gService.getGuestCurrVal();
-		// System.out.println("curr: " + curr);
-
-		Date join = new Date();
-		new SimpleDateFormat("yyyy-MM-dd").format(join);
 
 		initComponents();
 
@@ -45,47 +42,72 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 	private void initComponents() {
 		setLayout(null);
-		
-		pBtn = new JPanel();
-		pBtn.setBounds(0, 209, 780, 60);
-		pBtn.setLayout(null);
-		add(pBtn);
-		
-		btnAdd = new JButton("추가");
-		btnAdd.setBounds(405, 11, 85, 25);
-		pBtn.add(btnAdd);
-		
-		btnCancel = new JButton("취소");
-		btnCancel.setBounds(495, 11, 85, 25);
-		pBtn.add(btnCancel);
-		
+
 		pGuest = new GuestManagementPanel();
-		pGuest.setBounds(0, 0, 780, 211);
-		pGuest.setTfNo(0);
+		pGuest.setBounds(0, 0, 700, 190);
 		add(pGuest);
-		
+		// 가입날짜, 고객번호 자동입력////////////////////////////////////////////////
+		pGuest.setTfJoinDay();
+		pGuest.setTfNo(curr);
+		//////////////////////////////////////////////////
+
+		pBtn = new JPanel();
+		pBtn.setBounds(0, 190, 700, 40);
+		add(pBtn);
+		pBtn.setLayout(null);
+
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
+		btnCancel.setBounds(345, 5, 101, 25);
+		pBtn.add(btnCancel);
+
+		btnAdd = new JButton("추가");
+		btnAdd.addActionListener(this);
+		btnAdd.setBounds(460, 5, 101, 25);
+		pBtn.add(btnAdd);
+
 		pTable = new JPanel();
-		pTable.setBounds(0, 269, 780, 365);
+		pTable.setBounds(0, 230, 700, 310);
 		add(pTable);
 		pTable.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-		
+
 		table = new GuestManagementTable();
 		scrollPane.setViewportView(table);
 		table.setItems(guestList);
+		table.setComponentPopupMenu(createPopMenu());
+
 	}
 
-//버튼//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			btnCancelActionPerformed(e);
+		}
 
+		if (e.getSource() == btnAdd) {
+			if (e.getActionCommand().contentEquals("추가")) {
+				try {
+					btnAddActionPerformed(e);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (e.getActionCommand().equals("수정"))
+				try {
+					btnUpdateActionPerformed();
+					
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+		}
 	}
 
 	// 고객리턴
 	private Guest getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
+		guestList = (ArrayList<Guest>) gService.getGuestList();
 		return guestList.get(selectedRow);
 	}
 
@@ -101,7 +123,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 			curr++;
 
 			JOptionPane.showMessageDialog(null, String.format("%s님이 추가되었습니다.", addGuest.getGuestName()));
-
+			
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -114,13 +136,14 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 	// 수정
 	private void btnUpdateActionPerformed() throws ParseException {
+		
 		Guest updateGuest = getSelectedGuest();
 		Guest updateInfo = pGuest.getGuest();
 
 		int idx = guestList.indexOf(updateGuest);
 		table.updateRow(idx, updateInfo);
 		gService.updateGuest(updateInfo);
-
+		JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.", updateGuest.getGuestName()));
 		pGuest.clearTf();
 		btnAdd.setText("추가");
 
@@ -129,7 +152,15 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 	}
 
-//팝메뉴///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// 제거
+	private void btnCancelActionPerformed(ActionEvent e) {
+		pGuest.clearTf();
+		pGuest.setTfNo(curr);
+		table.clearSelection();
+		btnAdd.setText("추가");
+	}
+
+	// 팝메뉴//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
@@ -146,6 +177,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 		return popMenu;
 	}
 
+	
 	ActionListener addActionlistener = new ActionListener() {
 
 		@Override
@@ -164,24 +196,30 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		}
 	};
-	private JPanel pBtn;
-	private JButton btnAdd;
-	private JButton btnCancel;
-	private GuestManagementPanel pGuest;
-	private JPanel pTable;
-	private JScrollPane scrollPane;
-	private GuestManagementTable table;
 
 	// 팝업메뉴를 눌렀을때
 	protected void actionUpdate() throws ParseException {
+		int index = table.getSelectedRow();
+		if(index == -1) {
+			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
+			return;
+		}
+		
 		JOptionPane.showMessageDialog(null, "정보 수정 후 수정버튼을 눌러주세요.");
 		Guest update = getSelectedGuest();
 		pGuest.setGuest(update);
 		btnAdd.setText("수정");
+		
 
 	}
 
 	protected void actionDelete() {
+		int index = table.getSelectedRow();
+		if(index == -1) {
+			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
+			return;
+		}
+		
 		int idx = table.getSelectedRow();
 		Guest delete = getSelectedGuest();
 

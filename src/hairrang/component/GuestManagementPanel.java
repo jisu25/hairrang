@@ -2,6 +2,7 @@ package hairrang.component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,77 +28,85 @@ public class GuestManagementPanel extends JPanel {
 	private JTextField tfMemo;
 	private GuestService gService;
 	private JDateChooser dateChooser;
+	private ArrayList<Guest> guestList;
 	
 
 	/**
 	 * Create the panel.
 	 */
 	public GuestManagementPanel() {
+		gService = new GuestService();
+		guestList = (ArrayList<Guest>) gService.getGuestList();
+		initComponents();
+
+	}
+
+	private void initComponents() {
 		setLayout(null);
 
 		JLabel lblNo = new JLabel("고객 번호 : ");
-		lblNo.setBounds(68, 30, 70, 15);
+		lblNo.setBounds(100, 35, 70, 15);
 		add(lblNo);
 
 		tfNo = new JTextField();
-		tfNo.setBounds(153, 27, 116, 25);
+		tfNo.setBounds(185, 32, 116, 25);
 		add(tfNo);
 		tfNo.setColumns(10);
 		tfNo.setEditable(false);
 
 		JLabel lblName = new JLabel("고  객  명 : ");
-		lblName.setBounds(68, 67, 70, 15);
+		lblName.setBounds(100, 72, 70, 15);
 		add(lblName);
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(153, 62, 116, 25);
+		tfName.setBounds(185, 67, 116, 25);
 		add(tfName);
 
 		JLabel lblBirthday = new JLabel("생년월일  : ");
-		lblBirthday.setBounds(68, 102, 70, 15);
+		lblBirthday.setBounds(100, 107, 70, 15);
 		add(lblBirthday);
 
 		JLabel lblJoinDay = new JLabel("가입일자  : ");
-		lblJoinDay.setBounds(68, 135, 70, 15);
+		lblJoinDay.setBounds(100, 140, 70, 15);
 
 		add(lblJoinDay);
 
 		tfJoinDay = new JTextField();
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(153, 132, 116, 25);
+		tfJoinDay.setBounds(185, 137, 116, 25);
 		tfJoinDay.setEditable(false);
 		add(tfJoinDay);
 
 		JLabel lblGender = new JLabel("성       별 : ");
-		lblGender.setBounds(368, 28, 70, 15);
+		lblGender.setBounds(400, 33, 70, 15);
 		add(lblGender);
 
 		JLabel lblPhone = new JLabel("연  락  처 : ");
-		lblPhone.setBounds(368, 65, 70, 15);
+		lblPhone.setBounds(400, 70, 70, 15);
 		add(lblPhone);
 
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(446, 62, 116, 25);
+		tfPhone.setBounds(478, 67, 116, 25);
 		add(tfPhone);
 
 		JLabel lblMemo = new JLabel("메      모  : ");
-		lblMemo.setBounds(368, 102, 70, 15);
+		lblMemo.setBounds(400, 107, 70, 15);
 		add(lblMemo);
 
 		rBtnFemale = new JRadioButton("여성");
 		buttonGroup.add(rBtnFemale);
-		rBtnFemale.setBounds(446, 27, 60, 23);
+		rBtnFemale.setBounds(478, 32, 60, 23);
 		add(rBtnFemale);
 
 		rBtnMale = new JRadioButton("남성");
 		buttonGroup.add(rBtnMale);
-		rBtnMale.setBounds(510, 27, 60, 23);
+		rBtnMale.setBounds(542, 32, 60, 23);
 		add(rBtnMale);
 
 		tfMemo = new JTextField();
-		tfMemo.setBounds(446, 99, 116, 21);
+		tfMemo.setBounds(478, 104, 116, 21);
 		add(tfMemo);
 		tfMemo.setColumns(10);
 
@@ -105,9 +114,8 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dateChooser.setDate(date);
-		dateChooser.setBounds(153, 96, 116, 21);
+		dateChooser.setBounds(185, 101, 116, 21);
 		add(dateChooser);
-
 	}
 
 	public Guest getGuest() throws ParseException {
@@ -151,7 +159,7 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setDate(date);
 		
-		tfJoinDay.setText("");
+		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		tfPhone.setText("");
 		buttonGroup.clearSelection();
 		tfMemo.setText("");

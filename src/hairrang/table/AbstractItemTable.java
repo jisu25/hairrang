@@ -8,38 +8,46 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import hairrang.service.GuestService;
+import hairrang.service.SalesService;
+
 
 @SuppressWarnings({ "serial", "hiding" })
 public abstract class AbstractItemTable<Guest> extends JTable {
     private CustomModel model;
+    private GuestService gService;
+    private SalesService sService;
     
-    public AbstractItemTable() {
-        initComponents();
+    
+	public AbstractItemTable() {
+    	gService = new GuestService();
+        
+    	initComponents();
     }
     
     private void initComponents() {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<Guest> itemList) {
-        model = new CustomModel(getRows(itemList), getColName() );
+    void loadData(ArrayList<Guest> guestList) {
+        model = new CustomModel(getRows(guestList), getColName() );
         setModel(model);
     }
 
     abstract Object[] getColName();
 
-    Object[][] getRows(ArrayList<Guest> itemList) {
-        Object[][] rows = new Object[itemList.size()][];
+    Object[][] getRows(ArrayList<Guest> guestList) {
+        Object[][] rows = new Object[guestList.size()][];
         for(int i=0; i<rows.length; i++) {
-            rows[i] = toArray(itemList.get(i));
+            rows[i] = toArray(guestList.get(i));
         }
         return rows;
     }
 
     abstract Object[] toArray(Guest itemList);
 
-    public void setItems(ArrayList<Guest> itemList) {
-        loadData(itemList);
+    public void setItems(ArrayList<Guest> guestList) {
+        loadData(guestList);
         
         setWidthAndAlign();
     }
