@@ -1,10 +1,10 @@
 {
 	"folders": {},
 	"connections": {
-		"oracle_thin-17428324f9c-74c6bd2e1aea490d": {
+		"oracle_thin-174297758a7-7785bd209b70cd9b": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
-			"name": "orcl - hairrang",
+			"name": "orcl-hairrang",
 			"save-password": true,
 			"show-system-objects": true,
 			"read-only": false,

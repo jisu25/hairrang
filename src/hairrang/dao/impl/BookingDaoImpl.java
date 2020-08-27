@@ -41,7 +41,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		return null;
 	}
@@ -68,7 +68,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
 		return null;
 	}
@@ -81,11 +81,6 @@ public class BookingDaoImpl implements BookingDao {
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-
-			System.out.println(book.getGuestNo().getGuestNo());
-			System.out.println(new java.sql.Date(book.getBookDate().getTime()));
-			System.out.println(book.getHairNo().getHairNo());
-			System.out.println(book.getBookNote());
 			
 			pstmt.setInt(1, book.getGuestNo().getGuestNo());
 			pstmt.setDate(2, new java.sql.Date(book.getBookDate().getTime()));
@@ -95,19 +90,44 @@ public class BookingDaoImpl implements BookingDao {
 			return pstmt.executeUpdate();
 	
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return 0;
 	}
 
 	@Override
 	public int updateBook(Booking book) {
-		return 0;
+		String sql = "UPDATE BOOKING SET GUEST_NO = ?, BOOK_DAY = ?, HAIR_NO = ?, BOOK_NOTE = ? WHERE BOOK_NO= ?";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+
+			pstmt.setInt(1, book.getGuestNo().getGuestNo());
+			pstmt.setDate(2, new java.sql.Date(book.getBookDate().getTime()));
+			pstmt.setInt(3, book.getHairNo().getHairNo());
+			pstmt.setString(4, book.getBookNote());
+			pstmt.setInt(5, book.getBookNo());
+			
+			return pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
 	}
 
 	@Override
 	public int deleteBook(Booking book) {
-		return 0;
+		String sql = "DELETE BOOKING WHERE BOOK_NO = ?";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+
+			pstmt.setInt(1, book.getBookNo());
+			
+			return pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
 	}
 
 	private Booking getBook(ResultSet rs) throws SQLException {

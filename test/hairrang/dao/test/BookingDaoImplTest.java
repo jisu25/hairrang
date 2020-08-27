@@ -56,8 +56,8 @@ public class BookingDaoImplTest {
 
 	@Test
 	public void test01InsertBook() {
-		System.out.println("testInsertBook()");
-		Booking book = new Booking(1, new Guest(1), new Date(), new Hair(1), "10분 늦을 수 있다고 함");
+		System.out.println("test01InsertBook()");
+		Booking book = new Booking(7, new Guest(1), new Date(), new Hair(1), "10분 늦을 수 있다고 함");
 		int res = dao.insertBook(book);
 		Assert.assertEquals(1, res);
 		System.out.println(book);
@@ -66,12 +66,20 @@ public class BookingDaoImplTest {
 
 	@Test
 	public void test02UpdateBook() {
-		fail("Not yet implemented");
+		System.out.println("test02UpdateBook()");
+		Booking book = new Booking(7, new Guest(1), new Date(), new Hair(2), "30분 전후");
+		int res = dao.updateBook(book);
+		Assert.assertEquals(1, res);
+		System.out.println(book);
+		System.out.println();
 	}
 
 	@Test
 	public void test03DeleteBook() {
-		fail("Not yet implemented");
+		System.out.println("test03DeleteBook()");
+		int res = dao.deleteBook(new Booking(7));
+		Assert.assertEquals(1, res);
+		System.out.println("삭제 완료");
 	}
 
 }

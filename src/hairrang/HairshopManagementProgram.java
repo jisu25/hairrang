@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import hairrang.chart.HairrangChart;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -30,7 +31,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel p2;
 	private JPanel p3;
 	private JPanel p4;
-	private JPanel p5;
+	private HairrangChart p5;
 	private JPanel emptyPane;
 	
 	private JPanel menuPanel;
@@ -106,7 +107,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(new BorderLayout(0, 0));
 		
-		p5 = new JPanel();
+		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
 		
 		pArr = new JPanel[] { p1, p2, p3, p4, p5};

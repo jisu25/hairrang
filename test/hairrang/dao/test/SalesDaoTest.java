@@ -1,5 +1,8 @@
 package hairrang.dao.test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -9,9 +12,6 @@ import org.junit.Test;
 
 import hairrang.dao.SalesDao;
 import hairrang.dao.impl.SalesDaoImpl;
-import hairrang.dto.Event;
-import hairrang.dto.Guest;
-import hairrang.dto.Hair;
 import hairrang.dto.Sales;
 
 
@@ -26,6 +26,7 @@ public class SalesDaoTest {
 	@After
 	public void tearDown() throws Exception {
 		dao=null;
+		
 	}
 
 	//@Test
@@ -34,6 +35,7 @@ public class SalesDaoTest {
 		List<Sales> list = dao.selectSalesByAll();
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
+		System.out.println("야광돼지번쩍번쩍");
 		
 	}
 
@@ -87,4 +89,17 @@ public class SalesDaoTest {
 			System.out.println(deleteSales);
 		}
 	*/
+	@Test
+	public void testselectSalesByDate() throws ParseException {
+		System.out.printf("%s()%n","testselectSalesByDate()");
+		SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
+	
+		Date befroe = Format.parse("2020-08-24");
+		Date after = Format.parse("2020-08-26");
+		
+		List<Sales> daySales = dao.selectSalesByDate(befroe, after);
+		Assert.assertNotNull(daySales);
+		daySales.stream().forEach(System.out::println);
+		
+	}
 }

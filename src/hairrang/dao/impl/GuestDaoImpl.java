@@ -192,7 +192,7 @@ public class GuestDaoImpl implements GuestDao {
 
 	
 	
-	private Guest getGuest(ResultSet rs) throws SQLException {
+	public Guest getGuest(ResultSet rs) throws SQLException {
 		Guest guest = new Guest();
 		//SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST;
 		try {

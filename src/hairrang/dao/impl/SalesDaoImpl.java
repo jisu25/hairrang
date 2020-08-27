@@ -1,11 +1,11 @@
 package hairrang.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import hairrang.conn.JdbcUtil;
@@ -89,9 +89,34 @@ public class SalesDaoImpl implements SalesDao{
 	}
 	
 	@Override
-	public Sales selectSalesByDate(Sales sales) {
-		
+	public List<Sales> selectSalesByDate(Date before, Date after) {
+		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) WHERE SALES_DAY BETWEEN ? AND ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			java.sql.Date beforeDate = new java.sql.Date(before.getTime());
+			java.sql.Date afterDate = new java.sql.Date(after.getTime());
+			
+			pstmt.setDate(1, beforeDate);
+			pstmt.setDate(2, afterDate);
+			
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) { 
+					List<Sales> list = new ArrayList<Sales>();
+					do {
+						list.add(getSales(rs));
+					}while(rs.next());
+					return list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return null;
+		
+		
 	}
 	
 	public Sales getSales(ResultSet rs) throws SQLException {
@@ -122,14 +147,13 @@ public class SalesDaoImpl implements SalesDao{
 		
 		Event event =  new Event(no, name, 0);
 		
-		int gno = rs.getInt("GUEST_NO");
-		String gname = rs.getString("GUEST_NAME");
-		Guest guset = new Guest(gno, gname, null, null, null, 0, null);
+		GuestDaoImpl gdao = GuestDaoImpl.getInstance();
+		Guest guest = gdao.getGuest(rs);
 		
 		int sno = rs.getInt("SALES_NO");
-		Date day = rs.getDate("SALES_DAY");
+		java.sql.Date day = rs.getDate("SALES_DAY");
 		
-		Sales sales = new Sales(sno, day, guset, event, hair);
+		Sales sales = new Sales(sno, day, guest, event, hair);
 		
 		return sales;
 	}
