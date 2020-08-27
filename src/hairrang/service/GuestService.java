@@ -34,6 +34,10 @@ public class GuestService {
 		return dao.searchGuestByName(guest);
 	}
 	
+	public Guest selectGuestByNo(Guest guest) {
+		return dao.selectGuestByNo(guest);
+	}
+	
 	public int getGuestCurrVal() {
 		return dao.getGuestCurrVal();
 	}

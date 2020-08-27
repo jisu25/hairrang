@@ -2,6 +2,8 @@ package hairrang.component;
 
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,10 +16,11 @@ import javax.swing.border.EmptyBorder;
 
 import hairrang.dto.Guest;
 import hairrang.service.GuestService;
-import hairrang.table.GuestSearchResultTable;
 import hairrang.table.GuestSearchTable;
 
-public class FrameGuestSearch extends JFrame {
+public class FrameGuestSearch extends JFrame implements ActionListener {
+
+	
 
 	private JPanel contentPane;
 	private GuestSearchTable table;
@@ -30,9 +33,9 @@ public class FrameGuestSearch extends JFrame {
 	private JButton btnOrder;
 	private JPanel pTable;
 	private JScrollPane scrollPane;
-	private ArrayList<Guest> searchGuestByName;
-	private GuestSearchResultTable rTable;
+
 	private Guest guest;
+	private GuestOrderInfo orderInfo;
 
 	/**
 	 * Launch the application.
@@ -56,50 +59,54 @@ public class FrameGuestSearch extends JFrame {
 	public FrameGuestSearch() {
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
-		//searchGuestByName = (ArrayList<Guest>) gService.searchGuestByName(guest);
-		
-		
+		// searchGuestByName = (ArrayList<Guest>) gService.searchGuestByName(guest);
+
 		initComponents();
-		
+
 	}
 
 	private void initComponents() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 740, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		pGuest = new GuestSearchPanel();
 		pGuest.setBounds(5, 5, 714, 186);
+		pGuest.setMainFrame(this);
 		contentPane.add(pGuest);
-		
+
 		pBtn = new JPanel();
 		pBtn.setBounds(5, 190, 714, 38);
 		contentPane.add(pBtn);
 		pBtn.setLayout(null);
-		
+
 		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		btnCancel.setBounds(327, 5, 85, 23);
 		pBtn.add(btnCancel);
-		
+
 		btnInfo = new JButton("이용 내역");
 		btnInfo.setBounds(426, 5, 90, 23);
+		btnInfo.addActionListener(this);
 		pBtn.add(btnInfo);
-		
+
 		btnOrder = new JButton("주문");
 		btnOrder.setBounds(530, 5, 85, 23);
+		btnOrder.addActionListener(this);
 		pBtn.add(btnOrder);
-		
+
 		pTable = new JPanel();
 		pTable.setBounds(5, 234, 714, 260);
 		contentPane.add(pTable);
 		pTable.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-		
+
 		table = new GuestSearchTable();
 		scrollPane.setViewportView(table);
 		table.setItems(guestList);
@@ -112,19 +119,77 @@ public class FrameGuestSearch extends JFrame {
 
 				}
 			}
-		});	
+		});
+
 	}
-	
+
 	private Guest getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
 		return guestList.get(selectedRow);
 	}
+
+	public void searchResult(String search) {
+		guestList = (ArrayList<Guest>) gService.searchGuestByName(new Guest(search));
+		guestList.stream().forEach(System.out::println);
+		table.setItems(guestList);
+	}
+
+//버튼 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			btnCancelActionPerformed(e);
+		}
+		if (e.getSource() == btnInfo) {
+			btnInfoActionPerformed(e);
+		}
+
+		if (e.getSource() == btnOrder) {
+			btnOrderActionPerformed(e);
+		}
+	}
+
+	private void btnCancelActionPerformed(ActionEvent e) {
+		pGuest.clearTf();
+
+	}
+
+	private void btnInfoActionPerformed(ActionEvent e) {
+		System.out.println("내역");
+		// 서비스추가하고 tableset
+		infoDialog();
+
+	}
+
+	private void btnOrderActionPerformed(ActionEvent e) {
+		System.out.println("해당 고객정보와 함께 주문창으로 넘어가기");
+
+	}
+
 	
-	public void searchGuestByName(){
-		System.out.println("소환");
+	
+	public GuestOrderInfo getOrderInfo() {
+		return orderInfo;
+	}
+
+	public void setOrderInfo(GuestOrderInfo orderInfo) {
+		this.orderInfo = orderInfo;
+	}
+
+	private void infoDialog() {
 		
+		orderInfo = new GuestOrderInfo();
+		orderInfo.setBounds(150, 200, 550, 480);
+		orderInfo.setTitle("이용내역");
+		orderInfo.setVisible(true);
+		
+		String guestName = pGuest.tfName().trim();
+		
+		orderInfo.selectGuest(guestName);
 		
 		
 	}
 	
+	//테이블의 선택된 정보를 다이얼로그에 넘기기
+
 }

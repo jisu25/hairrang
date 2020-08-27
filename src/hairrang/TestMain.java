@@ -21,16 +21,6 @@ public class TestMain {
 		});
 	}
 	
-	// 테이블 내용 가운데 정렬 메소드
-	public static void tableCellCenter(JTable t) {
-		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-		dtcr.setHorizontalAlignment(SwingConstants.CENTER); 
-
-		TableColumnModel tcm = t.getColumnModel(); //
-
-		
-		for (int i = 0; i < tcm.getColumnCount(); i++) {
-			tcm.getColumn(i).setCellRenderer(dtcr);
-		}
-	}
+	
+	
 }

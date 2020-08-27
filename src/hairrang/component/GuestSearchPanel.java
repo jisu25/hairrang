@@ -7,9 +7,11 @@ import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
 import hairrang.dto.Guest;
+import hairrang.service.GuestService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,7 +20,11 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class GuestSearchPanel extends JPanel implements ActionListener {
+	
+	private FrameGuestSearch mainFrame;
+	
 	private JTextField tfNo;
 	private JTextField tfName;
 	private JTextField tfJoinDay;
@@ -36,14 +42,26 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private JDateChooser dateChooser;
 	private JButton btnSearch;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private FrameGuestSearch searchFrame;
+	private GuestService gService;
+	private ArrayList<Guest> guestList;
+	
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public GuestSearchPanel() {
-		setLayout(null);
+		gService = new GuestService();
+		guestList = (ArrayList<Guest>) gService.getGuestList();
 		
+		initComponents();
+
+	}
+
+
+	private void initComponents() {
+		setLayout(null);
+	
 		lblNo = new JLabel("고객 번호 : ");
 		lblNo.setBounds(82, 73, 70, 15);
 		add(lblNo);
@@ -118,7 +136,8 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		btnSearch.addActionListener(this);
 		btnSearch.setBounds(295, 33, 71, 23);
 		add(btnSearch);
-
+		
+		
 	}
 	
 	
@@ -157,12 +176,10 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	}
 
 	public void clearTf() {
+		tfNo.setText("");
 		tfName.setText("");
 		
-		Date date = new Date();
-		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setDate(date);
-		
+		dateChooser.setCalendar(null);
 		tfJoinDay.setText("");
 		tfPhone.setText("");
 		buttonGroup.clearSelection();
@@ -171,6 +188,15 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	}
 	
 
+	public FrameGuestSearch getMainFrame() {
+		return mainFrame;
+	}
+
+
+	public void setMainFrame(FrameGuestSearch mainFrame) {
+		this.mainFrame = mainFrame;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnSearch) {
 			btnSearchActionPerformed(e);
@@ -179,10 +205,16 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 
 
 	private void btnSearchActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		String search = tfName.getText().trim();
+		System.out.println(search);
+		mainFrame.searchResult(search);
 	}
-
+	
+	public String tfName() {
+		return tfName.getText().trim();
+	}
+	
+	
 
 
 
