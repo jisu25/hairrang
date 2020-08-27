@@ -15,6 +15,9 @@ public class EventDaoImpl implements EventDao {
 
 	private static final EventDaoImpl instance = new EventDaoImpl();
 	
+	private EventDaoImpl() {
+	}
+
 	public static EventDaoImpl getInstance() {
 		return instance;
 	}
