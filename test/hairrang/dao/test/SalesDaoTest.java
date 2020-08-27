@@ -29,7 +29,7 @@ public class SalesDaoTest {
 		
 	}
 
-	//@Test
+	@Test
 	public void testSelectSalesByAll() {
 		System.out.printf("%s()%n","testSelectSalesByAll()");
 		List<Sales> list = dao.selectSalesByAll();
@@ -89,7 +89,7 @@ public class SalesDaoTest {
 			System.out.println(deleteSales);
 		}
 	*/
-	@Test
+	//@Test
 	public void testselectSalesByDate() throws ParseException {
 		System.out.printf("%s()%n","testselectSalesByDate()");
 		SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
