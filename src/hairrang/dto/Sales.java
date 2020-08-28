@@ -14,6 +14,13 @@ public class Sales {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Sales(int salesNo, Date salesDay) {
+		super();
+		this.salesNo = salesNo;
+		this.salesDay = salesDay;
+	}
+
 	public Sales(int salesNo, Date salesDay, Guest guestNo, Event eventNo, Hair hairNo) {
 		super();
 		this.salesNo = salesNo;

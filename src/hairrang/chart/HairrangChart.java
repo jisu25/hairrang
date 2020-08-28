@@ -1,25 +1,23 @@
 package hairrang.chart;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Calendar;
 import java.util.Vector;
 
-import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 import hairrang.TestMain;
-
-import java.awt.CardLayout;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 
 public class HairrangChart extends JPanel {
 	JComboBox comboStartYear;
@@ -41,16 +39,24 @@ public class HairrangChart extends JPanel {
 	
 	public HairrangChart() {
 		setLayout(null);
-		
-		JPanel pSearch = new JPanel();
-		pSearch.setBounds(12, 0, 477, 56);
-		add(pSearch);
-		pSearch.setLayout(null);
-		
-		JLabel lblShowYear = new JLabel("조회연도 :");
-		lblShowYear.setFont(new Font("굴림", Font.BOLD, 20));
-		lblShowYear.setBounds(0, 10, 111, 39);
-		pSearch.add(lblShowYear);
+		setSize(new Dimension(1144, 623));
+
+		// #검색조건 패널#
+		JPanel pSetSearch = new JPanel();
+		pSetSearch.setLayout(null);
+		pSetSearch.setBounds(12, 27, 495, 37);
+		add(pSetSearch);
+
+		JLabel lbShowDate = new JLabel("조회년도 :");
+		lbShowDate.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		lbShowDate.setBounds(12, 0, 101, 37);
+		pSetSearch.add(lbShowDate);
+
+		btnSearch = new JButton("조회");
+		btnSearch.setBorder(UIManager.getBorder("Button.border"));
+		btnSearch.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnSearch.setBounds(379, 0, 101, 37);
+		pSetSearch.add(btnSearch);
 		
 		
 		
@@ -61,33 +67,30 @@ public class HairrangChart extends JPanel {
 		Calendar oCalendar = Calendar.getInstance( );  		// 현재 날짜/시간 등의 각종 정보 얻기
 		// 현재 날짜
 		 int toyear = oCalendar.get(Calendar.YEAR);
-		 for(int i = toyear; i>= 2015; i--){
+		 for(int i = toyear; i>= 1995; i--){
 			  YearValues.add(i);
 		 }  
 		
 		// 콤보박스 세팅
-		 JComboBox comboStartYear = new JComboBox<Integer>(YearValues);
-			comboStartYear.setBounds(108, 12, 89, 39);
-			pSearch.add(comboStartYear);
-		
-		JLabel lblNewLabel_1 = new JLabel("-");
-		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(209, 10, 20, 39);
-		pSearch.add(lblNewLabel_1);
-		
-		JComboBox comboEndYear = new JComboBox<Integer>(YearValues);
-		comboEndYear.setBounds(229, 12, 89, 39);
-		pSearch.add(comboEndYear);
-		
-		JButton btnSearch = new JButton("조회");
-		btnSearch.setFont(new Font("굴림", Font.BOLD, 16));
-		btnSearch.setBounds(350, 10, 83, 40);
-		pSearch.add(btnSearch);
-		
-		JScrollPane spTable = new JScrollPane();
-		spTable.setBounds(12, 59, 682, 241);
-		add(spTable);
-		
+		// 콤보박스 세팅
+			comboStartYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+			comboStartYear.setBounds(113, 0, 114, 37);
+			pSetSearch.add(comboStartYear);
+			 
+			JLabel label = new JLabel("-");
+			label.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+			label.setBounds(236, 2, 15, 32);
+			pSetSearch.add(label);
+			
+			// 끝년도 콤보박스
+			comboEndYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+			comboEndYear.setBounds(251, 0, 114, 37);
+			pSetSearch.add(comboEndYear);
+
+			// #테이블 스크롤 패널#
+			spTable = new JScrollPane();
+			spTable.setBounds(12, 74, 682, 174);
+			add(spTable);
 		// [테이블]
 				// 테이블 열 세팅
 				Vector<String> col = new Vector<String>(); // 열
@@ -113,7 +116,7 @@ public class HairrangChart extends JPanel {
 				pGraph.setVisible(false);
 				pGraph.setLayout(graphCard);
 				
-				pGraph.setBounds(12, 310, 682, 250);
+				pGraph.setBounds(12, 258, 682, 291);
 				add(pGraph);
 				
 		
@@ -123,12 +126,12 @@ public class HairrangChart extends JPanel {
 				
 				JRadioButton rdbtnYearRadioButton = new JRadioButton("연도별");
 				buttonGroup.add(rdbtnYearRadioButton);
-				rdbtnYearRadioButton.setBounds(492, 23, 82, 33);
+				rdbtnYearRadioButton.setBounds(511, 31, 82, 33);
 				add(rdbtnYearRadioButton);
 				
 				JRadioButton rdbtnMonthRadioButton = new JRadioButton("월별");
 				buttonGroup.add(rdbtnMonthRadioButton);
-				rdbtnMonthRadioButton.setBounds(573, 28, 82, 23);
+				rdbtnMonthRadioButton.setBounds(598, 27, 82, 37);
 				add(rdbtnMonthRadioButton);
 				
 				btnSearch.addActionListener(hcs);
