@@ -1,6 +1,5 @@
 package hairrang;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,6 +23,7 @@ import hairrang.chart.HairrangChart;
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
+import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
@@ -34,7 +34,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private GuestManagement p1;
 	private GuestSearch p2;
-	private JPanel p3;
+	private SalesTest p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
@@ -110,7 +110,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
 
-		p3 = new JPanel();
+		p3 = new SalesTest();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
 

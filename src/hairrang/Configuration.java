@@ -17,6 +17,11 @@ public class Configuration {
 	public static Font NANUMSQ_REG_20 = CustomFonts.getNanumSqReg(20);
 	public static Font NANUMSQ_REG_28 = CustomFonts.getNanumSqReg(28);
 	
+	public static Font NANUMSQ_BOLD_28 = CustomFonts.getNanumSqReg(28);
+	
+	public static Font NANUMSQ_EB_20 = CustomFonts.getNanumSqEB(20);
+	public static Font NANUMSQ_EB_28 = CustomFonts.getNanumSqEB(28);
+	
 	// tfDim : 텍스트필드 사이즈...
 	public static Dimension tfDim = new Dimension(140, 28); 
 	
