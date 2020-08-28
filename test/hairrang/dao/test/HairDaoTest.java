@@ -26,7 +26,7 @@ public class HairDaoTest {
 		dao=null;
 	}
 
-	//@Test
+	@Test
 	public void testSelectHairByAll() {
 		System.out.printf("%s()%n","testSelectHairByAll()");
 		List<Hair> list =  dao.selectHairByAll();

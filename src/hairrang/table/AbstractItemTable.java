@@ -13,7 +13,7 @@ import hairrang.service.SalesService;
 
 
 @SuppressWarnings({ "serial", "hiding" })
-public abstract class AbstractItemTable<Guest> extends JTable {
+public abstract class AbstractItemTable<T> extends JTable {
     private CustomModel model;
     private GuestService gService;
     private SalesService sService;
@@ -29,14 +29,14 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<Guest> guestList) {
+    void loadData(ArrayList<T> guestList) {
         model = new CustomModel(getRows(guestList), getColName() );
         setModel(model);
     }
 
     abstract Object[] getColName();
 
-    Object[][] getRows(ArrayList<Guest> guestList) {
+    Object[][] getRows(ArrayList<T> guestList) {
         Object[][] rows = new Object[guestList.size()][];
         for(int i=0; i<rows.length; i++) {
             rows[i] = toArray(guestList.get(i));
@@ -44,9 +44,9 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         return rows;
     }
 
-    abstract Object[] toArray(Guest itemList);
+    abstract Object[] toArray(T itemList);
 
-    public void setItems(ArrayList<Guest> guestList) {
+    public void setItems(ArrayList<T> guestList) {
         loadData(guestList);
         
         setWidthAndAlign();
@@ -90,7 +90,7 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         }
     }
 
-    public void addRow(Guest item) {
+    public void addRow(T item) {
         model.addRow(toArray(item));
         
     }
@@ -99,7 +99,7 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         model.removeRow(idx);
     }
 
-    public void updateRow(int idx, Guest updateItem) {
+    public void updateRow(int idx, T updateItem) {
         model.removeRow(idx);
         model.insertRow(idx, toArray(updateItem));
     }

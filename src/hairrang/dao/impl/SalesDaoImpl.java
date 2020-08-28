@@ -81,7 +81,7 @@ public class SalesDaoImpl implements SalesDao{
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, sales.getSalesNo());
-			pstmt.setDate(2, sales.getSalesDay());
+			pstmt.setTimestamp(2, new java.sql.Timestamp(sales.getSalesDay().getTime()));
 			pstmt.setInt(3, sales.getGuestNo().getGuestNo());
 			pstmt.setInt(4, sales.getEventNo().getEventNo());
 			pstmt.setInt(5, sales.getHairNo().getHairNo());
@@ -154,7 +154,7 @@ public class SalesDaoImpl implements SalesDao{
 		Guest guest = gdao.getGuest(rs);
 		
 		int sno = rs.getInt("SALES_NO");
-		java.sql.Date day = rs.getDate("SALES_DAY");
+		Date day = rs.getDate("SALES_DAY");
 		
 		Sales sales = new Sales(sno, day, guest, event, hair);
 		
