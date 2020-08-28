@@ -31,6 +31,7 @@ public abstract class AbstractItemTable<T> extends JTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
+
     void loadData(ArrayList<T> itemList) {
     	System.out.println("loadData : " + itemList);
         model = new CustomModel(getRows(itemList), getColName());
@@ -49,6 +50,7 @@ public abstract class AbstractItemTable<T> extends JTable {
     }
 
     abstract Object[] toArray(T itemList);
+
     
     public void setItems(ArrayList<T> itemList) {
         loadData(itemList);
