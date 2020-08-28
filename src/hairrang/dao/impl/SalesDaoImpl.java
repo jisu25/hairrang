@@ -49,7 +49,6 @@ public class SalesDaoImpl implements SalesDao{
 	}
 	
 	
-
 	
 
 	@Override
@@ -166,6 +165,24 @@ public class SalesDaoImpl implements SalesDao{
 		return sales;
 	}
 
+	
+	public int getTodaySalesCount() {
+		
+		String sql = "SELECT count(*) AS TODAY_COUNT FROM SALES WHERE TO_CHAR(SALES_DAY, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			
+			if(rs.next()) {
+				return rs.getInt("TODAY_COUNT");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return 0;
+	}
 	
 	
 	/*

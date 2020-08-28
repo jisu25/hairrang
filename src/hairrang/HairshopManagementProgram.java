@@ -53,6 +53,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JButton btnMenu5;
 	private JButton btnHome;
 	private JButton[] btnsMenu;
+	private String[] menuNames = {"고객 등록", "고객 관리", "주문", "주문 내역", "통계"};
 
 	private Color mainColor = new Color(153, 102, 255);
 	private JPanel[] pArr;
@@ -208,8 +209,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		for(int i = 0; i < btnsMenu.length; i++) {
 			if (e.getSource() == btnsMenu[i]) {
 				switchPanel(i);
+				switchMenuLabel(i);
 			}
 		}
+	}
+
+	private void switchMenuLabel(int i) {
+		lblMenuName.setText(menuNames[i]);
 	}
 
 	private void switchPanel(int i) {

@@ -7,14 +7,24 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hairrang.service.SalesService;
+
 public class SidePanel extends JPanel {
 	private JPanel pNotice;
-	private JPanel pBooking;
-
+	private BookingPanel pBooking;
+	private SalesService sService;
+	private String todayCount;
+	
 	public SidePanel() {
-
+		
+		sService = new SalesService();
+		todayCount = String.valueOf(sService.getTodaySalesCount());
+		
+		
 		initComponents();
+		
 	}
+	
 	private void initComponents() {
 		CustomFonts font = new CustomFonts();
 		Font nanumSqReg = font.getNanumSqReg16();
@@ -30,15 +40,16 @@ public class SidePanel extends JPanel {
 		JLabel lblToday = new JLabel("TODAY");
 		pToday.add(lblToday);
 		
-		JLabel lblTodayCount = new JLabel("20명");
+		JLabel lblTodayCount = new JLabel();
 		lblTodayCount.setFont(nanumSqReg);
+		lblTodayCount.setText(todayCount);
 		pToday.add(lblTodayCount);
 		
 		pNotice = new JPanel();
 		pNotice.setBounds(0, 100, 258, 200);
 		add(pNotice);
 		
-		pBooking = new JPanel();
+		pBooking = new BookingPanel();
 		pBooking.setBounds(0, 300, 258, 339);
 		add(pBooking);
 	}

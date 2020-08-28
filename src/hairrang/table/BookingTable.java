@@ -23,7 +23,7 @@ public class BookingTable extends AbstractItemTable<Booking> {
 	Object[] toArray(Booking itemList) {
 		return new Object[] {
 			itemList.getBookNo(),
-			itemList.getBookDateStr(),
+			itemList.getBookTimeStr(),
 			itemList.getGuestNo().getGuestName(),
 			itemList.getHairNo().getHairName(),
 //			itemList.getBookNote()
