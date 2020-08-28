@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import org.hamcrest.core.SubstringMatcher;
+
 import hairrang.dto.Guest;
 import hairrang.dto.Sales;
 import hairrang.service.GuestService;
@@ -71,16 +73,18 @@ public class GuestOrderInfoTable extends JTable {
 	}
 
 	private Object[] toArray(Sales sales) {
+		double sum = sales.getHairNo().getPrice() * (1 - sales.getEventNo().getSale());
 		return new Object[] { 
+				
+				
 				sales.getSalesNo(),
 				sales.getSalesDay(),
 				sales.getHairNo().getHairName(),
 				sales.getHairNo().getPrice(),
 				sales.getEventNo().getEventName(),
-				sales.getHairNo().getPrice(),
-
 				//할인율적용된 단가 셋하기
-				sales.getEventNo().getSale()
+				Math.round(sum)
+				
 
 		};
 	}

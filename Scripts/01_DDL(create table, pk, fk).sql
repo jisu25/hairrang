@@ -71,7 +71,6 @@ CREATE TABLE hairrang.BOOKING (
 );
 
 
-
 -- FK 추가
 
 ALTER TABLE hairrang.SALES

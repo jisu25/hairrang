@@ -28,7 +28,6 @@ public class BookingPanel extends JPanel {
 	
 	public BookingPanel() {
 		bookList = (ArrayList<Booking>) bService.getBookList();
-		
 		initComponents();
 	}
 	
@@ -50,6 +49,7 @@ public class BookingPanel extends JPanel {
 		
 		table = new BookingTable();
 		table.setItems(bookList);
+		System.out.println("BooingPanel : " + bookList);
 		scrollPane.setViewportView(table);
 		
 		pBtns = new JPanel();

@@ -12,19 +12,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
 import hairrang.chart.HairrangChart;
 import hairrang.component.GuestManagement;
-import hairrang.component.SidePanel;
 import hairrang.component.GuestSearch;
+import hairrang.component.SidePanel;
+import hairrang.component.panel;
 
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
@@ -35,7 +34,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	
 	private GuestManagement p1;
 	private GuestSearch p2;
-	private JPanel p3;
+	private panel p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
@@ -94,8 +93,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p2 = new GuestSearch();
 		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
+		p2.setProgram(this);
 
-		p3 = new JPanel();
+		p3 = new panel();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -218,12 +218,22 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setText(menuNames[i]);
 	}
 
-	private void switchPanel(int i) {
+	public void switchPanel(int i) {
+		
+		pArr[i].revalidate();
 		layeredPane.removeAll();
 		layeredPane.add(pArr[i]);
 		//지수얌 이거 적으면 패널 이동했다오면 내 패널 꺼져서 주석할게!
 		//layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
 		repaint();
 		revalidate();
+		
+		//관리-검색 이동할때 테이블 리스트 재셋팅
+		p2.listUpdate(); //야매메소드,,
+		
+		//검색에서 주문 누르면 해당 고객 정보 가지고 주문창으로 이동
+		
 	}
+	
+
 }

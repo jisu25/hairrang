@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.activation.MailcapCommandMap;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -165,8 +166,12 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 	}
 
+	//메인프로그램에서 주문눌렀을때
 	private void btnOrderActionPerformed(ActionEvent e) {
-		System.out.println("주문창으로 이동");
+		System.out.println("주문으로 이동");
+		Guest guest = getSelectedGuest();
+		System.out.println("선택한 고객" + guest);
+		program.switchPanel(2);
 	}
 
 	public void searchResult(String search) {
@@ -175,4 +180,13 @@ public class GuestSearch extends JPanel implements ActionListener {
 		table.setItems(result);
 
 	}
+	
+	public void listUpdate() { //외부호출
+		guestList = (ArrayList<Guest>) gService.getGuestList();
+		table.setItems(guestList);
+	}
+	
+	
+	
+	
 }
