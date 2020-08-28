@@ -70,7 +70,7 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 		public void search() {
 
 			// 테이블 행 화면 리셋
-		ChartDao.clearRows(hc.tmodel.getRowCount(), hc.tmodel);
+			ChartDao.clearRows(hc.tmodel.getRowCount(), hc.tmodel);
 
 			// 콤보박스의 값을 가져옴
 			// (시작년도)

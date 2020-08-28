@@ -26,7 +26,11 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public List<Sales> selectSalesByAll() {
-		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)";
+
+		String sql = "SELECT * FROM SALES s \r\n" + 
+				"	LEFT OUTER JOIN HAIR h USING (HAIR_NO)\r\n" + 
+				"	LEFT OUTER JOIN GUEST g USING (GUEST_NO) \r\n" + 
+				"	LEFT OUTER JOIN EVENT e USING (EVENT_NO)";
 		try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql);
 					ResultSet rs = pstmt.executeQuery()){
@@ -43,15 +47,16 @@ public class SalesDaoImpl implements SalesDao{
 		
 		return null;
 	}
-
+	
+	
 	
 
 	@Override
 	public List<Sales> selectSalesByGuestNo(Sales sales) {
 		String sql = "SELECT * FROM SALES s \r\n" + 
-				"	JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) \r\n" + 
-				"	JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) \r\n" + 
-				"	JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)\r\n" + 
+				"	LEFT OUTER JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) \r\n" + 
+				"	LEFT OUTER JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) \r\n" + 
+				"	LEFT OUTER JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)\r\n" + 
 				"	WHERE s.GUEST_NO = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -78,7 +83,7 @@ public class SalesDaoImpl implements SalesDao{
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, sales.getSalesNo());
-			pstmt.setDate(2, sales.getSalesDay());
+			pstmt.setTimestamp(2, new java.sql.Timestamp(sales.getSalesDay().getTime()));
 			pstmt.setInt(3, sales.getGuestNo().getGuestNo());
 			pstmt.setInt(4, sales.getEventNo().getEventNo());
 			pstmt.setInt(5, sales.getHairNo().getHairNo());
@@ -144,20 +149,40 @@ public class SalesDaoImpl implements SalesDao{
 		//이후 헤어처럼 밑에 코드 수정
 		int no = rs.getInt("EVENT_NO");
 		String name = rs.getString("EVENT_NAME");
+		float sale = rs.getFloat("SALE");
 		
-		Event event =  new Event(no, name, 0);
+		Event event = new Event(no, name, sale);
+		
 		
 		GuestDaoImpl gdao = GuestDaoImpl.getInstance();
 		Guest guest = gdao.getGuest(rs);
 		
 		int sno = rs.getInt("SALES_NO");
-		java.sql.Date day = rs.getDate("SALES_DAY");
+		Date day = rs.getDate("SALES_DAY");
 		
 		Sales sales = new Sales(sno, day, guest, event, hair);
 		
 		return sales;
 	}
 
+	
+	public int getTodaySalesCount() {
+		
+		String sql = "SELECT count(*) AS TODAY_COUNT FROM SALES WHERE TO_CHAR(SALES_DAY, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			
+			if(rs.next()) {
+				return rs.getInt("TODAY_COUNT");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return 0;
+	}
 	
 	
 	/*

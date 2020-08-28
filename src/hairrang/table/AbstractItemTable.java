@@ -1,46 +1,59 @@
 package hairrang.table;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 
 @SuppressWarnings({ "serial", "hiding" })
-public abstract class AbstractItemTable<Guest> extends JTable {
+public abstract class AbstractItemTable<T> extends JTable {
     private CustomModel model;
-    
-    public AbstractItemTable() {
-        initComponents();
+
+	public AbstractItemTable() {
+    	initComponents();
     }
     
     private void initComponents() {
+    	getTableHeader().setPreferredSize(new Dimension(700, 30));
+    	getTableHeader().setBackground(new Color(153, 102, 255));
+    	getTableHeader().setForeground(Color.white);
+    	setBorder(BorderFactory.createLineBorder(new Color(225, 225, 225)));
+    	
+    	setRowHeight(28);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<Guest> itemList) {
-        model = new CustomModel(getRows(itemList), getColName() );
+
+    void loadData(ArrayList<T> itemList) {
+    	System.out.println("loadData : " + itemList);
+        model = new CustomModel(getRows(itemList), getColName());
         setModel(model);
     }
 
     abstract Object[] getColName();
 
-    Object[][] getRows(ArrayList<Guest> itemList) {
-        Object[][] rows = new Object[itemList.size()][];
+    Object[][] getRows(ArrayList<T> list) {
+    	System.out.println("getRows : " + list);
+        Object[][] rows = new Object[list.size()][];
         for(int i=0; i<rows.length; i++) {
-            rows[i] = toArray(itemList.get(i));
+            rows[i] = toArray(list.get(i));
         }
         return rows;
     }
 
-    abstract Object[] toArray(Guest itemList);
+    abstract Object[] toArray(T itemList);
 
-    public void setItems(ArrayList<Guest> itemList) {
+    
+    public void setItems(ArrayList<T> itemList) {
         loadData(itemList);
-        
         setWidthAndAlign();
     }
 
@@ -82,16 +95,15 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         }
     }
 
-    public void addRow(Guest item) {
+    public void addRow(T item) {
         model.addRow(toArray(item));
-        
     }
 
     public void removeRow(int idx) {
         model.removeRow(idx);
     }
 
-    public void updateRow(int idx, Guest updateItem) {
+    public void updateRow(int idx, T updateItem) {
         model.removeRow(idx);
         model.insertRow(idx, toArray(updateItem));
     }
