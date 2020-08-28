@@ -24,8 +24,6 @@ import hairrang.chart.HairrangChart;
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
-
-import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
@@ -36,7 +34,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private GuestManagement p1;
 	private GuestSearch p2;
-	private SalesTest p3;
+	private JPanel p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
@@ -66,6 +64,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		/* Font 설정 */
 		setUIFont(CustomFonts.getNanumSqReg(14));
 
+		UIManager.put("TextField.border", BorderFactory.createEmptyBorder());
+		
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
@@ -110,13 +110,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
 
-		p3 = new SalesTest();
+		p3 = new JPanel();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
-		
+
 		p4 = new JPanel();
 		layeredPane.add(p4, "name_779538988255300");
-		p4.setLayout(new BorderLayout(0, 0));
+		p4.setLayout(null);
 
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
