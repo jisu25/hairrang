@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import hairrang.Configuration;
 import hairrang.dto.Guest;
 import hairrang.exception.EmptyTfException;
 import hairrang.service.GuestService;
@@ -54,7 +55,7 @@ public class GuestManagementPanel extends JPanel {
 		add(lblNo);
 
 		tfNo = new JTextField();
-		tfNo.setBounds(185, 32, 116, 25);
+		tfNo.setBounds(185, 32, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfNo);
 		tfNo.setColumns(10);
 		tfNo.setEditable(false);
@@ -65,7 +66,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(185, 67, 116, 25);
+		tfName.setBounds(185, 67, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfName);
 
 		JLabel lblBirthday = new JLabel("생년월일  : ");
@@ -79,7 +80,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfJoinDay = new JTextField();
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(185, 137, 116, 25);
+		tfJoinDay.setBounds(185, 137, Configuration.tfDim.width, Configuration.tfDim.height);
 		tfJoinDay.setEditable(false);
 		add(tfJoinDay);
 
@@ -93,7 +94,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(478, 67, 116, 25);
+		tfPhone.setBounds(478, 67, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfPhone);
 
 		JLabel lblMemo = new JLabel("메      모  : ");
@@ -111,7 +112,7 @@ public class GuestManagementPanel extends JPanel {
 		add(rBtnMale);
 
 		tfMemo = new JTextField();
-		tfMemo.setBounds(478, 104, 116, 21);
+		tfMemo.setBounds(478, 104, Configuration.tfDim.width, 60);
 		add(tfMemo);
 		tfMemo.setColumns(10);
 
@@ -119,7 +120,7 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dateChooser.setDate(date);
-		dateChooser.setBounds(185, 101, 116, 21);
+		dateChooser.setBounds(185, 101, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(dateChooser);
 	}
 
