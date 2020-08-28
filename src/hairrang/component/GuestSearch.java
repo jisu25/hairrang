@@ -83,20 +83,21 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 		table = new GuestSearchTable();
 		scrollPane.setViewportView(table);
+		
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
-		
-		
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)  {
-				if (e.getClickCount() == 2) {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
 					getSelectedGuest();
 				}
 			}
 		});
-		
+
 	}
+
 	public GuestOrderInfo getOrderInfo() {
 		return orderInfo;
 	}
@@ -105,8 +106,6 @@ public class GuestSearch extends JPanel implements ActionListener {
 		this.orderInfo = orderInfo;
 	}
 
-	
-	
 	public HairshopManagementProgram getProgram() {
 		return program;
 	}
@@ -119,10 +118,10 @@ public class GuestSearch extends JPanel implements ActionListener {
 		int selectedRow = table.getSelectedRow();
 		int no = (int) table.getValueAt(selectedRow, 0);
 		Guest guest = gService.selectGuestByNo(new Guest(no));
-
+		pGuest.setGuest(guest);
 		return guest;
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnCancel) {
 			btnCancelActionPerformed(e);
@@ -150,27 +149,23 @@ public class GuestSearch extends JPanel implements ActionListener {
 		orderInfo.setVisible(true);
 
 		// String guestName = pGuest.tfName().trim();
-		//String guestNo = pGuest.tfNo().trim();
-		
+		// String guestNo = pGuest.tfNo().trim();
+
 		Guest guest = getSelectedGuest();
 		int guestNo = guest.getGuestNo();
 		String guestName = guest.getGuestName();
 		orderInfo.selectGuest(guestNo, guestName);
-		
 
 	}
-	
-	
 
 	private void btnOrderActionPerformed(ActionEvent e) {
 		System.out.println("주문창으로 이동");
 	}
 
-
 	public void searchResult(String search) {
 		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(new Guest(search));
-		//result.stream().forEach(System.out::println);
+		// result.stream().forEach(System.out::println);
 		table.setItems(result);
-		
+
 	}
 }

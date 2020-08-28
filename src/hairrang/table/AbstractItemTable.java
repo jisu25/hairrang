@@ -38,6 +38,7 @@ public abstract class AbstractItemTable<T> extends JTable {
     	model = new CustomModel(getRows(guestList), getColName() );
     	
         setModel(model);
+        model.fireTableDataChanged();
     }
 
     abstract Object[] getColName();

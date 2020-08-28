@@ -113,13 +113,17 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	}
 
 	public void selectGuest(int guestNo, String guestName) {
-		
 		salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(guestNo));
+		
 		lblSetNo.setText(String.valueOf(guestNo));
 		lblSetName.setText(guestName);
-		
+		if(salesList == null) {
+			JOptionPane.showMessageDialog(null, "내역없음");
+			this.dispose();
+		}
 		table.setItems(salesList);
 		System.out.println(salesList.size());
+		
 		
 		salesList.stream().forEach(System.out::println);
 		

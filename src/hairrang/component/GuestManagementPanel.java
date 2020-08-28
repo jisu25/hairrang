@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import com.toedter.calendar.JDateChooser;
 
 import hairrang.dto.Guest;
 import hairrang.exception.EmptyTfException;
+import hairrang.exception.InValidationException;
 import hairrang.service.GuestService;
 
 public class GuestManagementPanel extends JPanel {
@@ -126,6 +128,12 @@ public class GuestManagementPanel extends JPanel {
 	public Guest getGuest() throws ParseException {
 		isEmpty();
 		
+		if(!isValidTf()) {
+			JOptionPane.showMessageDialog(null, "형식ㄴㄴ");
+			throw new InValidationException("형식오류");
+			
+		}
+		
 		Calendar c = Calendar.getInstance();
 		Date join = new Date(c.getTimeInMillis());
 
@@ -208,5 +216,15 @@ public class GuestManagementPanel extends JPanel {
 		
 		setTfNo(curr);
 		
+	}
+	
+	boolean isValidTf() {
+		String name = tfName.getText().trim();
+		String phone = tfPhone.getText().trim();
+		
+		boolean nameCheck = Pattern.matches("^[가-힣a-zA-Z]+$", name);
+		boolean phoneCheck = Pattern.matches("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$", phone);
+		
+		return nameCheck && phoneCheck;
 	}
 }

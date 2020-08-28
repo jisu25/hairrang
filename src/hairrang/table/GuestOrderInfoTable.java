@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -33,17 +35,17 @@ public class GuestOrderInfoTable extends JTable {
 		model = new DefaultTableModel(getRows(sales), getColNames());
 		setModel(model);
 
-		//TableColumnModel tcm = getColumnModel();
-		//DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
-		//dtcr.setHorizontalAlignment(SwingConstants.CENTER);
-		//tcm.getColumn(0).setCellRenderer(dtcr);
-		//tcm.getColumn(1).setCellRenderer(dtcr);
-		//tcm.getColumn(2).setCellRenderer(dtcr);
-		//tcm.getColumn(3).setCellRenderer(dtcr);
-		//tcm.getColumn(4).setCellRenderer(dtcr);
-		//tcm.getColumn(5).setCellRenderer(dtcr);
+		TableColumnModel tcm = getColumnModel();
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		tcm.getColumn(0).setCellRenderer(dtcr);
+		tcm.getColumn(1).setCellRenderer(dtcr);
+		tcm.getColumn(2).setCellRenderer(dtcr);
+		tcm.getColumn(3).setCellRenderer(dtcr);
+		tcm.getColumn(4).setCellRenderer(dtcr);
+		tcm.getColumn(5).setCellRenderer(dtcr);
 		
-		tableSetWidth(50,100,120,100,80,100);
+		tableSetWidth(60,100,120,100,80,100);
 	}
 	
 	private void tableSetWidth(int...width) {

@@ -73,9 +73,11 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-
+		
 		table = new GuestManagementTable();
 		scrollPane.setViewportView(table);
+		
+		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 		table.setComponentPopupMenu(createPopMenu());
 		
@@ -122,10 +124,15 @@ public class GuestManagement extends JPanel implements ActionListener {
 			
 			gService.addGuest(addGuest);
 			table.addRow(addGuest);
-
+			
+			guestList = (ArrayList<Guest>) gService.getGuestList();
+			table.setItems(guestList);
+			
 			curr++;
 
 			JOptionPane.showMessageDialog(null, String.format("%s님이 추가되었습니다.", addGuest.getGuestName()));
+			
+			
 			
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
@@ -134,6 +141,8 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		pGuest.clearTf();
 		pGuest.setTfNo(curr);
+		
+		
 
 	}
 
