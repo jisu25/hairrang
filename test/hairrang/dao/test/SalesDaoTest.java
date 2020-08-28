@@ -2,6 +2,7 @@ package hairrang.dao.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import org.junit.Test;
 
 import hairrang.dao.SalesDao;
 import hairrang.dao.impl.SalesDaoImpl;
+import hairrang.dto.Event;
+import hairrang.dto.Guest;
+import hairrang.dto.Hair;
 import hairrang.dto.Sales;
 
 
@@ -29,7 +33,7 @@ public class SalesDaoTest {
 		
 	}
 
-	@Test
+	//@Test
 	public void testSelectSalesByAll() {
 		System.out.printf("%s()%n","testSelectSalesByAll()");
 		List<Sales> list = dao.selectSalesByAll();
@@ -40,7 +44,7 @@ public class SalesDaoTest {
 	}
 
 	
-	@Test
+	//@Test
 	public void selectSalesByGuestNo() {
 		System.out.printf("%s()%n","selectSalesByGuestNo()");
 		List<Sales> list = dao.selectSalesByGuestNo(new Sales(2));
@@ -49,46 +53,43 @@ public class SalesDaoTest {
 		
 	}
 	
-	/*
-		@Test
+	
+		//@Test
 		public void testInsertSales() {
 			System.out.printf("%s()%n","testInsertSales()");
-			java.sql.Date d=  java.sql.Date .valueOf("2004-06-22");
+			Calendar cal = Calendar.getInstance();
+			cal.set(1900, 9, 9);
+			//달은 +1이 되어서계산해서 넣어야함
+			Date day = new Date(cal.getTimeInMillis());
+	
 			
-			java.util.Date utilDate = new java.util.Date();
-		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			
-			Sales newSales = new Sales(5, d,  new Guest(2), new Event(1),new Hair(1));
+			Sales newSales = new Sales(7, day,  new Guest(1), new Event(1),new Hair(1));
 			int res = dao.insertSales(newSales);
 			Assert.assertEquals(1, res);
 		}
 	
-		//@Test
-		public void testUpdateSales() {
-			System.out.printf("%s()%n","testUpdateSales()");
-			Sales updqteSales = dao.selectSalesByNo(new Sales(3));
-			
-			updqteSales.setGuestNo(new Guest(2));
-			java.sql.Date d=  java.sql.Date .valueOf("2004-06-22");
-			updqteSales.setSalesDay(d);
-			java.util.Date utilDate = new java.util.Date();
-		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		    updqteSales.setSalesTime(sqlDate);
-		    dao.updateSales(updqteSales);
-		    Assert.assertNotNull(updqteSales);
-		    System.out.println(updqteSales);
-			
-		}
+		/*
+		 * //@Test public void testUpdateSales() {
+		 * System.out.printf("%s()%n","testUpdateSales()"); Sales updqteSales =
+		 * dao.selectSalesByNo(new Sales(3));
+		 * 
+		 * updqteSales.setGuestNo(new Guest(2)); java.sql.Date d= java.sql.Date
+		 * .valueOf("2004-06-22"); updqteSales.setSalesDay(d); java.util.Date utilDate =
+		 * new java.util.Date(); java.sql.Date sqlDate = new
+		 * java.sql.Date(utilDate.getTime()); updqteSales.setSalesTime(sqlDate);
+		 * dao.updateSales(updqteSales); Assert.assertNotNull(updqteSales);
+		 * System.out.println(updqteSales);
+		 * 
+		 * }
+		 */
 	
-		//@Test
-		public void testDeleteSales() {
-			System.out.printf("%s()%n","testDeleteSales()");
-			Sales deleteSales = dao.selectSalesByNo(new Sales(4));
-			dao.deleteSales(deleteSales);
-			Assert.assertNotNull(deleteSales);
-			System.out.println(deleteSales);
-		}
-	*/
+		/*
+		 * //@Test public void testDeleteSales() {
+		 * System.out.printf("%s()%n","testDeleteSales()"); Sales deleteSales =
+		 * dao.selectSalesByNo(new Sales(4)); dao.deleteSales(deleteSales);
+		 * Assert.assertNotNull(deleteSales); System.out.println(deleteSales); }
+		 */
+	
 	//@Test
 	public void testselectSalesByDate() throws ParseException {
 		System.out.printf("%s()%n","testselectSalesByDate()");

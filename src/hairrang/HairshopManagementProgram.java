@@ -10,16 +10,18 @@ import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.HairrangChart;
+import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
 import hairrang.component.SidePanel;
@@ -31,19 +33,19 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel contentPane;
 	private JPanel layeredPane;
 	private JPanel panel_1;
-	
+
 	private GuestManagement p1;
 	private GuestSearch p2;
 	private panel p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
-	
+
 	private JPanel menuPanel;
-	
+
 	private Dimension btnMenuDim = new Dimension(100, 60);
 	private Dimension btnHomeDim = new Dimension(230, 90);
-	
+
 	private JPanel menuBtnsPanel;
 	private JButton btnMenu1;
 	private JButton btnMenu2;
@@ -52,16 +54,33 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JButton btnMenu5;
 	private JButton btnHome;
 	private JButton[] btnsMenu;
-	private String[] menuNames = {"고객 등록", "고객 관리", "주문", "주문 내역", "통계"};
+	private String[] menuNames = new String[] { "▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계" };
 
 	private Color mainColor = new Color(153, 102, 255);
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
-	
+
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
+		/* Font 설정 */
+		setUIFont(CustomFonts.getNanumSqReg(14));
+
+		UIManager.put("TextField.border", BorderFactory.createEmptyBorder());
+		
+		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
+		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
+		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
+		
+		UIManager.put("TableHeader.gridColor", new Color(225,225,225));
+		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
+		UIManager.put("Table.gridColor", new Color(225,225,225));
+		UIManager.put("ScrollPane.border", BorderFactory.createEmptyBorder());
+		
+		
+		/* Frame 생성*/
 		initComponents();
+		
 	}
 
 	private void initComponents() throws FontFormatException, IOException {
@@ -72,8 +91,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-//		setTitle
+
+		//		setTitle
 
 		/* panel 정의 */
 
@@ -82,10 +101,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
-		
 		// dto 수정하면서 각 패널들 고장나서 기본 JPanel로 바꿔 넣음
 		// dto에 맞게 구현하고 나면 morph 하세요.
-		
+
 		p1 = new GuestManagement();
 		layeredPane.add(p1, "name_190917990402500");
 		p1.setLayout(null);
@@ -97,28 +115,19 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 		p3 = new panel();
 		layeredPane.add(p3, "name_191036958001300");
-		p3.setLayout(new GridLayout(1, 0, 0, 0));
-		
+		p3.setLayout(null);
+
 		p4 = new JPanel();
 		layeredPane.add(p4, "name_779538988255300");
-		p4.setLayout(new BorderLayout(0, 0));
-		
+		p4.setLayout(null);
+
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
-		
-		pArr = new JPanel[] { p1, p2, p3, p4, p5};
-		
-		/* 메뉴부 */
-		
-		String fontPath = System.getProperty("user.dir") + File.separator + "fonts" + File.separator;
-//		InputStream is = HairshopManagementProgram.class.getResourceAsStream(fontPath + "GmarketSansTTFBold.ttf");
-		File gfont_file = new File(fontPath + "GmarketSansTTFBold.ttf");
-		Font gSansBold = Font.createFont(Font.TRUETYPE_FONT, gfont_file);
-		Font gSansBold28 = gSansBold.deriveFont(28f);
-		Font gSansBold20 = gSansBold.deriveFont(20f);
-		Font gSansBold16 = gSansBold.deriveFont(16f);
 
-		
+		pArr = new JPanel[] { p1, p2, p3, p4, p5 };
+
+		/* 메뉴부 */
+
 		menuPanel = new JPanel();
 		menuPanel.setBackground(mainColor);
 		menuPanel.setBounds(0, 0, 1008, 90);
@@ -126,7 +135,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
 		btnHome = new JButton("HAIRRANG");
-		btnHome.setFont(gSansBold28);
+		btnHome.setFont(Configuration.GSANS_BOLD_28);
 		btnHome.setPreferredSize(new Dimension(230, 90));
 		btnHome.addActionListener(this);
 		btnHome.setOpaque(false);
@@ -139,7 +148,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		emptyPane.setPreferredSize(new Dimension(20, 90));
 		emptyPane.setOpaque(false);
 		menuPanel.add(emptyPane);
-		
+
 		menuBtnsPanel = new JPanel();
 		menuBtnsPanel.setOpaque(false);
 		menuPanel.add(menuBtnsPanel);
@@ -152,8 +161,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		btnMenu4 = new JButton("주문 내역");
 		btnMenu5 = new JButton("통계");
 
-		
-		btnsMenu = new JButton[] { btnMenu1, btnMenu2, btnMenu3, btnMenu4, btnMenu5};
+		btnsMenu = new JButton[] { btnMenu1, btnMenu2, btnMenu3, btnMenu4, btnMenu5 };
 
 		for (int i = 0; i < btnsMenu.length; i++) {
 			btnsMenu[i].addActionListener(this);
@@ -161,22 +169,21 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			btnsMenu[i].setOpaque(false);
 			btnsMenu[i].setContentAreaFilled(false);
 			btnsMenu[i].setBorderPainted(false);
-			btnsMenu[i].setFont(gSansBold16);
+			btnsMenu[i].setFont(Configuration.GSANS_BOLD_16);
 			btnsMenu[i].setForeground(Color.white);
 		}
-		
+
 		menuBtnsPanel.add(btnMenu1);
 		menuBtnsPanel.add(btnMenu2);
 		menuBtnsPanel.add(btnMenu3);
 		menuBtnsPanel.add(btnMenu4);
 		menuBtnsPanel.add(btnMenu5);
 
-		
-		lblMenuName = new JLabel("▶ 고객 검색");
+		lblMenuName = new JLabel(menuNames[0]);
 		lblMenuName.setBounds(30, 120, 140, 32);
-		lblMenuName.setFont(gSansBold20);
+		lblMenuName.setFont(Configuration.GSANS_BOLD_20);
 		contentPane.add(lblMenuName);
-		
+
 		sidePanel = new SidePanel();
 		sidePanel.setBounds(750, 90, 258, 639);
 		contentPane.add(sidePanel);
@@ -193,20 +200,21 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			return;
 		}
 		*/
-		
-//		if (e.getSource() == btnMenu6 ) {
-//			p6.add(new chartPanel());
-//			p6.setVisible(true);
-//			return;
-//		}
-		
-		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
+
+		//		if (e.getSource() == btnMenu6 ) {
+		//			p6.add(new chartPanel());
+		//			p6.setVisible(true);
+		//			return;
+		//		}
+
+		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3
+				|| e.getSource() == btnMenu4 || e.getSource() == btnMenu5) {
 			btnsMenuActionPerformed(e);
 		}
 	}
-	
+
 	protected void btnsMenuActionPerformed(ActionEvent e) {
-		for(int i = 0; i < btnsMenu.length; i++) {
+		for (int i = 0; i < btnsMenu.length; i++) {
 			if (e.getSource() == btnsMenu[i]) {
 				switchPanel(i);
 				switchMenuLabel(i);
@@ -234,6 +242,17 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		//검색에서 주문 누르면 해당 고객 정보 가지고 주문창으로 이동
 		
 	}
-	
+
+
+	public static void setUIFont(Font font) {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if (value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key, font);
+			}
+		}
+	}
 
 }
