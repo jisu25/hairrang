@@ -1,6 +1,5 @@
 package hairrang;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,15 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import hairrang.chart.HairrangChart;
 
 import hairrang.chart.HairrangChart;
 
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
+import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
-import hairrang.component.panel;
-
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -37,7 +36,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private GuestManagement p1;
 	private GuestSearch p2;
-	private JPanel p3;
+	private SalesTest p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
@@ -119,19 +118,20 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p2.setLayout(null);
 		p2.setProgram(this);
 
-		p3 = new JPanel();
+		p3 = new SalesTest();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
 
 		p4 = new JPanel();
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
-
+		
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
-
-		pArr = new JPanel[] { p1, p2, p3, p4, p5 };
-
+		
+		pArr = new JPanel[] { p1, p2, p3, p4, p5};
+		
+		
 		/* 메뉴부 */
 
 		menuPanel = new JPanel();
@@ -206,15 +206,14 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			return;
 		}
 		*/
-
-		//		if (e.getSource() == btnMenu6 ) {
-		//			p6.add(new chartPanel());
-		//			p6.setVisible(true);
-		//			return;
-		//		}
-
-		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3
-				|| e.getSource() == btnMenu4 || e.getSource() == btnMenu5) {
+		
+//		if (e.getSource() == btnMenu6 ) {
+//			p6.add(new chartPanel());
+//			p6.setVisible(true);
+//			return;
+//		}
+		 
+		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
 			btnsMenuActionPerformed(e);
 		}
 	}

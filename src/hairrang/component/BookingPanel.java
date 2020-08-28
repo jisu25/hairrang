@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import hairrang.Configuration;
 import hairrang.dto.Booking;
 import hairrang.service.BookingService;
 import hairrang.table.BookingTable;
@@ -37,6 +38,7 @@ public class BookingPanel extends JPanel {
 		
 		lblBookingTitle = new JLabel("예약 상황");
 		lblBookingTitle.setBounds(0, 0, 80, 24);
+		lblBookingTitle.setFont(Configuration.GSANS_BOLD_20);
 		add(lblBookingTitle);
 		
 		panel = new JPanel();

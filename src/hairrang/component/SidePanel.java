@@ -21,7 +21,6 @@ public class SidePanel extends JPanel {
 		sService = new SalesService();
 		todayCount = String.valueOf(sService.getTodaySalesCount());
 		
-		
 		initComponents();
 		
 	}
@@ -38,6 +37,7 @@ public class SidePanel extends JPanel {
 		pToday.setLayout(new BoxLayout(pToday, BoxLayout.Y_AXIS));
 		
 		JLabel lblToday = new JLabel("TODAY");
+		lblToday.setFont(Configuration.GSANS_BOLD_20);
 		pToday.add(lblToday);
 		
 		JLabel lblTodayCount = new JLabel();

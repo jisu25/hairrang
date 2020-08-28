@@ -19,7 +19,7 @@ public class SalesDaoImpl implements SalesDao{
 	private static final SalesDaoImpl instance = new SalesDaoImpl();
 	
 	private SalesDaoImpl() {};
-	
+	 
 	public static SalesDaoImpl getInstance() {
 		return instance;
 	}
