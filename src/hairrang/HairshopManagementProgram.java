@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import hairrang.chart.HairrangChart;
 
 import hairrang.chart.HairrangChart;
 import hairrang.component.CustomFonts;
@@ -117,12 +118,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p4 = new JPanel();
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
-
+		
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
-
-		pArr = new JPanel[] { p1, p2, p3, p4, p5 };
-
+		
+		pArr = new JPanel[] { p1, p2, p3, p4, p5};
+		
+		
 		/* 메뉴부 */
 
 		menuPanel = new JPanel();
@@ -197,15 +199,14 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			return;
 		}
 		*/
-
-		//		if (e.getSource() == btnMenu6 ) {
-		//			p6.add(new chartPanel());
-		//			p6.setVisible(true);
-		//			return;
-		//		}
-
-		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3
-				|| e.getSource() == btnMenu4 || e.getSource() == btnMenu5) {
+		
+//		if (e.getSource() == btnMenu6 ) {
+//			p6.add(new chartPanel());
+//			p6.setVisible(true);
+//			return;
+//		}
+		 
+		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
 			btnsMenuActionPerformed(e);
 		}
 	}

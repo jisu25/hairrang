@@ -2,6 +2,7 @@ package hairrang.chart;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -70,7 +71,7 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 		public void search() {
 
 			// 테이블 행 화면 리셋
-			ChartDao.clearRows(hc.tmodel.getRowCount(), hc.tmodel);
+			ChartDaoo.clearRows(hc.tmodel.getRowCount(), hc.tmodel);
 
 			// 콤보박스의 값을 가져옴
 			// (시작년도)
@@ -82,7 +83,7 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 
 			// select 결과 저장
 			results = chartDao.findYearSell(startYear, endYear); // DB select 결과 저장 변수
-
+System.out.println(results);
 			if (results.isEmpty()) { // 조회 결과 없으면, 알림창 날림
 				JOptionPane.showMessageDialog(null, "조회할 데이터가 없습니다.");
 			} else { // 조회 결과 있으면, 결과 보이기
@@ -92,14 +93,14 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 				
 				
 				for (int i = 0; i < size; i++) {
-					Vector<String> rows = new Vector<String>(); // 행
+					Vector<Object> rows = new Vector<Object>(); // 행
 
-					rows.addElement(Integer.toString(results.get(i).getSalesNo()));
-					rows.addElement(results.get(i).getSalesDay());
-					rows.addElement(results.get(i).getGuestName());
-					rows.addElement(results.get(i).getHairName());
-					rows.addElement(results.get(i).getEventName());
-					rows.addElement(Integer.toString(results.get(i).getPrice()));
+					rows.addElement(results.get(i).getSales().getSalesNo());
+					rows.addElement(results.get(i).getSales().getSalesDay());
+					rows.addElement(results.get(i).getGuest().getGuestName());
+					rows.addElement(results.get(i).getEvent().getEventName());
+					rows.addElement(results.get(i).getHair().getHairName());
+					rows.addElement(results.get(i).getHair().getPrice());
 					hc.tmodel.addRow(rows);
 				}
 
@@ -212,26 +213,32 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 
 				switch (type) {
 				case "월별":
+					//rows.addElement((toString().valueOf(results.get(i).getHairname().getHairName())));
 					for (int i = 0; i < size; i++) {
-						date.addElement(results.get(i).getSalesDay()
-								); 
-						values.addElement(results.get(i).getPrice()); 
+						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
+						values.addElement((results.get(i).getSales().getSalesNo())); 
 
 						// 값, 범례, 카테고리 지정
 						dataset.addValue(values.get(i), type, date.get(i));
 					}
 					break;
 				
-				default:
+				case "연도별":
 					for (int i = 0; i < size; i++) {
-						date.addElement(results.get(i).getSalesDay()); // 
-						values.addElement(results.get(i).getPrice()); // 
+						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
+						values.addElement((results.get(i).getSales().getSalesNo()));   // 
 
-						dataset.addValue(values.get(i), type, date.get(i));
-					}
+					dataset.addValue(values.get(i), type, date.get(i));
+					break;
 				}
-
+				default:
+					break;
 			}
+
+		}
+				
+	
+			
 			return dataset;
 		}
 

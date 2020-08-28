@@ -11,6 +11,14 @@ public class Hair {
 	public Hair(int hairNo) {
 		this.hairNo = hairNo;
 	}
+ 
+	
+
+	public Hair(String hairName, int price) {
+		super();
+		this.hairName = hairName;
+		this.price = price;
+	}
 
 	public Hair(int hairNo, String hairName, int hairPrice) {
 		this.hairNo = hairNo;
