@@ -8,6 +8,7 @@ import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
 import hairrang.dto.Guest;
+import hairrang.exception.InValidationException;
 import hairrang.service.GuestService;
 
 import java.text.ParseException;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
@@ -146,7 +148,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	
 	
 	public Guest getGuest() throws ParseException {
-
+		
 		Calendar c = Calendar.getInstance();
 		Date join = new Date(c.getTimeInMillis());
 
@@ -161,6 +163,8 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		return new Guest(guestNo, guestName, birthday, joinDay, phone, gender, guestNote);
 
 	}
+
+
 
 	// 패널셋 date->string
 	public void setGuest(Guest guest) {
@@ -203,6 +207,11 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		String search = tfName.getText().trim();
 		if(search.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "검색할 이름을 입력하세요.");
+			return;
+		}
+		if(!isValidTf()) {
+			JOptionPane.showMessageDialog(null, "한글과 영어만 입력가능");
+			return;
 		}
 		mainFrame.searchResult(search);
 		System.out.println(search);
@@ -216,7 +225,12 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		this.mainFrame = mainFrame;
 	}
 	
-
+	
+	private boolean isValidTf() {
+		String name = tfName.getText().trim();
+		boolean nameCheck = Pattern.matches("^[가-힣a-zA-Z]+$", name);
+		return nameCheck;
+	}
 
 
 }

@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -143,6 +144,12 @@ public class GuestSearch extends JPanel implements ActionListener {
 	}
 
 	private void btnInfoActionPerformed(ActionEvent e) {
+		int index = table.getSelectedRow();
+		if(index == -1) {
+			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
+			return;
+		}
+		
 		orderInfo = new GuestOrderInfo();
 		orderInfo.setBounds(200, 200, 550, 480);
 		orderInfo.setTitle("이용내역");
