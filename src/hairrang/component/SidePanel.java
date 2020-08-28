@@ -7,27 +7,50 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SidePanel extends JPanel {
+import hairrang.Configuration;
+import hairrang.service.SalesService;
 
+public class SidePanel extends JPanel {
+	private JPanel pNotice;
+	private BookingPanel pBooking;
+	private SalesService sService;
+	private String todayCount;
+	
 	public SidePanel() {
+		
+		sService = new SalesService();
+		todayCount = String.valueOf(sService.getTodaySalesCount());
+		
+		
+		initComponents();
+		
+	}
+	
+	private void initComponents() {
 		CustomFonts font = new CustomFonts();
-		Font nanumSqReg = font.getNanumSqReg16();
 		
 		setBounds(new Rectangle(0, 0, 258, 639));
 		setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(0, 0, 258, 100));
-		add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		JPanel pToday = new JPanel();
+		pToday.setBounds(new Rectangle(0, 0, 258, 100));
+		add(pToday);
+		pToday.setLayout(new BoxLayout(pToday, BoxLayout.Y_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("TODAY");
-		panel.add(lblNewLabel);
+		JLabel lblToday = new JLabel("TODAY");
+		pToday.add(lblToday);
 		
-		JLabel lblNewLabel_1 = new JLabel("20명");
-		lblNewLabel_1.setFont(nanumSqReg);
-		panel.add(lblNewLabel_1);
-
+		JLabel lblTodayCount = new JLabel();
+		lblTodayCount.setFont(Configuration.GSANS_BOLD_28);
+		lblTodayCount.setText(todayCount + "명");
+		pToday.add(lblTodayCount);
+		
+		pNotice = new JPanel();
+		pNotice.setBounds(0, 100, 258, 200);
+		add(pNotice);
+		
+		pBooking = new BookingPanel();
+		pBooking.setBounds(0, 300, 258, 339);
+		add(pBooking);
 	}
-
 }
