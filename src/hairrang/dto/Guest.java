@@ -19,7 +19,7 @@ public class Guest {
 		this.guestNo = guestNo;
 	}
 	
-	public Guest(String guestName) {
+	public Guest(String guestName) { 
 		this.guestName = guestName;
 	}
 

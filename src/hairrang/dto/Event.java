@@ -3,12 +3,17 @@ package hairrang.dto;
 public class Event {
 	private int eventNo;
 	private String eventName;
-	private double sale;
+	private double sale; 
 	
 	public Event() {
 		super();
 	}
 	
+	public Event(String eventName) {
+		super();
+		this.eventName = eventName;
+	}
+
 	public int getEventNo() {
 		return eventNo;
 	}

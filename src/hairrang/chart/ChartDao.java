@@ -11,6 +11,10 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import hairrang.conn.JdbcUtil;
+import hairrang.dto.Event;
+import hairrang.dto.Guest;
+import hairrang.dto.Hair;
+import hairrang.dto.Sales;
 
 	public class ChartDao {
 
@@ -29,7 +33,7 @@ import hairrang.conn.JdbcUtil;
 		ResultSet rs = null;
 
 		// 쿼리문 결과 (1행) 담을 HairrangDto 객체
-		HairrangDto hairrnagDto = null;
+//		HairrangDto hairrangDto = null;
 
 		// [메소드]
 
@@ -49,12 +53,12 @@ import hairrang.conn.JdbcUtil;
 				conn = JdbcUtil.getConnection();
 
 				// 쿼리문 세팅
-				String query = "SELECT S.SALES_NO AS 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD')AS 영업일자 ,g.GUEST_NAME AS 고객명  ,E.EVENT_NAME AS 이벤트명 ,H.PRICE AS 가격\r\n" + 
-						"FROM SALES s\r\n" + 
-						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO \r\n" + 
-						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO \r\n" + 
-						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO \r\n" + 
-						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?";
+				String query = "SELECT s.SALES_NO ,TO_CHAR( s.SALES_DAY ,'YYYY-MM-DD') day,g.GUEST_NAME,h.HAIR_NAME  ,e.EVENT_NAME ,h.PRICE " + 
+						"FROM SALES s" + 
+						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO " + 
+						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO " + 
+						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO " + 
+						"WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?";
 				ps = conn.prepareStatement(query);
 				ps.setInt(1, startYear);
 				ps.setInt(2, endYear);
@@ -65,15 +69,32 @@ import hairrang.conn.JdbcUtil;
 
 				// 결과 저장
 				while (rs.next()) {
-					HairrangDto hairrangDto = new HairrangDto();
+									
+//					ps.setInt(1, hairrangDto.getSalesNo().getSalesNo());
+//					ps.setDate(2, hairrangDto.getSalesDay().getSalesDay());
+//					ps.setString(3, hairrangDto.getGuestname().getGuestName());
+//					ps.setString(4, hairrangDto.getHairname().getHairName());
+//					ps.setString(5, hairrangDto.getEventname().getEventName());
+//					ps.setInt(6, hairrangDto.getPrice().getPrice());
 					
-					hairrangDto.setSalesNo(rs.getInt(1));
-					hairrangDto.setSalesDay(rs.getString(2));
-					hairrangDto.setGuestName(rs.getString(3));
-					hairrangDto.setHairName(rs.getString(4));
-					hairrangDto.setEventName(rs.getString(5));
-					hairrangDto.setPrice(rs.getInt(6));
+//					hairrangDto.setSalesNo(rs.getInt(1).);
+//					hairrangDto.setSalesDay(rs.getDate(2));
+//					hairrangDto.setGuestName(rs.getString(3));
+//					hairrangDto.setHairName(rs.getString(4));
+//					hairrangDto.setEventName(rs.getString(5));
+//					hairrangDto.setPrice(rs.getInt(6));
 					
+					Sales sales = new Sales(rs.getInt("SALES_NO"),rs.getDate("day"));
+					Guest guest = new Guest(rs.getString("GUEST_NAME"));
+					Hair hair = new Hair(rs.getString("HAIR_NAME"),rs.getInt("PRICE"));
+					Event event = new Event(rs.getString("EVENT_NAME"));
+//					S.SALES_NO ,h.HAIR_NAME,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') ,g.GUEST_NAME  ,E.EVENT_NAME ,H.PRICE
+
+
+					
+
+					HairrangDto hairrangDto=new HairrangDto(sales,guest,hair,event);
+
 					list.add(hairrangDto);
 					
 				}
@@ -103,7 +124,7 @@ import hairrang.conn.JdbcUtil;
 				conn = JdbcUtil.getConnection();
 
 				// 쿼리문 세팅
-				String query = "SELECT S.SALES_NO AS 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD')AS 영업일자 ,g.GUEST_NAME AS 고객명  ,E.EVENT_NAME AS 이벤트명 ,H.PRICE AS 가격\r\n" + 
+				String query = "SELECT S.SALES_NO 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') 영업일자 ,g.GUEST_NAME 고객명  ,E.EVENT_NAME 이벤트명 ,H.PRICE 가격\r\n" + 
 						"FROM SALES s\r\n" + 
 						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO \r\n" + 
 						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO \r\n" + 
@@ -117,16 +138,27 @@ import hairrang.conn.JdbcUtil;
 
 				// 결과 저장
 				while (rs.next()) {
-					HairrangDto hairrangDto = new HairrangDto();
 					
-					hairrangDto.setSalesNo(rs.getInt(1));
-					hairrangDto.setSalesDay(rs.getString(2));
-					hairrangDto.setGuestName(rs.getString(3));
-					hairrangDto.setHairName(rs.getString(4));
-					hairrangDto.setEventName(rs.getString(5));
-					hairrangDto.setPrice(rs.getInt(6));
 					
-					list.add(hairrangDto);
+//					ps.setInt(1, hairrangDto.getSalesNo().getSalesNo());
+//					ps.setDate(2, hairrangDto.getSalesDay().getSalesDay());
+//					ps.setString(3, hairrangDto.getGuestname().getGuestName());
+//					ps.setString(4, hairrangDto.getHairname().getHairName());
+//					ps.setString(5, hairrangDto.getEventname().getEventName());
+//					ps.setInt(6, hairrangDto.getPrice().getPrice());
+	 				Sales sales = new Sales();
+					Guest guest = new Guest();
+					Hair hair = new Hair();
+					Event event = new Event();
+					
+					sales.setSalesNo(rs.getInt(1));
+					sales.setSalesDay(rs.getDate(2));
+					guest.setGuestName(rs.getString(3));
+					hair.setHairName(rs.getString(4));
+					event.setEventName(rs.getString(5));
+					hair.setPrice(rs.getInt(6));
+					
+				//	list.add(hairrangDto);
 				}
 
 			} catch (SQLException e) {
@@ -158,7 +190,4 @@ import hairrang.conn.JdbcUtil;
 		}
 
 	}
-
-
-
 
