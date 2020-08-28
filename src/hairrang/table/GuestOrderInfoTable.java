@@ -75,9 +75,11 @@ public class GuestOrderInfoTable extends JTable {
 				sales.getHairNo().getHairName(),
 				sales.getHairNo().getPrice(),
 				sales.getEventNo().getEventName(),
+				sales.getHairNo().getPrice(),
+
 				//할인율적용된 단가 셋하기
 				sales.getEventNo().getSale()
-				
+
 		};
 	}
 

@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 import hairrang.dto.Guest;
+import hairrang.exception.EmptyTfException;
 import hairrang.service.GuestService;
 
 public class GuestManagementPanel extends JPanel {
@@ -29,6 +31,7 @@ public class GuestManagementPanel extends JPanel {
 	private GuestService gService;
 	private JDateChooser dateChooser;
 	private ArrayList<Guest> guestList;
+	private int curr;
 	
 
 	/**
@@ -37,6 +40,8 @@ public class GuestManagementPanel extends JPanel {
 	public GuestManagementPanel() {
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
+		curr = gService.getGuestCurrVal();
+		
 		initComponents();
 
 	}
@@ -119,7 +124,8 @@ public class GuestManagementPanel extends JPanel {
 	}
 
 	public Guest getGuest() throws ParseException {
-
+		isEmpty();
+		
 		Calendar c = Calendar.getInstance();
 		Date join = new Date(c.getTimeInMillis());
 
@@ -181,5 +187,26 @@ public class GuestManagementPanel extends JPanel {
 		tfNo.setText(String.valueOf(curr));
 
 	}
-
+	
+	private void isEmpty() {
+		String error = "";
+		if(tfName.getText().isEmpty()) {
+			error= "고객명";
+			JOptionPane.showMessageDialog(null, String.format("%s을 입력하세요.",error));
+			throw new EmptyTfException("공란존재");
+		}
+		if(buttonGroup.isSelected(null)) {
+			error = "성별";
+			JOptionPane.showMessageDialog(null, String.format("%s을 선택하세요.",error));
+			throw new EmptyTfException("공란존재");
+		}
+		if(tfPhone.getText().isEmpty()) {
+			error = "연락처";
+			JOptionPane.showMessageDialog(null, String.format("%s를 입력하세요.",error));
+			throw new EmptyTfException("공란존재");
+		}
+		
+		setTfNo(curr);
+		
+	}
 }

@@ -82,6 +82,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 		scrollPane.setViewportView(table);
 		
 		table.setComponentPopupMenu(createPopMenu());
+		
 
 	}
 
@@ -112,6 +113,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 	private Guest getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
+		
 		return guestList.get(selectedRow);
 	}
 
@@ -121,6 +123,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 		try {
 			addGuest = pGuest.getGuest();
 			// System.out.println(addGuest);
+			
 			gService.addGuest(addGuest);
 			table.addRow(addGuest);
 
@@ -238,5 +241,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 		}
 
 	}
+	
+	
 
 }

@@ -2,12 +2,14 @@ package hairrang.table;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 
@@ -15,10 +17,8 @@ import hairrang.service.SalesService;
 @SuppressWarnings({ "serial", "hiding" })
 public abstract class AbstractItemTable<T> extends JTable {
     private CustomModel model;
-    private ArrayList<T> itemList;
-    
+
 	public AbstractItemTable() {
-        
     	initComponents();
     }
     
@@ -26,10 +26,9 @@ public abstract class AbstractItemTable<T> extends JTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<T> list) {
-    	System.out.println("loadData : " + list);
-    	
-        model = new CustomModel(getRows(list), getColName() );
+    void loadData(ArrayList<T> itemList) {
+    	System.out.println("loadData : " + itemList);
+        model = new CustomModel(getRows(itemList), getColName());
         setModel(model);
     }
 
@@ -45,12 +44,9 @@ public abstract class AbstractItemTable<T> extends JTable {
     }
 
     abstract Object[] toArray(T itemList);
-
-    public void setItems(ArrayList<T> list) {
-    	System.out.println("setItems : " + list);
-    	itemList = list;
-    	
-        loadData(list);
+    
+    public void setItems(ArrayList<T> itemList) {
+        loadData(itemList);
         setWidthAndAlign();
     }
 

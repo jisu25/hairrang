@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -82,16 +83,15 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 		table = new GuestSearchTable();
 		scrollPane.setViewportView(table);
+		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 		
 		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)  {
 				if (e.getClickCount() == 2) {
-					int guest = table.getSelectedRow();
-					System.out.println(guest);
-
+					getSelectedGuest();
 				}
 			}
 		});
@@ -117,7 +117,10 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 	private Guest getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
-		return guestList.get(selectedRow);
+		int no = (int) table.getValueAt(selectedRow, 0);
+		Guest guest = gService.selectGuestByNo(new Guest(no));
+
+		return guest;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -135,6 +138,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 	private void btnCancelActionPerformed(ActionEvent e) {
 		pGuest.clearTf();
+		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 
 	}

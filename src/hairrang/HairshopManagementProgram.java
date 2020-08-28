@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import hairrang.chart.HairrangChart;
 import hairrang.component.GuestManagement;
 import hairrang.component.SidePanel;
@@ -56,7 +58,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
-
+	
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
 		initComponents();

@@ -26,6 +26,7 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public List<Sales> selectSalesByAll() {
+
 		String sql = "SELECT * FROM SALES s \r\n" + 
 				"	LEFT OUTER JOIN HAIR h USING (HAIR_NO)\r\n" + 
 				"	LEFT OUTER JOIN GUEST g USING (GUEST_NO) \r\n" + 
@@ -46,15 +47,17 @@ public class SalesDaoImpl implements SalesDao{
 		
 		return null;
 	}
+	
+	
 
 	
 
 	@Override
 	public List<Sales> selectSalesByGuestNo(Sales sales) {
 		String sql = "SELECT * FROM SALES s \r\n" + 
-				"	JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) \r\n" + 
-				"	JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) \r\n" + 
-				"	JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)\r\n" + 
+				"	LEFT OUTER JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) \r\n" + 
+				"	LEFT OUTER JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) \r\n" + 
+				"	LEFT OUTER JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)\r\n" + 
 				"	WHERE s.GUEST_NO = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -147,8 +150,10 @@ public class SalesDaoImpl implements SalesDao{
 		//이후 헤어처럼 밑에 코드 수정
 		int no = rs.getInt("EVENT_NO");
 		String name = rs.getString("EVENT_NAME");
+		float sale = rs.getFloat("SALE");
 		
-		Event event =  new Event(no, name, 0);
+		Event event = new Event(no, name, sale);
+		
 		
 		GuestDaoImpl gdao = GuestDaoImpl.getInstance();
 		Guest guest = gdao.getGuest(rs);
