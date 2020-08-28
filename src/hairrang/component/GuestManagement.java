@@ -33,12 +33,9 @@ public class GuestManagement extends JPanel implements ActionListener {
 	public GuestManagement() {
 
 		gService = new GuestService();
-		
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		curr = gService.getGuestCurrVal();
 
-		System.out.println(guestList);
-		
 		initComponents();
 
 	}
@@ -78,15 +75,10 @@ public class GuestManagement extends JPanel implements ActionListener {
 		pTable.add(scrollPane);
 		
 		table = new GuestManagementTable();
-<<<<<<< HEAD
 		scrollPane.setViewportView(table);
 		
 		guestList = (ArrayList<Guest>) gService.getGuestList();
-=======
->>>>>>> branch 'master' of https://github.com/jisu25/hairrang
 		table.setItems(guestList);
-		scrollPane.setViewportView(table);
-		
 		table.setComponentPopupMenu(createPopMenu());
 		
 
