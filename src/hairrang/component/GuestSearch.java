@@ -175,6 +175,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	}
 
 	public void searchResult(String search) {
+		
 		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(new Guest(search));
 		// result.stream().forEach(System.out::println);
 		table.setItems(result);

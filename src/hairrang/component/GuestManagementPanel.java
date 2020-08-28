@@ -21,6 +21,7 @@ import hairrang.dto.Guest;
 import hairrang.exception.EmptyTfException;
 import hairrang.exception.InValidationException;
 import hairrang.service.GuestService;
+import java.awt.Color;
 
 public class GuestManagementPanel extends JPanel {
 	private JTextField tfNo;
@@ -41,6 +42,7 @@ public class GuestManagementPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public GuestManagementPanel() {
+		setBackground(Color.WHITE);
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		curr = gService.getGuestCurrVal();
@@ -50,6 +52,8 @@ public class GuestManagementPanel extends JPanel {
 	}
 
 	private void initComponents() {
+		
+		
 		setLayout(null);
 
 		JLabel lblNo = new JLabel("고객 번호 : ");
@@ -104,6 +108,7 @@ public class GuestManagementPanel extends JPanel {
 		add(lblMemo);
 
 		rBtnFemale = new JRadioButton("여성");
+		rBtnFemale.setBackground(Color.WHITE);
 		buttonGroup.add(rBtnFemale);
 		rBtnFemale.setBounds(478, 32, 60, 23);
 		add(rBtnFemale);

@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.HairrangChart;
+
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
@@ -36,7 +37,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private GuestManagement p1;
 	private GuestSearch p2;
-	private panel p3;
+	private JPanel p3;
 	private JPanel p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
@@ -66,9 +67,14 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		/* Font 설정 */
 		setUIFont(CustomFonts.getNanumSqReg(14));
 
-		UIManager.put("TextField.border", BorderFactory.createEmptyBorder());
+		UIManager.put("Panel.background", Color.WHITE);
+		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(225, 225, 225)));
+		UIManager.put("TextField.inactiveBackground", Color.WHITE);
 		
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
+		UIManager.put("Button.foreground", Color.WHITE);
+		UIManager.put("Button.background", new Color(153, 102, 255));
+		UIManager.put("Button.border", BorderFactory.createEmptyBorder());
 		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
 		
@@ -113,7 +119,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p2.setLayout(null);
 		p2.setProgram(this);
 
-		p3 = new panel();
+		p3 = new JPanel();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
 
