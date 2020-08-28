@@ -13,14 +13,11 @@ import hairrang.service.SalesService;
 
 
 @SuppressWarnings({ "serial", "hiding" })
-public abstract class AbstractItemTable<Guest> extends JTable {
+public abstract class AbstractItemTable<T> extends JTable {
     private CustomModel model;
-    private GuestService gService;
-    private SalesService sService;
-    
+    private ArrayList<T> itemList;
     
 	public AbstractItemTable() {
-    	gService = new GuestService();
         
     	initComponents();
     }
@@ -29,26 +26,31 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<Guest> guestList) {
-        model = new CustomModel(getRows(guestList), getColName() );
+    void loadData(ArrayList<T> list) {
+    	System.out.println("loadData : " + list);
+    	
+        model = new CustomModel(getRows(list), getColName() );
         setModel(model);
     }
 
     abstract Object[] getColName();
 
-    Object[][] getRows(ArrayList<Guest> guestList) {
-        Object[][] rows = new Object[guestList.size()][];
+    Object[][] getRows(ArrayList<T> list) {
+    	System.out.println("getRows : " + list);
+        Object[][] rows = new Object[list.size()][];
         for(int i=0; i<rows.length; i++) {
-            rows[i] = toArray(guestList.get(i));
+            rows[i] = toArray(list.get(i));
         }
         return rows;
     }
 
-    abstract Object[] toArray(Guest itemList);
+    abstract Object[] toArray(T itemList);
 
-    public void setItems(ArrayList<Guest> guestList) {
-        loadData(guestList);
-        
+    public void setItems(ArrayList<T> list) {
+    	System.out.println("setItems : " + list);
+    	itemList = list;
+    	
+        loadData(list);
         setWidthAndAlign();
     }
 
@@ -90,16 +92,15 @@ public abstract class AbstractItemTable<Guest> extends JTable {
         }
     }
 
-    public void addRow(Guest item) {
+    public void addRow(T item) {
         model.addRow(toArray(item));
-        
     }
 
     public void removeRow(int idx) {
         model.removeRow(idx);
     }
 
-    public void updateRow(int idx, Guest updateItem) {
+    public void updateRow(int idx, T updateItem) {
         model.removeRow(idx);
         model.insertRow(idx, toArray(updateItem));
     }

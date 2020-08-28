@@ -1,10 +1,11 @@
-
+/*
 CREATE SEQUENCE GUEST_SEQ
     START WITH 1
     INCREMENT BY 1
    	nocache;
 
 DROP SEQUENCE GUEST_SEQ;
+*/
 
 --1 여자, 2남자
 
