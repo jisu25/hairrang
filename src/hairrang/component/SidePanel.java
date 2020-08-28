@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hairrang.Configuration;
 import hairrang.service.SalesService;
 
 public class SidePanel extends JPanel {
@@ -27,7 +28,6 @@ public class SidePanel extends JPanel {
 	
 	private void initComponents() {
 		CustomFonts font = new CustomFonts();
-		Font nanumSqReg = font.getNanumSqReg16();
 		
 		setBounds(new Rectangle(0, 0, 258, 639));
 		setLayout(null);
@@ -41,8 +41,8 @@ public class SidePanel extends JPanel {
 		pToday.add(lblToday);
 		
 		JLabel lblTodayCount = new JLabel();
-		lblTodayCount.setFont(nanumSqReg);
-		lblTodayCount.setText(todayCount);
+		lblTodayCount.setFont(Configuration.GSANS_BOLD_28);
+		lblTodayCount.setText(todayCount + "명");
 		pToday.add(lblTodayCount);
 		
 		pNotice = new JPanel();

@@ -1,17 +1,16 @@
 package hairrang.table;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
-import hairrang.dto.Guest;
-import hairrang.service.GuestService;
-import hairrang.service.SalesService;
 
 
 @SuppressWarnings({ "serial", "hiding" })
@@ -23,6 +22,12 @@ public abstract class AbstractItemTable<T> extends JTable {
     }
     
     private void initComponents() {
+    	getTableHeader().setPreferredSize(new Dimension(700, 30));
+    	getTableHeader().setBackground(new Color(153, 102, 255));
+    	getTableHeader().setForeground(Color.white);
+    	setBorder(BorderFactory.createLineBorder(new Color(225, 225, 225)));
+    	
+    	setRowHeight(28);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
