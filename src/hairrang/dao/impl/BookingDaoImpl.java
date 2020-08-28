@@ -56,7 +56,7 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public List<Booking> selectBookByGuestNo(Guest guest) {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DATE, HAIR_NO, BOOK_NOTE FROM BOOKING WHERE GUEST_NO = ?";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING WHERE GUEST_NO = ?";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -151,7 +151,7 @@ public class BookingDaoImpl implements BookingDao {
 		Hair hairNo = hDao.selectHairByNo(new Hair(rs.getInt("HAIR_NO")));
 		
 		int no = rs.getInt("BOOK_NO");
-		Date bookDate = new Date(rs.getDate("BOOK_DATE").getTime());
+		Date bookDate = new Date(rs.getDate("BOOK_DAY").getTime());
 		String note = rs.getString("BOOK_NOTE");
 		
 		Booking book = new Booking(no, guestNo, bookDate, hairNo, note);

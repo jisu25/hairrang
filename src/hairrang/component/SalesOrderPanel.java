@@ -24,6 +24,7 @@ import hairrang.dto.Event;
 import hairrang.dto.Guest;
 import hairrang.dto.Hair;
 import hairrang.dto.Sales;
+import hairrang.service.GuestService;
 import hairrang.service.HairService;
 import hairrang.table.HairItemTable;
 
@@ -46,6 +47,7 @@ public class SalesOrderPanel extends JPanel {
 	private List<Hair> hairList = hairService.getHairList();
 
 	public SalesOrderPanel() {
+
 		setLayout(null);
 		JLabel lblSalesNo = new JLabel("영업번호 :");
 		lblSalesNo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,6 +103,7 @@ public class SalesOrderPanel extends JPanel {
 		tfGuestName.setHorizontalAlignment(SwingConstants.CENTER);
 		tfGuestName.setColumns(10);
 		tfGuestName.setBounds(86, 156, 115, 21);
+
 		add(tfGuestName);
 
 		JLabel lblEventName = new JLabel("이벤트명 :");
@@ -145,25 +148,22 @@ public class SalesOrderPanel extends JPanel {
 		comboEvent = new JComboBox<String>();
 		comboEvent.setBounds(287, 156, 117, 21);
 		add(comboEvent);
-		
-		
+
 		comboHair.addActionListener(addActionlistener);
 	}
-	
-	
-	
+
 	public void setHtable(HairItemTable htable) {
 		this.htable = htable;
 	}
-	
-
 
 	public void setTfSumPrice(JTextField tfSumPrice) {
 		this.tfSumPrice = tfSumPrice;
 	}
+
 	public void setTfTotalPrice(JTextField tfTotalPrice) {
 		this.tfTotalPrice = tfTotalPrice;
 	}
+
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
 	public Sales getSales() {
 		int no = Integer.parseInt(tfSalesNo.getText().trim());
@@ -187,6 +187,8 @@ public class SalesOrderPanel extends JPanel {
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void setSales(Sales sales) {
 		// 영업번호는 지금 dbscript가 이상해서 회의해야함 그리고 impl에서 영업번호의 시퀀스 마지막을 가져와 +1을 시켜서 세팅
+		// ㄴ 대훈아 이거 GuestService에 getGuestCurrVal() 이거 참고혀!!!!!!!!!!!!
+
 		tfSalesDay.setText(format.format(sales.getSalesDay()));
 
 		// tfHairName.setText(sales.getHairNo().getHairName());
@@ -228,25 +230,25 @@ public class SalesOrderPanel extends JPanel {
 		int selectIndex = comboHair.getSelectedIndex();
 //		System.out.println(selectIndex);
 //		System.out.println(comboHair.getSelectedItem().toString());
-		//System.out.println(comboHair);
+		// System.out.println(comboHair);
 		if (selectIndex == -1) {
-			return; 
+			return;
 		}
-		
+
 		for (int i = 0; i < hairList.size(); i++) {
 			if (hairList.get(i).getHairName().equals(comboHair.getSelectedItem().toString())) {
 				htable.addRow(hairList.get(i));
 				System.out.println(hairList.get(i));
 				System.out.println(comboHair.getSelectedItem().toString());
-				
+
 			}
 		}
 		int sum = 0;
 		for (int i = 0; i < htable.getHairList().size(); i++) {
-			sum+=htable.getHairList().get(i).getPrice();
+			sum += htable.getHairList().get(i).getPrice();
 		}
-		tfSumPrice.setText(sum+"");
-		
+		tfSumPrice.setText(sum + "");
+
 	}
 
 	ItemListener itemlistener = new ItemListener() {
@@ -272,18 +274,30 @@ public class SalesOrderPanel extends JPanel {
 		checkMember.setSelected(false);
 		comboHair.setSelectedIndex(-1);
 		comboEvent.setSelectedIndex(-1);
-		System.out.println("aaaaaaaaaaaaaaaaaa"+htable.getHairList().size());
+		System.out.println("aaaaaaaaaaaaaaaaaa" + htable.getHairList().size());
 //		for (int i = 0; i < htable.getHairList().size(); i++) {
 //			htable.removeRow(i);
 //		}
-		for (int i =  htable.getHairList().size()-1; i >-1; i--) {
+		for (int i = htable.getHairList().size() - 1; i > -1; i--) {
 			htable.removeRow(i);
 		}
 		tfSumPrice.setText("");
 		tfTotalPrice.setText("");
 	}
-	
-	class CustomPopupMenu extends JPopupMenu{
-		
+
+	// 고객검색에서 주문 눌렀을때 고객명, 고객번호 set
+	public void setGuest(int no, String name) {
+		// System.out.println("오나");
+		System.out.println(no + name);
+
+		tfGuestNo.setText(String.valueOf(no));
+		tfGuestName.setText(name);
+		System.out.println(tfGuestNo.getText() + tfGuestName.getText());
+
 	}
+
+	class CustomPopupMenu extends JPopupMenu {
+
+	}
+
 }

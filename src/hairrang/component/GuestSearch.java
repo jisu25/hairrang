@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import hairrang.Configuration;
 import hairrang.HairshopManagementProgram;
 import hairrang.dto.Guest;
 import hairrang.dto.Sales;
@@ -36,6 +37,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	private ArrayList<Sales> salesList;
 	private GuestOrderInfo orderInfo;
 	private HairshopManagementProgram program;
+	private SalesOrderPanel orderPanel = new SalesOrderPanel();
 
 	public GuestSearch() {
 		gService = new GuestService();
@@ -61,17 +63,17 @@ public class GuestSearch extends JPanel implements ActionListener {
 		pBtn.setLayout(null);
 
 		btnCancel = new JButton("취소");
-		btnCancel.setBounds(290, 5, 100, 25);
+		btnCancel.setBounds(300, 0, Configuration.btnDim.width, Configuration.btnDim.height );
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 
 		btnInfo = new JButton("이용 내역");
-		btnInfo.setBounds(404, 5, 100, 25);
+		btnInfo.setBounds(410, 0, Configuration.btnDim.width, Configuration.btnDim.height);
 		btnInfo.addActionListener(this);
 		pBtn.add(btnInfo);
 
 		btnOrder = new JButton("주문");
-		btnOrder.setBounds(518, 5, 100, 25);
+		btnOrder.setBounds(520, 0, Configuration.btnDim.width, Configuration.btnDim.height);
 		btnOrder.addActionListener(this);
 		pBtn.add(btnOrder);
 
@@ -168,10 +170,18 @@ public class GuestSearch extends JPanel implements ActionListener {
 
 	//메인프로그램에서 주문눌렀을때
 	private void btnOrderActionPerformed(ActionEvent e) {
-		System.out.println("주문으로 이동");
+		int index = table.getSelectedRow();
+		if(index == -1) {
+			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
+			return;
+		}
+		
 		Guest guest = getSelectedGuest();
-		System.out.println("선택한 고객" + guest);
+		int no = guest.getGuestNo();
+		String name = guest.getGuestName();
 		program.switchPanel(2);
+		orderPanel.setGuest(no, name);
+		
 	}
 
 	public void searchResult(String search) {
