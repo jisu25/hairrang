@@ -27,6 +27,9 @@ public class SalesService {
 		return dao.insertSales(sales);
 	}
 	
+	public int getTodaySalesCount() {
+		return dao.getTodaySalesCount();
+	}
 	
 
 }
