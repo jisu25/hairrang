@@ -118,11 +118,9 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 		lblSetNo.setText(String.valueOf(guestNo));
 		lblSetName.setText(guestName);
 		
-		System.out.println(salesList.size());
-		if(salesList.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "내역없음");
-		}
 		table.setItems(salesList);
+		System.out.println(salesList.size());
+		
 		salesList.stream().forEach(System.out::println);
 		
 	}
