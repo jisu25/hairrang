@@ -24,7 +24,7 @@ import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestManagementTable;
 
-public class FrameGuestManagement extends JPanel implements ActionListener {
+public class FrameGuestManagement extends JFrame implements ActionListener {
 
 	private GuestService gService;
 	private JPanel contentPane;
@@ -74,10 +74,13 @@ public class FrameGuestManagement extends JPanel implements ActionListener {
 	}
 
 	private void initComponent() {
-		setLayout(null);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 740, 540);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		panel = new JPanel();
@@ -127,16 +130,6 @@ public class FrameGuestManagement extends JPanel implements ActionListener {
 		
 		table.setItems(guestList);
 		table.setComponentPopupMenu(createPopMenu());
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					Guest selectedGuest = getSelectedGuest();
-					pGuest.setGuest(selectedGuest);
-
-				}
-			}
-		});
 				
 	}
 

@@ -149,13 +149,9 @@ public class GuestSearch extends JPanel implements ActionListener{
 			orderInfo.setTitle("이용내역");
 			table = new GuestSearchTable();
 			
-			
-//			JDialog info = new JDialog();
-			// info.setSize(new Dimension(600,300));
-//			info.setBounds(150, 200, 600, 400);
-//			info.setTitle("이용내역");
-//			info.setVisible(true);
-			
+			String no = pGuest.tfNo();
+			orderInfo.selectGuest(no);
+		
 
 
 		}

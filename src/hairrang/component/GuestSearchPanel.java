@@ -214,6 +214,10 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		return tfName.getText().trim();
 	}
 	
+	public String tfNo() {
+		return tfNo.getText().trim();
+	}
+	
 	
 
 

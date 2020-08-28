@@ -4,7 +4,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,15 +17,11 @@ import hairrang.dto.Sales;
 import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 import hairrang.table.GuestOrderInfoTable;
-import hairrang.table.GuestSearchTable;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 
 public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JLabel lblNo;
 	private JLabel lblName;
 	private JLabel lblSetName;
-	private GuestSearchTable table;
 	private ArrayList<Sales> salesList;
 	private SalesService sService;
 	
@@ -41,11 +39,13 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JScrollPane scrollPane;
 	private FrameGuestSearch guestSearch;
 	private JLabel lblSetNo;
+	private GuestOrderInfoTable table;
 
 	public GuestOrderInfo() {
-		//sService = new SalesService();
-		//salesList = (ArrayList<Sales>) sService.selectSalesByAll();
-		//
+		
+		sService = new SalesService();
+		salesList = (ArrayList<Sales>) sService.selectSalesByAll();
+		
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		
@@ -99,10 +99,9 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-
-		table = new GuestSearchTable();
+		
+		table = new GuestOrderInfoTable();
 		scrollPane.setViewportView(table);
-		table.setItems(guestList);
 	}
 
 	
@@ -121,18 +120,18 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 		this.mainFrame = mainFrame;
 	}
 	
+	private Guest getSelectedGuest() {
+		int selectedRow = table.getSelectedRow();
+		return guestList.get(selectedRow);
+	}
 
-	public void selectGuest(String guestName) {
-		//해당 번호의 고객만 table에 셋
-		//salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(guestNo));
-		//salesList.stream().forEach(System.out::println);
-		//table.setItems(salesList);
+	public void selectGuest(String no) {
 		
-		guestList = (ArrayList<Guest>) gService.selectGuestByName(new Guest(guestName));
-		guestList.stream().forEach(System.out::println);
+		salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(Integer.parseInt(no)));
+		salesList.stream().forEach(System.out::println);
+		table.setItems(salesList);
 		
 		
-		table.setItems(guestList);
 		
 	}
 }

@@ -15,7 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.dto.Guest;
+import hairrang.dto.Sales;
 import hairrang.service.GuestService;
+import hairrang.service.SalesService;
 import hairrang.table.GuestSearchTable;
 
 public class FrameGuestSearch extends JFrame implements ActionListener {
@@ -36,6 +38,9 @@ public class FrameGuestSearch extends JFrame implements ActionListener {
 
 	private Guest guest;
 	private GuestOrderInfo orderInfo;
+	
+	private ArrayList<Sales> salesList;
+	private SalesService sService;
 
 	/**
 	 * Launch the application.
@@ -59,6 +64,10 @@ public class FrameGuestSearch extends JFrame implements ActionListener {
 	public FrameGuestSearch() {
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
+
+		sService = new SalesService();
+		salesList = (ArrayList<Sales>) sService.selectSalesByAll();
+	
 		// searchGuestByName = (ArrayList<Guest>) gService.searchGuestByName(guest);
 
 		initComponents();
@@ -113,7 +122,7 @@ public class FrameGuestSearch extends JFrame implements ActionListener {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 1) {
 					Guest selectedGuest = getSelectedGuest();
 					pGuest.setGuest(selectedGuest);
 
@@ -183,11 +192,11 @@ public class FrameGuestSearch extends JFrame implements ActionListener {
 		orderInfo.setTitle("이용내역");
 		orderInfo.setVisible(true);
 		
-		String guestName = pGuest.tfName().trim();
+		//String guestName = pGuest.tfName().trim();
+		String guestNo = pGuest.tfNo().trim();
+		orderInfo.selectGuest(guestNo);
 		
-		orderInfo.selectGuest(guestName);
-		
-		
+
 	}
 	
 	//테이블의 선택된 정보를 다이얼로그에 넘기기
