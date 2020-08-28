@@ -1,5 +1,6 @@
 package hairrang.service;
 
+import java.util.Date;
 import java.util.List;
 
 import hairrang.dao.SalesDao;
@@ -18,6 +19,13 @@ public class SalesService {
 		return dao.selectSalesByGuestNo(sales);
 	}
 	
+	public List<Sales> selectSalesByDate(Date before, Date after){
+		return dao.selectSalesByDate(before, after);	
+	}
+	
+	public int insertSales(Sales sales) {
+		return dao.insertSales(sales);
+	}
 	
 	
 

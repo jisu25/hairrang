@@ -7,12 +7,18 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import hairrang.dto.Guest;
 import hairrang.dto.Sales;
+import hairrang.service.GuestService;
+import hairrang.service.SalesService;
 
 @SuppressWarnings("serial")
 public class GuestOrderInfoTable extends JTable {
-	private List<Sales> salesList;
 	private DefaultTableModel model;
+	private GuestService gService = new GuestService();
+	private List<Guest> guestList = gService.getGuestList();
+	private SalesService sService = new SalesService();
+	private List<Sales> salesList = sService.selectSalesByAll();
 
 	public GuestOrderInfoTable() {
 		initComponents();
@@ -69,8 +75,11 @@ public class GuestOrderInfoTable extends JTable {
 				sales.getHairNo().getHairName(),
 				sales.getHairNo().getPrice(),
 				sales.getEventNo().getEventName(),
-				sales.getHairNo().getPrice()
-				
+				sales.getHairNo().getPrice(),
+
+				//할인율적용된 단가 셋하기
+				sales.getEventNo().getSale()
+
 		};
 	}
 

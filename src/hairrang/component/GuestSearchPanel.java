@@ -2,6 +2,7 @@ package hairrang.component;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
@@ -23,7 +24,6 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class GuestSearchPanel extends JPanel implements ActionListener {
 	
-	private FrameGuestSearch mainFrame;
 	
 	private JTextField tfNo;
 	private JTextField tfName;
@@ -44,6 +44,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private GuestService gService;
 	private ArrayList<Guest> guestList;
+	private GuestSearch mainFrame;
 	
 	
 
@@ -63,78 +64,81 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		setLayout(null);
 	
 		lblNo = new JLabel("고객 번호 : ");
-		lblNo.setBounds(82, 73, 70, 15);
+		lblNo.setBounds(100, 70, 70, 15);
 		add(lblNo);
 		
 		tfNo = new JTextField();
 		tfNo.setEditable(false);
 		tfNo.setColumns(10);
-		tfNo.setBounds(167, 64, 116, 25);
+		tfNo.setBounds(185, 61, 116, 25);
 		add(tfNo);
 		
 		lblName = new JLabel("고  객  명 : ");
-		lblName.setBounds(82, 37, 70, 15);
+		lblName.setBounds(100, 34, 70, 15);
 		add(lblName);
 		
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(167, 32, 116, 25);
+		tfName.setBounds(185, 29, 116, 25);
 		add(tfName);
 		
 		lblBirthday = new JLabel("생년월일  : ");
-		lblBirthday.setBounds(82, 109, 70, 15);
+		lblBirthday.setBounds(100, 106, 70, 15);
 		add(lblBirthday);
 		
 		lblJoinDay = new JLabel("가입일자  : ");
-		lblJoinDay.setBounds(82, 142, 70, 15);
+		lblJoinDay.setBounds(100, 139, 70, 15);
 		add(lblJoinDay);
 		
 		tfJoinDay = new JTextField();
 		tfJoinDay.setEditable(false);
+		Date join = new Date();
+		new SimpleDateFormat("yyyy-MM-dd").format(join);
+		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(join));
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(167, 139, 116, 25);
+		tfJoinDay.setBounds(185, 136, 116, 25);
 		add(tfJoinDay);
 		
 		lblGender = new JLabel("성       별 : ");
-		lblGender.setBounds(382, 35, 70, 15);
+		lblGender.setBounds(400, 32, 70, 15);
 		add(lblGender);
 		
 		lblPhone = new JLabel("연  락  처 : ");
-		lblPhone.setBounds(382, 72, 70, 15);
+		lblPhone.setBounds(400, 69, 70, 15);
 		add(lblPhone);
 		
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(460, 69, 116, 25);
+		tfPhone.setBounds(478, 66, 116, 25);
 		add(tfPhone);
 		
 		lblNote = new JLabel("메      모  : ");
-		lblNote.setBounds(382, 109, 70, 15);
+		lblNote.setBounds(400, 106, 70, 15);
 		add(lblNote);
 		
 		rBtnFemale = new JRadioButton("여성");
 		buttonGroup.add(rBtnFemale);
-		rBtnFemale.setBounds(460, 34, 60, 23);
+		rBtnFemale.setBounds(478, 31, 60, 23);
 		add(rBtnFemale);
 		
 		rBtnMale = new JRadioButton("남성");
 		buttonGroup.add(rBtnMale);
-		rBtnMale.setBounds(524, 34, 60, 23);
+		rBtnMale.setBounds(542, 31, 60, 23);
 		add(rBtnMale);
 		
 		tfMemo = new JTextField();
 		tfMemo.setColumns(10);
-		tfMemo.setBounds(460, 106, 116, 25);
+		tfMemo.setBounds(478, 103, 116, 25);
 		add(tfMemo);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(167, 103, 116, 25);
+		dateChooser.setBounds(185, 100, 116, 25);
 		add(dateChooser);
 		
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
-		btnSearch.setBounds(295, 33, 71, 23);
+		btnSearch.setBounds(313, 30, 71, 23);
 		add(btnSearch);
 		
 		
@@ -176,25 +180,16 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	}
 
 	public void clearTf() {
+		Date join = new Date();
+		new SimpleDateFormat("yyyy-MM-dd").format(join);
+		
 		tfNo.setText("");
 		tfName.setText("");
-		
 		dateChooser.setCalendar(null);
-		tfJoinDay.setText("");
+		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(join));
 		tfPhone.setText("");
 		buttonGroup.clearSelection();
 		tfMemo.setText("");
-
-	}
-	
-
-	public FrameGuestSearch getMainFrame() {
-		return mainFrame;
-	}
-
-
-	public void setMainFrame(FrameGuestSearch mainFrame) {
-		this.mainFrame = mainFrame;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -206,18 +201,20 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 
 	private void btnSearchActionPerformed(ActionEvent e) {
 		String search = tfName.getText().trim();
-		System.out.println(search);
+		if(search.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색할 이름을 입력하세요.");
+		}
 		mainFrame.searchResult(search);
+		System.out.println(search);
 	}
 	
-	public String tfName() {
-		return tfName.getText().trim();
+	public GuestSearch getMainFrame() {
+		return mainFrame;
 	}
-	
-	public String tfNo() {
-		return tfNo.getText().trim();
+
+	public void setMainFrame(GuestSearch mainFrame) {
+		this.mainFrame = mainFrame;
 	}
-	
 	
 
 

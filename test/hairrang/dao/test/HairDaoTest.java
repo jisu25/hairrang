@@ -72,7 +72,7 @@ public class HairDaoTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testselectHairByName() {
 		System.out.printf("%s()%n","testselectHairByName()");
 		List<String> list =  dao.selectHairByName();

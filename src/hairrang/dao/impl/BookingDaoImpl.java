@@ -18,10 +18,14 @@ public class BookingDaoImpl implements BookingDao {
 
 	private static final BookingDaoImpl instance = new BookingDaoImpl();
 	
+	private BookingDaoImpl() {
+	}
+	
 	public static BookingDaoImpl getInstance() {
 		return instance;
 	}
 	
+
 	@Override
 	public List<Booking> selectBookByAll() {
 		

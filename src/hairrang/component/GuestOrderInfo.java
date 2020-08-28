@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.MailcapCommandMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -28,7 +30,7 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	//테스트
 	private GuestService gService;
 	private ArrayList<Guest> guestList;
-	private FrameGuestSearch mainFrame;
+	
 	//
 	
 	private JButton btnClose;
@@ -37,7 +39,7 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JLabel lblNewLabel;
 	private JPanel pTable;
 	private JScrollPane scrollPane;
-	private FrameGuestSearch guestSearch;
+	
 	private JLabel lblSetNo;
 	private GuestOrderInfoTable table;
 
@@ -54,7 +56,6 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 
 	private void initComponents() {
 		getContentPane().setLayout(null);
-		this.setMainFrame(mainFrame);
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 550, 450);
@@ -110,28 +111,19 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 			this.setVisible(false);
 		}
 	}
-	
-	public FrameGuestSearch getMainFrame() {
-		return mainFrame;
-	}
 
-
-	public void setMainFrame(FrameGuestSearch mainFrame) {
-		this.mainFrame = mainFrame;
-	}
-	
-	private Guest getSelectedGuest() {
-		int selectedRow = table.getSelectedRow();
-		return guestList.get(selectedRow);
-	}
-
-	public void selectGuest(String no) {
+	public void selectGuest(int guestNo, String guestName) {
 		
-		salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(Integer.parseInt(no)));
-		salesList.stream().forEach(System.out::println);
+		salesList = (ArrayList<Sales>) sService.selectSalesByGuestNo(new Sales(guestNo));
+		lblSetNo.setText(String.valueOf(guestNo));
+		lblSetName.setText(guestName);
+		
+		System.out.println(salesList.size());
+		if(salesList.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "내역없음");
+		}
 		table.setItems(salesList);
-		
-		
+		salesList.stream().forEach(System.out::println);
 		
 	}
 }

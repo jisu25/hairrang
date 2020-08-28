@@ -26,7 +26,11 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public List<Sales> selectSalesByAll() {
-		String sql = "SELECT * FROM SALES s LEFT OUTER JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) LEFT OUTER JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) LEFT OUTER JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)";
+
+		String sql = "SELECT * FROM SALES s \r\n" + 
+				"	LEFT OUTER JOIN HAIR h USING (HAIR_NO)\r\n" + 
+				"	LEFT OUTER JOIN GUEST g USING (GUEST_NO) \r\n" + 
+				"	LEFT OUTER JOIN EVENT e USING (EVENT_NO)";
 		try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql);
 					ResultSet rs = pstmt.executeQuery()){

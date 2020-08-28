@@ -1,6 +1,7 @@
 package hairrang.table;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -8,10 +9,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import hairrang.dto.Guest;
+import hairrang.dto.Sales;
 import hairrang.service.GuestService;
+import hairrang.service.SalesService;
 
 public class GuestSearchTable extends AbstractItemTable<Guest> {
-	private GuestService gService;
+	private GuestService gService = new GuestService();
+	private SalesService sService = new SalesService();
+	private List<Sales> salesList = sService.selectSalesByAll();
+	private List<Guest> guestList = gService.getGuestList();
 	
 	public GuestSearchTable() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -20,6 +20,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import hairrang.chart.HairrangChart;
+import hairrang.component.GuestManagement;
+import hairrang.component.SidePanel;
+import hairrang.component.GuestSearch;
+
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -27,8 +31,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel layeredPane;
 	private JPanel panel_1;
 	
-	private JPanel p1;
-	private JPanel p2;
+	private GuestManagement p1;
+	private GuestSearch p2;
 	private JPanel p3;
 	private JPanel p4;
 	private HairrangChart p5;
@@ -51,18 +55,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private Color mainColor = new Color(153, 102, 255);
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
-	private JPanel sidePanel;
+	private SidePanel sidePanel;
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 * 
-	 * @throws IOException
-	 * @throws FontFormatException
-	 */
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
 		initComponents();
@@ -78,7 +72,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.setLayout(null);
 		
 //		setTitle
-		
 
 		/* panel 정의 */
 
@@ -91,11 +84,11 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		// dto 수정하면서 각 패널들 고장나서 기본 JPanel로 바꿔 넣음
 		// dto에 맞게 구현하고 나면 morph 하세요.
 		
-		p1 = new JPanel();
+		p1 = new GuestManagement();
 		layeredPane.add(p1, "name_190917990402500");
 		p1.setLayout(null);
 
-		p2 = new JPanel();
+		p2 = new GuestSearch();
 		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
 
@@ -115,7 +108,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		/* 메뉴부 */
 		
 		String fontPath = System.getProperty("user.dir") + File.separator + "fonts" + File.separator;
-		InputStream is = HairshopManagementProgram.class.getResourceAsStream(fontPath + "GmarketSansTTFBold.ttf");
+//		InputStream is = HairshopManagementProgram.class.getResourceAsStream(fontPath + "GmarketSansTTFBold.ttf");
 		File gfont_file = new File(fontPath + "GmarketSansTTFBold.ttf");
 		Font gSansBold = Font.createFont(Font.TRUETYPE_FONT, gfont_file);
 		Font gSansBold28 = gSansBold.deriveFont(28f);
@@ -181,7 +174,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setFont(gSansBold20);
 		contentPane.add(lblMenuName);
 		
-		sidePanel = new JPanel();
+		sidePanel = new SidePanel();
 		sidePanel.setBounds(750, 90, 258, 639);
 		contentPane.add(sidePanel);
 	}
@@ -220,7 +213,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private void switchPanel(int i) {
 		layeredPane.removeAll();
 		layeredPane.add(pArr[i]);
-		layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
+		//지수얌 이거 적으면 패널 이동했다오면 내 패널 꺼져서 주석할게!
+		//layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
 		repaint();
 		revalidate();
 	}

@@ -1,5 +1,8 @@
 package hairrang.dao.test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -32,13 +35,15 @@ public class SalesDaoTest {
 		List<Sales> list = dao.selectSalesByAll();
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
+		
+		
 	}
 
 	
 	@Test
 	public void selectSalesByGuestNo() {
 		System.out.printf("%s()%n","selectSalesByGuestNo()");
-		List<Sales> list = dao.selectSalesByGuestNo(new Sales(1));
+		List<Sales> list = dao.selectSalesByGuestNo(new Sales(2));
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
 		
@@ -84,17 +89,17 @@ public class SalesDaoTest {
 			System.out.println(deleteSales);
 		}
 	*/
-//	@Test
-//	public void testselectSalesByDate() throws ParseException {
-//		System.out.printf("%s()%n","testselectSalesByDate()");
-//		SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
-//	
-//		Date befroe = Format.parse("2020-08-24");
-//		Date after = Format.parse("2020-08-26");
-//		
-//		List<Sales> daySales = dao.selectSalesByDate(befroe, after);
-//		Assert.assertNotNull(daySales);
-//		daySales.stream().forEach(System.out::println);
+	//@Test
+	public void testselectSalesByDate() throws ParseException {
+		System.out.printf("%s()%n","testselectSalesByDate()");
+		SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd");
+	
+		Date befroe = Format.parse("2020-08-24");
+		Date after = Format.parse("2020-08-26");
 		
-	//}
+		List<Sales> daySales = dao.selectSalesByDate(befroe, after);
+		Assert.assertNotNull(daySales);
+		daySales.stream().forEach(System.out::println);
+		
+	}
 }
