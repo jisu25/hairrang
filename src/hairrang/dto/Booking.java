@@ -61,7 +61,7 @@ public class Booking {
 	}
 
 	public void setBookTimeStr(Date bookDate) {
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("a HH:mm");
 		this.bookTimeStr = timeFormat.format(bookDate);
 	}
 	

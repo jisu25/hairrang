@@ -1,5 +1,6 @@
 package hairrang;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -22,8 +23,19 @@ public class Configuration {
 	public static Font NANUMSQ_EB_20 = CustomFonts.getNanumSqEB(20);
 	public static Font NANUMSQ_EB_28 = CustomFonts.getNanumSqEB(28);
 	
+	
+	/* Color */
+	public static Color mainColor = new Color(153, 102, 255);
+	public static Color lineGrayColor = new Color(225, 225, 225);
+	public static Color textDeepGrayColor = new Color(60, 60, 60);
+	
+	
+	
 	// tfDim : 텍스트필드 사이즈...
 	public static Dimension tfDim = new Dimension(140, 28); 
+	
+	// btnDim
+	public static Dimension btnDim = new Dimension(100, 32); 
 	
 	public static String[] menuNames = new String[] {"▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계"};
 }

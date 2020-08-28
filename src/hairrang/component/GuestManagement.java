@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.SpringLayout.Constraints;
 
+import hairrang.Configuration;
 import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestManagementTable;
@@ -60,12 +62,12 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
-		btnCancel.setBounds(345, 5, 101, 25);
+		btnCancel.setBounds(345, 5, Configuration.btnDim.width, Configuration.btnDim.height);
 		pBtn.add(btnCancel);
 
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
-		btnAdd.setBounds(460, 5, 101, 25);
+		btnAdd.setBounds(460, 5, Configuration.btnDim.width, Configuration.btnDim.height);
 		pBtn.add(btnAdd);
 
 		pTable = new JPanel();

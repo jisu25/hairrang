@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import hairrang.Configuration;
 import hairrang.service.SalesService;
+import javax.swing.border.EmptyBorder;
 
 public class SidePanel extends JPanel {
 	private JPanel pNotice;
@@ -32,7 +33,7 @@ public class SidePanel extends JPanel {
 		setLayout(null);
 		
 		JPanel pToday = new JPanel();
-		pToday.setBounds(new Rectangle(0, 0, 258, 100));
+		pToday.setBounds(new Rectangle(20, 20, 218, 60));
 		add(pToday);
 		pToday.setLayout(new BoxLayout(pToday, BoxLayout.Y_AXIS));
 		
@@ -46,11 +47,11 @@ public class SidePanel extends JPanel {
 		pToday.add(lblTodayCount);
 		
 		pNotice = new JPanel();
-		pNotice.setBounds(0, 100, 258, 200);
+		pNotice.setBounds(20, 100, 218, 140);
 		add(pNotice);
 		
 		pBooking = new BookingPanel();
-		pBooking.setBounds(0, 300, 258, 339);
+		pBooking.setBounds(20, 260, 218, 360);
 		add(pBooking);
 	}
 }

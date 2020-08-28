@@ -10,12 +10,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout.Constraints;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import hairrang.chart.HairrangChart;
@@ -56,7 +58,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JButton[] btnsMenu;
 	private String[] menuNames = new String[] { "▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계" };
 
-	private Color mainColor = new Color(153, 102, 255);
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
@@ -67,20 +68,29 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		setUIFont(CustomFonts.getNanumSqReg(14));
 
 		UIManager.put("Panel.background", Color.WHITE);
-		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(225, 225, 225)));
+		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, Configuration.lineGrayColor));
 		UIManager.put("TextField.inactiveBackground", Color.WHITE);
 		
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
-		UIManager.put("Button.foreground", Color.WHITE);
-		UIManager.put("Button.background", new Color(153, 102, 255));
-		UIManager.put("Button.border", BorderFactory.createEmptyBorder());
-		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
-		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
+		UIManager.put("Button.foreground", Configuration.mainColor);
+		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.mainColor, 1));
 		
-		UIManager.put("TableHeader.gridColor", new Color(225,225,225));
-		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
-		UIManager.put("Table.gridColor", new Color(225,225,225));
+		UIManager.put("RadioButton.background", Color.WHITE);
+		UIManager.put("RadioButton.font", CustomFonts.getNanumSqBold(14));
+		
+		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
+		
 		UIManager.put("ScrollPane.border", BorderFactory.createEmptyBorder());
+		UIManager.put("Viewport.background", Color.WHITE);
+		UIManager.put("Table.gridColor", Configuration.lineGrayColor);
+		
+		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
+		UIManager.put("TableHeader.gridColor", Configuration.lineGrayColor);
+		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
+		UIManager.put("TableHeader.background", Configuration.mainColor);
+		UIManager.put("TableHeader.foreground", Color.white);
+		
 		
 		
 		/* Frame 생성*/
@@ -135,7 +145,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		/* 메뉴부 */
 
 		menuPanel = new JPanel();
-		menuPanel.setBackground(mainColor);
+		menuPanel.setBackground(Configuration.mainColor);
 		menuPanel.setBounds(0, 0, 1008, 90);
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -236,7 +246,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		pArr[i].revalidate();
 		layeredPane.removeAll();
 		layeredPane.add(pArr[i]);
-		//지수얌 이거 적으면 패널 이동했다오면 내 패널 꺼져서 주석할게!
+		
 		//layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
 		repaint();
 		revalidate();
@@ -254,6 +264,17 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		while (keys.hasMoreElements()) {
 			Object key = keys.nextElement();
 			Object value = UIManager.get(key);
+			
+			String keyStr = String.valueOf(key);
+			int dotIdx = keyStr.lastIndexOf(".");
+			
+			if (dotIdx != -1) {
+				if (keyStr.substring(dotIdx + 1).equals("foreground")) {
+					System.out.println(keyStr);
+					UIManager.put(key, Configuration.textDeepGrayColor);
+				}
+			}
+				
 			if (value instanceof javax.swing.plaf.FontUIResource) {
 				UIManager.put(key, font);
 			}
