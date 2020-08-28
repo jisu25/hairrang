@@ -17,15 +17,8 @@ import hairrang.service.SalesService;
 @SuppressWarnings({ "serial", "hiding" })
 public abstract class AbstractItemTable<T> extends JTable {
     private CustomModel model;
-    private GuestService gService;
-    private SalesService sService;
-	private ArrayList<Guest> guestList;
-   
-    
-    
+
 	public AbstractItemTable() {
-    	gService = new GuestService();
-    	//guestList = (ArrayList<Guest>) gService.getGuestList();
     	initComponents();
     }
     
@@ -33,29 +26,28 @@ public abstract class AbstractItemTable<T> extends JTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-    void loadData(ArrayList<T> guestList) {
-    	//guestList = (ArrayList<Guest>) gService.getGuestList();
-    	model = new CustomModel(getRows(guestList), getColName() );
-    	
+    void loadData(ArrayList<T> itemList) {
+    	System.out.println("loadData : " + itemList);
+        model = new CustomModel(getRows(itemList), getColName());
         setModel(model);
         model.fireTableDataChanged();
     }
 
     abstract Object[] getColName();
 
-    Object[][] getRows(ArrayList<T> guestList) {
-        Object[][] rows = new Object[guestList.size()][];
+    Object[][] getRows(ArrayList<T> list) {
+    	System.out.println("getRows : " + list);
+        Object[][] rows = new Object[list.size()][];
         for(int i=0; i<rows.length; i++) {
-            rows[i] = toArray(guestList.get(i));
+            rows[i] = toArray(list.get(i));
         }
         return rows;
     }
 
     abstract Object[] toArray(T itemList);
-
-    public void setItems(ArrayList<T> guestList) {
-        loadData(guestList);
-        
+    
+    public void setItems(ArrayList<T> itemList) {
+        loadData(itemList);
         setWidthAndAlign();
     }
 
@@ -99,7 +91,6 @@ public abstract class AbstractItemTable<T> extends JTable {
 
     public void addRow(T item) {
         model.addRow(toArray(item));
-        
     }
 
     public void removeRow(int idx) {
