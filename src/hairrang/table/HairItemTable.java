@@ -15,8 +15,12 @@ import hairrang.service.HairService;
 public class HairItemTable extends AbstractItemTable<Hair> {
 	private HairService hService = new HairService();
 	private List<Hair> hairList = hService.getHairList();
+	private int count = 0;
 	
-	int count = 0;
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public HairItemTable() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
