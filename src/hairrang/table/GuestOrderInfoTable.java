@@ -46,49 +46,44 @@ public class GuestOrderInfoTable extends JTable {
 		tcm.getColumn(3).setCellRenderer(dtcr);
 		tcm.getColumn(4).setCellRenderer(dtcr);
 		tcm.getColumn(5).setCellRenderer(dtcr);
-		
-		tableSetWidth(60,100,120,100,80,100);
+
+		tableSetWidth(60, 100, 120, 100, 80, 100);
 	}
-	
-	private void tableSetWidth(int...width) {
+
+	private void tableSetWidth(int... width) {
 		TableColumnModel cModel = getColumnModel();
 		for (int i = 0; i < width.length; i++) {
 			cModel.getColumn(i).setPreferredWidth(width[i]);
 		}
-		
+
 	}
 
 	private Object[][] getRows(List<Sales> sales) {
+
 		Object[][] rows = new Object[sales.size()][];
 		for (int i = 0; i < rows.length; i++) {
 			rows[i] = toArray(sales.get(i));
 		}
-		return rows;
 
+		return rows;
 	}
-	
-	
+
 	private Object[] getColNames() {
-		return new String[] { "영업번호","주문 일자", "주문명", "단가", "이벤트명", "금액" };
+		return new String[] { "영업번호", "주문 일자", "주문명", "단가", "이벤트명", "금액" };
 	}
 
 	private Object[] toArray(Sales sales) {
-		double sum = sales.getHairNo().getPrice() * (1 - sales.getEventNo().getSale());
-		return new Object[] { 
-				
-				
-				sales.getSalesNo(),
-				sales.getSalesDay(),
-				sales.getHairNo().getHairName(),
-				sales.getHairNo().getPrice(),
+		// double sum = sales.getHairNo().getPrice() * (1 -
+		// sales.getEventNo().getSale());
+		return new Object[] {
+
+				sales.getSalesNo(), sales.getSalesDay(), sales.getHairNo().getHairName(), sales.getHairNo().getPrice(),
 				sales.getEventNo().getEventName(),
-				//할인율적용된 단가 셋하기
-				Math.round(sum)
-				
+				// 할인율적용된 단가 셋하기
+				// Math.round(sum)
+				sales.getTotalPrice()
 
 		};
 	}
-
-	
 
 }

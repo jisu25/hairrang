@@ -25,6 +25,7 @@ import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
 import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
+import hairrang.component.OrderDetail;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -34,7 +35,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private GuestManagement p1;
 	private GuestSearch p2;
 	private SalesTest p3;
-	private JPanel p4;
+	private OrderDetail p4;
 	private HairrangChart p5;
 	private JPanel emptyPane;
 
@@ -128,7 +129,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
 
-		p4 = new JPanel();
+		p4 = new OrderDetail();
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
 		
