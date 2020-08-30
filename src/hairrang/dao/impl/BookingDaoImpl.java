@@ -131,7 +131,7 @@ public class BookingDaoImpl implements BookingDao {
 			
 			return pstmt.executeUpdate();
 	
-		} catch (SQLException e) {
+		} catch (SQLException e) {	
 			throw new RuntimeException();
 		}
 	}
