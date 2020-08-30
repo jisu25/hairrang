@@ -49,7 +49,7 @@ public class EventDaoImpl implements EventDao {
 	private Event getEvent(ResultSet rs) throws SQLException {
 		int no = rs.getInt("EVENT_NO");
 		String name = rs.getString("EVENT_NAME");
-		double sale = rs.getDouble("EVENT_SALE");
+		double sale = rs.getDouble("SALE");
 		
 		return new Event(no, name, sale);
 	}

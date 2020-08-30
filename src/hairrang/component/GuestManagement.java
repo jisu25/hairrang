@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout.Constraints;
+import javax.swing.table.DefaultTableModel;
 
 import hairrang.Configuration;
 import hairrang.dto.Guest;
@@ -33,6 +35,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 	private GuestManagementTable table;
 	private GuestManagementPanel pGuest;
 	private int curr;
+	private DefaultTableModel model;
 
 	public GuestManagement() {
 
@@ -62,12 +65,12 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
-		btnCancel.setBounds(345, 5, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnCancel.setBounds(410, 0, Configuration.btnDim.width, Configuration.btnDim.height);
 		pBtn.add(btnCancel);
 
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
-		btnAdd.setBounds(460, 5, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnAdd.setBounds(520, 0, Configuration.btnDim.width, Configuration.btnDim.height);
 		pBtn.add(btnAdd);
 
 		pTable = new JPanel();
@@ -77,14 +80,13 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-		
+
 		table = new GuestManagementTable();
 		scrollPane.setViewportView(table);
-		
+
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 		table.setComponentPopupMenu(createPopMenu());
-		
 
 	}
 
@@ -104,7 +106,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 			if (e.getActionCommand().equals("수정"))
 				try {
 					btnUpdateActionPerformed();
-					
+
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
@@ -115,7 +117,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 	private Guest getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
-		
+
 		return guestList.get(selectedRow);
 	}
 
@@ -125,46 +127,52 @@ public class GuestManagement extends JPanel implements ActionListener {
 		try {
 			addGuest = pGuest.getGuest();
 			// System.out.println(addGuest);
-			
+
 			gService.addGuest(addGuest);
 			table.addRow(addGuest);
-			
+
 			guestList = (ArrayList<Guest>) gService.getGuestList();
 			table.setItems(guestList);
-			
+
 			curr++;
 
 			JOptionPane.showMessageDialog(null, String.format("%s님이 추가되었습니다.", addGuest.getGuestName()));
-			
-			
-			
+
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		pGuest.clearTf();
 		pGuest.setTfNo(curr);
-		
-		
 
 	}
 
 	// 수정
 	private void btnUpdateActionPerformed() throws ParseException {
-		
-		Guest updateGuest = getSelectedGuest();
-		Guest updateInfo = pGuest.getGuest();
+		guestList = (ArrayList<Guest>) gService.getGuestList();
+		// 패널에 업데이트된 정보를 저장
 
-		int idx = guestList.indexOf(updateGuest);
-		table.updateRow(idx, updateInfo);
-		gService.updateGuest(updateInfo);
-		JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.", updateGuest.getGuestName()));
+		Guest updateInfo = pGuest.getGuest();
+		Guest selectGuest = getSelectedGuest();
+
+		int guestNo = selectGuest.getGuestNo();
+		// System.out.println("수정전" + selectGuest);
+
+		// 게스트번호 조건으로 수정하는거니까
+		gService.selectGuestByNo(new Guest(guestNo));
+		selectGuest.setGuestName(updateInfo.getGuestName());
+		selectGuest.setBirthday(updateInfo.getBirthday());
+		selectGuest.setGender(updateInfo.getGender());
+		selectGuest.setPhone(updateInfo.getPhone());
+		selectGuest.setGuestNote(updateInfo.getGuestNote());
+
+		gService.updateGuest(selectGuest);
+		// System.out.println("수정후" + selectGuest);
+
+		JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.", selectGuest.getGuestName()));
 		pGuest.clearTf();
 		btnAdd.setText("추가");
-
-//			System.out.println(updateGuest);
-//			System.out.println(updateInfo);
+		table.setItems(guestList);
 
 	}
 
@@ -193,7 +201,6 @@ public class GuestManagement extends JPanel implements ActionListener {
 		return popMenu;
 	}
 
-	
 	ActionListener addActionlistener = new ActionListener() {
 
 		@Override
@@ -216,26 +223,25 @@ public class GuestManagement extends JPanel implements ActionListener {
 	// 팝업메뉴를 눌렀을때
 	protected void actionUpdate() throws ParseException {
 		int index = table.getSelectedRow();
-		if(index == -1) {
+		if (index == -1) {
 			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
 			return;
 		}
-		
+
 		JOptionPane.showMessageDialog(null, "정보 수정 후 수정버튼을 눌러주세요.");
 		Guest update = getSelectedGuest();
 		pGuest.setGuest(update);
 		btnAdd.setText("수정");
-		
 
 	}
 
 	protected void actionDelete() {
 		int index = table.getSelectedRow();
-		if(index == -1) {
+		if (index == -1) {
 			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
 			return;
 		}
-		
+
 		int idx = table.getSelectedRow();
 		Guest delete = getSelectedGuest();
 
@@ -250,7 +256,5 @@ public class GuestManagement extends JPanel implements ActionListener {
 		}
 
 	}
-	
-	
 
 }

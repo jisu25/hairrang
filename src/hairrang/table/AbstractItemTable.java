@@ -32,7 +32,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 
 
     void loadData(ArrayList<T> itemList) {
-    	System.out.println("loadData : " + itemList);
+    	//System.out.println("loadData : " + itemList);
         model = new CustomModel(getRows(itemList), getColName());
         setModel(model);
         model.fireTableDataChanged();
@@ -41,7 +41,7 @@ public abstract class AbstractItemTable<T> extends JTable {
     abstract Object[] getColName();
 
     Object[][] getRows(ArrayList<T> list) {
-    	System.out.println("getRows : " + list);
+    	//System.out.println("getRows : " + list);
         Object[][] rows = new Object[list.size()][];
         for(int i=0; i<rows.length; i++) {
             rows[i] = toArray(list.get(i));

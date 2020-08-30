@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
+import hairrang.Configuration;
 import hairrang.dto.Guest;
 import hairrang.exception.InValidationException;
 import hairrang.service.GuestService;
@@ -65,6 +66,16 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private void initComponents() {
 		setLayout(null);
 	
+		lblName = new JLabel("고  객  명 : ");
+		lblName.setBounds(100, 33, 70, 15);
+		add(lblName);
+		
+		tfName = new JTextField();
+		tfName.setColumns(10);
+		tfName.setBounds(185, 30, Configuration.tfDim.width, Configuration.tfDim.height);
+		add(tfName);
+		
+		
 		lblNo = new JLabel("고객 번호 : ");
 		lblNo.setBounds(100, 70, 70, 15);
 		add(lblNo);
@@ -72,24 +83,15 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		tfNo = new JTextField();
 		tfNo.setEditable(false);
 		tfNo.setColumns(10);
-		tfNo.setBounds(185, 61, 116, 25);
+		tfNo.setBounds(185, 65, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfNo);
 		
-		lblName = new JLabel("고  객  명 : ");
-		lblName.setBounds(100, 34, 70, 15);
-		add(lblName);
-		
-		tfName = new JTextField();
-		tfName.setColumns(10);
-		tfName.setBounds(185, 29, 116, 25);
-		add(tfName);
-		
 		lblBirthday = new JLabel("생년월일  : ");
-		lblBirthday.setBounds(100, 106, 70, 15);
+		lblBirthday.setBounds(100, 105, 70, 15);
 		add(lblBirthday);
 		
 		lblJoinDay = new JLabel("가입일자  : ");
-		lblJoinDay.setBounds(100, 139, 70, 15);
+		lblJoinDay.setBounds(100, 138, 70, 15);
 		add(lblJoinDay);
 		
 		tfJoinDay = new JTextField();
@@ -98,49 +100,49 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		new SimpleDateFormat("yyyy-MM-dd").format(join);
 		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(join));
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(185, 136, 116, 25);
+		tfJoinDay.setBounds(185, 135, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfJoinDay);
 		
 		lblGender = new JLabel("성       별 : ");
-		lblGender.setBounds(400, 32, 70, 15);
+		lblGender.setBounds(400, 31, 70, 15);
 		add(lblGender);
 		
 		lblPhone = new JLabel("연  락  처 : ");
-		lblPhone.setBounds(400, 69, 70, 15);
+		lblPhone.setBounds(400, 68, 70, 15);
 		add(lblPhone);
 		
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(478, 66, 116, 25);
+		tfPhone.setBounds(478, 65, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfPhone);
 		
 		lblNote = new JLabel("메      모  : ");
-		lblNote.setBounds(400, 106, 70, 15);
+		lblNote.setBounds(400, 105, 70, 15);
 		add(lblNote);
 		
 		rBtnFemale = new JRadioButton("여성");
 		buttonGroup.add(rBtnFemale);
-		rBtnFemale.setBounds(478, 31, 60, 23);
+		rBtnFemale.setBounds(478, 30, 60, 23);
 		add(rBtnFemale);
 		
 		rBtnMale = new JRadioButton("남성");
 		buttonGroup.add(rBtnMale);
-		rBtnMale.setBounds(542, 31, 60, 23);
+		rBtnMale.setBounds(542, 30, 60, 23);
 		add(rBtnMale);
 		
 		tfMemo = new JTextField();
 		tfMemo.setColumns(10);
-		tfMemo.setBounds(478, 103, 116, 25);
+		tfMemo.setBounds(478, 102, Configuration.tfDim.width, 60);
 		add(tfMemo);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(185, 100, 116, 25);
+		dateChooser.setBounds(185, 99, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(dateChooser);
 		
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
-		btnSearch.setBounds(313, 30, 71, 23);
+		btnSearch.setBounds(330, 33, 45, 25);
 		add(btnSearch);
 		
 		

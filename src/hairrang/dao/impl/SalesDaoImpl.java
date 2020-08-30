@@ -183,6 +183,20 @@ public class SalesDaoImpl implements SalesDao{
 		
 		return 0;
 	}
+
+	public int sequencesLastNumber() {
+		String sql = "SELECT LAST_NUMBER FROM user_sequences WHERE SEQUENCE_NAME = UPPER('SALES_SEQ')";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				return rs.getInt("LAST_NUMBER");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return 0;
+	}
 	
 	
 	/*

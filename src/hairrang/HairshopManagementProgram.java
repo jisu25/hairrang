@@ -10,20 +10,16 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout.Constraints;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import hairrang.chart.HairrangChart;
 
 import hairrang.chart.HairrangChart;
-
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
@@ -201,9 +197,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setFont(Configuration.GSANS_BOLD_20);
 		contentPane.add(lblMenuName);
 
-		sidePanel = new SidePanel();
-		sidePanel.setBounds(750, 90, 258, 639);
-		contentPane.add(sidePanel);
+//		sidePanel = new SidePanel();
+//		sidePanel.setBounds(750, 90, 258, 639);
+//		contentPane.add(sidePanel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -271,7 +267,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			
 			if (dotIdx != -1) {
 				if (keyStr.substring(dotIdx + 1).equals("foreground")) {
-					System.out.println(keyStr);
+					//System.out.println(keyStr);
 					UIManager.put(key, Configuration.textDeepGrayColor);
 				}
 			}
@@ -281,5 +277,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			}
 		}
 	}
+
+
 
 }

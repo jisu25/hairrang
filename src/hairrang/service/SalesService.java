@@ -31,5 +31,8 @@ public class SalesService {
 		return dao.getTodaySalesCount();
 	}
 	
+	public int getSalesNO() {
+		return dao.sequencesLastNumber();
+	}
 
 }
