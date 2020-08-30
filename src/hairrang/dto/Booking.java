@@ -42,7 +42,7 @@ public class Booking {
 		setBookTimeStr(bookDay);
 	}
 
-	public String getBookDateStr() {
+	public String getBookDayStr() {
 		return bookDayStr;
 	}
 
@@ -61,7 +61,7 @@ public class Booking {
 	}
 
 	public void setBookTimeStr(Date bookDay) {
-		SimpleDateFormat timeFormat = new SimpleDateFormat("a HH:mm");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("a hh:mm");
 		this.bookTimeStr = timeFormat.format(bookDay);
 	}
 	
