@@ -30,7 +30,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private JPanel contentPane;
 	private JPanel layeredPane;
-	private JPanel panel_1;
 
 	private GuestManagement p1;
 	private GuestSearch p2;
