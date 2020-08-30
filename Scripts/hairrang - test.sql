@@ -37,6 +37,8 @@ SELECT DETAIL_NO , s.*,h.*,g.*,e.*
 	
 				
 -------------------- 수정!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+SELECT * FROM SALES;
+				
 SELECT * FROM SALES s 
 	LEFT OUTER JOIN HAIR h USING (HAIR_NO)
 	LEFT OUTER JOIN GUEST g USING (GUEST_NO) 

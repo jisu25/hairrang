@@ -72,6 +72,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.background", Color.WHITE);
 		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.mainColor, 1));
 		
+		UIManager.put("CheckBox.background", Color.WHITE);
 		UIManager.put("RadioButton.background", Color.WHITE);
 		UIManager.put("RadioButton.font", CustomFonts.getNanumSqBold(14));
 		
@@ -196,9 +197,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setFont(Configuration.GSANS_BOLD_20);
 		contentPane.add(lblMenuName);
 
-//		sidePanel = new SidePanel();
-//		sidePanel.setBounds(750, 90, 258, 639);
-//		contentPane.add(sidePanel);
+		sidePanel = new SidePanel();
+		sidePanel.setBounds(750, 90, 258, 639);
+		contentPane.add(sidePanel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -276,7 +277,4 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			}
 		}
 	}
-
-
-
 }

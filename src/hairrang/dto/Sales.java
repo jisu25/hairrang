@@ -11,6 +11,7 @@ public class Sales {
 	private Event eventNo;
 	private Hair hairNo;
 	private List<Hair> list;
+	private int totalPrice;
 	public Sales() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,24 @@ public class Sales {
 		this.hairNo = hairNo;
 	}
 	
+	public Sales(int salesNo, Date salesDay, Guest guestNo, Event eventNo, Hair hairNo, int totalPrice) {
+		super();
+		this.salesNo = salesNo;
+		this.salesDay = salesDay;
+		this.guestNo = guestNo;
+		this.eventNo = eventNo;
+		this.hairNo = hairNo;
+		this.totalPrice = totalPrice;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	public List<Hair> getList() {
 		return list;
 	}
@@ -71,11 +90,15 @@ public class Sales {
 	public void setHairNo(Hair hairNo) {
 		this.hairNo = hairNo;
 	}
+
 	@Override
 	public String toString() {
 		return "Sales [salesNo=" + salesNo + ", salesDay=" + salesDay + ", guestNo=" + guestNo + ", eventNo=" + eventNo
-				+ ", hairNo=" + hairNo + "]";
+				+ ", hairNo=" + hairNo + ", totalPrice=" + totalPrice + "]";
 	}
+
+	
+	
 	
 
 	

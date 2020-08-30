@@ -17,6 +17,8 @@ public interface SalesDao {
 	
 	// 언니쪽(고객검색)에서 필요한 메서드임 만들어야 해
 	List<Sales> selectSalesByGuestNo(Sales sales);
+	
+	int sequencesLastNumber();
 
 	int insertSales(Sales sales);
 	

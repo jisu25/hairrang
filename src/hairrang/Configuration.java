@@ -32,7 +32,7 @@ public class Configuration {
 	
 	
 	// tfDim : 텍스트필드 사이즈...
-	public static Dimension tfDim = new Dimension(140, 28); 
+	public static Dimension tfDim = new Dimension(120, 28); 
 	
 	// btnDim
 	public static Dimension btnDim = new Dimension(100, 32); 
