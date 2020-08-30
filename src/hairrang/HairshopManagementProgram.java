@@ -197,9 +197,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		lblMenuName.setFont(Configuration.GSANS_BOLD_20);
 		contentPane.add(lblMenuName);
 
-//		sidePanel = new SidePanel();
-//		sidePanel.setBounds(750, 90, 258, 639);
-//		contentPane.add(sidePanel);
+		sidePanel = new SidePanel();
+		sidePanel.setBounds(750, 90, 258, 639);
+		contentPane.add(sidePanel);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -277,7 +277,4 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			}
 		}
 	}
-
-
-
 }

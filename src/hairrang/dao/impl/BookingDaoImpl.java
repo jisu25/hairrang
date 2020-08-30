@@ -89,7 +89,7 @@ public class BookingDaoImpl implements BookingDao {
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
 			pstmt.setInt(1, book.getGuestNo().getGuestNo());
-			pstmt.setDate(2, new java.sql.Date(book.getBookDate().getTime()));
+			pstmt.setDate(2, new java.sql.Date(book.getBookDay().getTime()));
 			pstmt.setInt(3, book.getHairNo().getHairNo());
 			pstmt.setString(4, book.getBookNote());
 			
@@ -102,13 +102,13 @@ public class BookingDaoImpl implements BookingDao {
 
 	@Override
 	public int updateBook(Booking book) {
-		String sql = "UPDATE BOOKING SET GUEST_NO = ?, BOOK_DATE = ?, HAIR_NO = ?, BOOK_NOTE = ? WHERE BOOK_NO= ?";
+		String sql = "UPDATE BOOKING SET GUEST_NO = ?, BOOK_DAY = ?, HAIR_NO = ?, BOOK_NOTE = ? WHERE BOOK_NO= ?";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 
 			pstmt.setInt(1, book.getGuestNo().getGuestNo());
-			pstmt.setDate(2, new java.sql.Date(book.getBookDate().getTime()));
+			pstmt.setDate(2, new java.sql.Date(book.getBookDay().getTime()));
 			pstmt.setInt(3, book.getHairNo().getHairNo());
 			pstmt.setString(4, book.getBookNote());
 			pstmt.setInt(5, book.getBookNo());
@@ -151,10 +151,10 @@ public class BookingDaoImpl implements BookingDao {
 		Hair hairNo = hDao.selectHairByNo(new Hair(rs.getInt("HAIR_NO")));
 		
 		int no = rs.getInt("BOOK_NO");
-		Date bookDate = new Date(rs.getDate("BOOK_DAY").getTime());
+		Date bookDay = new Date(rs.getDate("BOOK_DAY").getTime());
 		String note = rs.getString("BOOK_NOTE");
 		
-		Booking book = new Booking(no, guestNo, bookDate, hairNo, note);
+		Booking book = new Booking(no, guestNo, bookDay, hairNo, note);
 
 //		System.out.println(book);
 //		System.out.println(book.getBookDateStr() + " " + book.getBookTimeStr());

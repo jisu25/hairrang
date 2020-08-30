@@ -7,8 +7,8 @@ public class Booking {
 	
 	private int bookNo;
 	private Guest guestNo;
-	private Date bookDate;
-	private String bookDateStr;
+	private Date bookDay;
+	private String bookDayStr;
 	private String bookTimeStr;
 	private Hair hairNo;
 	private String bookNote;
@@ -21,48 +21,48 @@ public class Booking {
 		this.bookNo = bookNo;
 	}
 
-	public Booking(int bookNo, Guest guestNo, Date bookDate, Hair hairNo, String bookNote) {
+	public Booking(int bookNo, Guest guestNo, Date bookDay, Hair hairNo, String bookNote) {
 		this.bookNo = bookNo;
 		this.guestNo = guestNo;
-		this.bookDate = bookDate;
+		this.bookDay = bookDay;
 		this.hairNo = hairNo;
 		this.bookNote = bookNote;
 		
-		setBookDateStr(bookDate);
-		setBookTimeStr(bookDate);
+		setBookDayStr(bookDay);
+		setBookTimeStr(bookDay);
 	}
 
-	public Date getBookDate() {
-		return bookDate;
+	public Date getBookDay() {
+		return bookDay;
 	}
 
-	public void setBookDate(Date bookDate) {
-		this.bookDate = bookDate;
-		setBookDateStr(bookDate);
-		setBookTimeStr(bookDate);
+	public void setBookDay(Date bookDay) {
+		this.bookDay = bookDay;
+		setBookDayStr(bookDay);
+		setBookTimeStr(bookDay);
 	}
 
 	public String getBookDateStr() {
-		return bookDateStr;
+		return bookDayStr;
 	}
 
 	
-	public void setBookDateStr(Date bookDate) {
+	public void setBookDayStr(Date bookDay) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		this.bookDateStr = dateFormat.format(bookDate);
+		this.bookDayStr = dateFormat.format(bookDay);
 	}
 	
-	public void setBookDateStr(String bookDateStr) {
-		this.bookDateStr = bookDateStr;
+	public void setBookDayStr(String bookDayStr) {
+		this.bookDayStr = bookDayStr;
 	}
 
 	public String getBookTimeStr() {
 		return bookTimeStr;
 	}
 
-	public void setBookTimeStr(Date bookDate) {
+	public void setBookTimeStr(Date bookDay) {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("a HH:mm");
-		this.bookTimeStr = timeFormat.format(bookDate);
+		this.bookTimeStr = timeFormat.format(bookDay);
 	}
 	
 	public void setBookTimeStr(String bookTimeStr) {
@@ -103,8 +103,8 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return String.format("Booking [bookNo=%s, guestNo=%s, bookDate=%s, bookDateStr=%s, bookTimeStr=%s, hairNo=%s, bookNote=%s]", bookNo,
-				guestNo, bookDate, bookDateStr, bookTimeStr, hairNo, bookNote);
+		return String.format("Booking [bookNo=%s, guestNo=%s, bookDay=%s, bookDayStr=%s, bookTimeStr=%s, hairNo=%s, bookNote=%s]", bookNo,
+				guestNo, bookDay, bookDayStr, bookTimeStr, hairNo, bookNote);
 	}
 
 	@Override
