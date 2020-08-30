@@ -288,8 +288,7 @@ public class SalesOrderPanel extends JPanel {
 	// 고객검색에서 주문 눌렀을때 고객명, 고객번호 set
 	public void setGuest(int no, String name) {
 		// System.out.println("오나");
-		System.out.println(no + name);
-
+		
 		tfGuestNo.setText(String.valueOf(no));
 		tfGuestName.setText(name);
 		System.out.println(tfGuestNo.getText() + tfGuestName.getText());
