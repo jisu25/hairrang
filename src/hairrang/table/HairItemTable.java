@@ -79,6 +79,12 @@ public class HairItemTable extends AbstractItemTable<Hair> {
 	public List<Hair> getHairList() {
 		return hairList;
 	}
+
+	public Hair getSelectedRow(int selectIndex) {
+		return hairList.get(selectIndex);
+		
+		
+	}
 	
 	
 	
