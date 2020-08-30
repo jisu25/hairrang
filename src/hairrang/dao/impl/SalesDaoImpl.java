@@ -80,15 +80,14 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public int insertSales(Sales sales) {
-		String sql = "INSERT INTO SALES VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO SALES VALUES (SALES_SEQ.NEXTVAL,?,?,?,?,?)";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setInt(1, sales.getSalesNo());
-			pstmt.setTimestamp(2, new java.sql.Timestamp(sales.getSalesDay().getTime()));
-			pstmt.setInt(3, sales.getGuestNo().getGuestNo());
-			pstmt.setInt(4, sales.getEventNo().getEventNo());
-			pstmt.setInt(5, sales.getHairNo().getHairNo());
-			pstmt.setInt(6, sales.getTotalPrice());
+			pstmt.setTimestamp(1, new java.sql.Timestamp(sales.getSalesDay().getTime()));
+			pstmt.setInt(2, sales.getGuestNo().getGuestNo());
+			pstmt.setInt(3, sales.getEventNo().getEventNo());
+			pstmt.setInt(4, sales.getHairNo().getHairNo());
+			pstmt.setInt(5, sales.getTotalPrice());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

@@ -32,7 +32,7 @@ public class SalesDaoTest {
 
 	}
 
-	@Test
+	//@Test
 	public void testSelectSalesByAll() {
 		System.out.printf("%s()%n", "testSelectSalesByAll()");
 		List<Sales> list = dao.selectSalesByAll();
@@ -50,7 +50,7 @@ public class SalesDaoTest {
 
 	}
 
-	//@Test
+	@Test
 	public void testInsertSales() {
 		System.out.printf("%s()%n", "testInsertSales()");
 		Calendar cal = Calendar.getInstance();
@@ -58,7 +58,7 @@ public class SalesDaoTest {
 		// 달은 +1이 되어서계산해서 넣어야함
 		Date day = new Date(cal.getTimeInMillis());
 
-		Sales newSales = new Sales(7, day, new Guest(1), new Event(1), new Hair(1),40000);
+		Sales newSales = new Sales(6, day, new Guest(1), new Event(1), new Hair(1),40000);
 		int res = dao.insertSales(newSales);
 		Assert.assertEquals(1, res);
 	}
