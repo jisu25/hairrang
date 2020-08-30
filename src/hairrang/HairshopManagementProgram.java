@@ -76,6 +76,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.background", Color.WHITE);
 		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.mainColor, 1));
 		
+		UIManager.put("CheckBox.background", Color.WHITE);
 		UIManager.put("RadioButton.background", Color.WHITE);
 		UIManager.put("RadioButton.font", CustomFonts.getNanumSqBold(14));
 		

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import hairrang.Configuration;
 import hairrang.service.SalesService;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
 
 public class SidePanel extends JPanel {
 	private JPanel pNotice;
@@ -18,6 +19,7 @@ public class SidePanel extends JPanel {
 	private String todayCount;
 	
 	public SidePanel() {
+		setBackground(new Color(255, 250, 205));
 		
 		sService = new SalesService();
 		todayCount = String.valueOf(sService.getTodaySalesCount());
@@ -37,7 +39,7 @@ public class SidePanel extends JPanel {
 		add(pToday);
 		pToday.setLayout(new BoxLayout(pToday, BoxLayout.Y_AXIS));
 		
-		JLabel lblToday = new JLabel("TODAY");
+		JLabel lblToday = new JLabel("방문 고객");
 		lblToday.setFont(Configuration.GSANS_BOLD_20);
 		pToday.add(lblToday);
 		
