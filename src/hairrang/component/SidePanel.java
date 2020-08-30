@@ -29,7 +29,6 @@ public class SidePanel extends JPanel {
 	}
 	
 	private void initComponents() {
-		CustomFonts font = new CustomFonts();
 		
 		setBounds(new Rectangle(0, 0, 258, 639));
 		setLayout(null);
