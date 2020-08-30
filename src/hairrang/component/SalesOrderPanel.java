@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.peer.PopupMenuPeer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -176,35 +177,50 @@ public class SalesOrderPanel extends JPanel {
 	}
 
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
-	public Sales getSales() {
-		Guest guest;
-		if (tfGuestName.getText().trim().equals("")) {
-			guest = new Guest("비회원");
-		} else {
-			int gNo = Integer.parseInt(tfGuestNo.getText().trim());
-			guest = guestService.selectGuestByNo(new Guest(gNo));
-		}
+	public List<Sales> getSales() {
+		List<Sales> list = new ArrayList<Sales>();
 
-		Event event = null;
-		for (int i = 0; i < eventList.size(); i++) {
-			if (eventList.get(i).getEventName().equals(comboEvent.getSelectedItem().toString())) {
-				event = eventList.get(i);
+		int no = salesService.getSalesNO();
+		for (int j = 0; j < htable.getHairList().size(); j++) {
+			Hair hair = null;
+			int totalPrice;
+			
+			for (int i = 0; i < hairList.size(); i++) {
+				if (hairList.get(i).getHairName().equals(comboHair.getSelectedItem().toString())) {
+					hair = hairList.get(i);
+				}
+			}
+			
+			Event event = null;
+			try{
+			
+			for (int i = 0; i < eventList.size(); i++) {
+				if (eventList.get(i).getEventName().equals(comboEvent.getSelectedItem().toString())) {
+					event = eventList.get(i);
+				}
+			}
+			}catch (NullPointerException e) {
+				event = new  Event(0, null, 0);
+			}finally {
+
+			Guest guest;
+			if (tfGuestName.getText().trim().equals("")) {
+				guest = new Guest("비회원");
+			} else {
+				int gNo = Integer.parseInt(tfGuestNo.getText().trim());
+				guest = guestService.selectGuestByNo(new Guest(gNo));
+			}
+
+			Date day = new Date(System.currentTimeMillis());
+			int res = (int) (hair.getPrice()*event.getSale());
+			totalPrice = hair.getPrice() - res;
+							
+			list.add(new Sales(no++, day, guest, event, hair,totalPrice));
+			System.out.println(no);
 			}
 		}
+		return list;
 
-		Hair hair = null;
-		for (int i = 0; i < hairList.size(); i++) {
-			if (hairList.get(i).getHairName().equals(comboHair.getSelectedItem().toString())) {
-				hair = hairList.get(i);
-			}
-		}
-
-		String str = tfSalesNo.getText().trim();
-		int no = Integer.parseInt(str.substring(0, str.length() - 1));
-		Date day = new Date(System.currentTimeMillis());
-
-		System.out.println(new Sales(no, day, guest, event, hair));
-		return new Sales(no, day, guest, event, hair);
 	}
 
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -255,6 +271,7 @@ public class SalesOrderPanel extends JPanel {
 	protected void addEventItemResult(ActionEvent e) {
 		int selectIndex = comboEvent.getSelectedIndex();
 		if (selectIndex == -1) {
+			tfTotalPrice.setText(tfSumPrice.getText().trim());
 			return;
 		}
 		for (int i = 0; i < eventList.size(); i++) {
@@ -348,7 +365,28 @@ public class SalesOrderPanel extends JPanel {
 
 	}
 
-	class CustomPopupMenu extends JPopupMenu {
+	public void subSumTotal(Hair hair) {
+		if (comboEvent.getSelectedItem() == null) {
+			String str = tfSumPrice.getText().trim();
+			int sum = Integer.parseInt(str.substring(0, str.length() - 1));
+			tfSumPrice.setText((sum - hair.getPrice()) + "원");
+			tfTotalPrice.setText((sum - hair.getPrice()) + "원");
+			return;
+		}
+		String str = tfSumPrice.getText().trim();
+		int sum = Integer.parseInt(str.substring(0, str.length() - 1));
+		tfSumPrice.setText((sum - hair.getPrice()) + "원");
+
+		for (int i = 0; i < eventList.size(); i++) {
+			if (eventList.get(i).getEventName().equals(comboEvent.getSelectedItem().toString())) {
+				int salePrice = (int) ((sum - hair.getPrice()) * eventList.get(i).getSale());
+				System.out.println(salePrice);
+				int res = (sum - hair.getPrice()) - salePrice;
+				tfTotalPrice.setText(res + "원");
+				tfSale.setText(String.format("%.0f", eventList.get(i).getSale() * 100) + "%");
+				System.out.println(eventList.get(i).getSale() * 100 + "%");
+			}
+		}
 
 	}
 

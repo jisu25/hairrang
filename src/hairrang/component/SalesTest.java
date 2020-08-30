@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -12,6 +13,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import hairrang.dto.Hair;
+import hairrang.dto.Sales;
 import hairrang.table.HairItemTable;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -104,17 +106,19 @@ public class SalesTest extends JPanel {
 			if (e.getSource() == btnCancel) {
 				btnCancelAction();
 			}
-			if(e.getSource() == btnGuestSreach) {
-				
+			if (e.getSource() == btnGuestSreach) {
+
 			}
-			if(e.getSource() == btnOrder) {
+			if (e.getSource() == btnOrder) {
 				salesPanel.getSales();
+				System.out.println(salesPanel.getSales());
 			}
-			if(e.getActionCommand().equals("상품삭제")) {
+			if (e.getActionCommand().equals("상품삭제")) {
 				deleteHairItem(e);
 			}
-			
-		}	
+
+		}
+
 	};
 
 	public JPopupMenu createPopMenu() {
@@ -130,15 +134,19 @@ public class SalesTest extends JPanel {
 		System.out.println("액션시작");
 		salesPanel.clearTf();
 		table.setCount(0);
-		
 
 	}
+
 	private void deleteHairItem(ActionEvent e) {
 		int selectIndex = table.getSelectedRow();
-		if(selectIndex == -1) {
+		if (selectIndex == -1) {
 			return;
 		}
 		System.out.println(selectIndex);
-		table.removeRow(selectIndex);	
+		Hair selectHair = table.getSelectedRow(selectIndex);
+		table.removeRow(selectIndex);
+		salesPanel.subSumTotal(selectHair);
 	}
+
+
 }
