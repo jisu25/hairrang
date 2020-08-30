@@ -31,7 +31,7 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public List<Booking> selectBookByAll() {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DATE, HAIR_NO, BOOK_NOTE FROM BOOKING";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery() ) {
