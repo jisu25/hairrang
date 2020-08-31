@@ -150,16 +150,29 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 	// 수정
 	private void btnUpdateActionPerformed() throws ParseException {
-		
-		Guest updateGuest = getSelectedGuest();
+		//패널의 정보를 받고 테이블의 인덱스를 얻어서 인덱스->정보 변경
+		//Guest guest = getSelectedGuest();
+		//셋팅된 사람의 고객번호를 뽑아서 고객번호의 정보를 변경
 		Guest updateInfo = pGuest.getGuest();
-
-		int idx = guestList.indexOf(updateGuest);
-		table.updateRow(idx, updateInfo);
-		gService.updateGuest(updateInfo);
-		JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.", updateGuest.getGuestName()));
+		
+		guestList = (ArrayList<Guest>) gService.getGuestList();
+		Guest guest = getSelectedGuest();
+		int no = guest.getGuestNo();
+		Guest selectGuest = gService.selectGuestByNo(new Guest(no));
+		System.out.println(selectGuest.getGuestNo());
+		
+		gService.updateGuest(new Guest(no));
+		
+		
+		//int idx = guestList.indexOf(updateInfo);//이게오류
+	
+		
+		//JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.", guest.getGuestName()));
 		pGuest.clearTf();
 		btnAdd.setText("추가");
+
+		
+		
 
 //			System.out.println(updateGuest);
 //			System.out.println(updateInfo);

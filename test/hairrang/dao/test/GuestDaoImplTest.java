@@ -86,16 +86,16 @@ public class GuestDaoImplTest {
 	@Test
 	public void test05UpdateGuest() {
 		System.out.printf("%s()%n", "test05UpdateGuest");
-		Guest update = dao.selectGuestByNo(new Guest(6));
+		Guest update = dao.selectGuestByNo(new Guest(1));
 		
 		Calendar c = Calendar.getInstance();
 		c.set(1999, 05, 29);
 		Date birth = new Date(c.getTimeInMillis());
 		
-		update.setGuestName("김변경");
+		update.setGuestName("김혜진");
 		update.setBirthday(birth);
 		update.setPhone("010-5290-5290");
-		update.setGender(2);
+		//update.setGender(2);
 		update.setGuestNote("변경변경");
 		
 		int res = dao.updateGuest(update);

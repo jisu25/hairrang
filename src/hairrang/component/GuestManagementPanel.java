@@ -202,6 +202,10 @@ public class GuestManagementPanel extends JPanel {
 
 	}
 	
+	public String tfNo() {
+		return String.valueOf(tfNo.getText().trim());
+	}
+	
 	private void isEmpty() {
 		String error = "";
 		if(tfName.getText().isEmpty()) {
