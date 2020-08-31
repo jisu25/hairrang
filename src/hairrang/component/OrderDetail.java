@@ -156,4 +156,17 @@ public class OrderDetail extends JPanel {
 		}
 	}
 	
+	public void clreaTf() {
+		Calendar beforecal = Calendar.getInstance();
+		Calendar aftercal = Calendar.getInstance();
+		System.out.println("일주일 실행");
+		
+		beforecal.add(Calendar.DATE, -7);
+		beforeDate.setDate(beforecal.getTime());
+		afterDate.setDate(aftercal.getTime());
+		beforecal = Calendar.getInstance();
+		aftercal = Calendar.getInstance();
+	};
+	
+	
 }

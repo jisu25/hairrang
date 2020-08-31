@@ -12,7 +12,12 @@ public class Hair {
 		this.hairNo = hairNo;
 	}
  
-	
+
+
+	public Hair(String hairName) {
+		super();
+		this.hairName = hairName;
+	}
 
 	public Hair(String hairName, int price) {
 		super();

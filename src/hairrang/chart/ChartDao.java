@@ -53,17 +53,18 @@ import hairrang.dto.Sales;
 				conn = JdbcUtil.getConnection();
 
 				// 쿼리문 세팅
-				String query = "SELECT s.SALES_NO ,TO_CHAR( s.SALES_DAY ,'YYYY-MM-DD') day,g.GUEST_NAME,h.HAIR_NAME  ,e.EVENT_NAME ,h.PRICE " + 
+				String query = "SELECT s.SALES_NO ,TO_CHAR( s.SALES_DAY ,'YYYY-MM-DD') day,g.GUEST_NAME,h.HAIR_NAME  ,e.EVENT_NAME ,s.TOTAL_PRICE " + 
 						"FROM SALES s" + 
 						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO " + 
 						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO " + 
 						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO " + 
-						"WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?";
+						"WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?"	+
+						"ORDER BY S.SALES_NO ";
 				ps = conn.prepareStatement(query);
 				ps.setInt(1, startYear);
 				ps.setInt(2, endYear);
 				
-
+ 
 				// 쿼리문 실행
 				rs = ps.executeQuery();
 
@@ -84,9 +85,9 @@ import hairrang.dto.Sales;
 //					hairrangDto.setEventName(rs.getString(5));
 //					hairrangDto.setPrice(rs.getInt(6));
 					
-					Sales sales = new Sales(rs.getInt("SALES_NO"),rs.getDate("day"));
+					Sales sales = new Sales(rs.getInt("SALES_NO"),rs.getDate("day"),rs.getInt("TOTAL_PRICE"));
 					Guest guest = new Guest(rs.getString("GUEST_NAME"));
-					Hair hair = new Hair(rs.getString("HAIR_NAME"),rs.getInt("PRICE"));
+					Hair hair = new Hair(rs.getString("HAIR_NAME"));
 					Event event = new Event(rs.getString("EVENT_NAME"));
 //					S.SALES_NO ,h.HAIR_NAME,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') ,g.GUEST_NAME  ,E.EVENT_NAME ,H.PRICE
 
@@ -124,12 +125,13 @@ import hairrang.dto.Sales;
 				conn = JdbcUtil.getConnection();
 
 				// 쿼리문 세팅
-				String query = "SELECT S.SALES_NO 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') 영업일자 ,g.GUEST_NAME 고객명  ,E.EVENT_NAME 이벤트명 ,H.PRICE 가격\r\n" + 
+				String query = "SELECT S.SALES_NO 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') 영업일자 ,g.GUEST_NAME 고객명  ,E.EVENT_NAME 이벤트명 ,s.TOTAL_PRICE  가격\r\n" + 
 						"FROM SALES s\r\n" + 
 						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO \r\n" + 
 						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO \r\n" + 
 						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO \r\n" + 
-						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') =  ?";
+						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') =  ?"+
+						"   ORDER BY SALES_NO";
 				ps = conn.prepareStatement(query);
 				ps.setInt(1, year);
 
@@ -146,18 +148,18 @@ import hairrang.dto.Sales;
 //					ps.setString(4, hairrangDto.getHairname().getHairName());
 //					ps.setString(5, hairrangDto.getEventname().getEventName());
 //					ps.setInt(6, hairrangDto.getPrice().getPrice());
-	 				Sales sales = new Sales();
-					Guest guest = new Guest();
-					Hair hair = new Hair();
-					Event event = new Event();
+					Sales sales = new Sales(rs.getInt("SALES_NO"),rs.getDate("day"),rs.getInt("TOTAL_PRICE"));
+					Guest guest = new Guest(rs.getString("GUEST_NAME"));
+					Hair hair = new Hair(rs.getString("HAIR_NAME"));
+					Event event = new Event(rs.getString("EVENT_NAME"));
+//					S.SALES_NO ,h.HAIR_NAME,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') ,g.GUEST_NAME  ,E.EVENT_NAME ,H.PRICE
+
+
 					
-					sales.setSalesNo(rs.getInt(1));
-					sales.setSalesDay(rs.getDate(2));
-					guest.setGuestName(rs.getString(3));
-					hair.setHairName(rs.getString(4));
-					event.setEventName(rs.getString(5));
-					hair.setPrice(rs.getInt(6));
-					
+
+					HairrangDto hairrangDto=new HairrangDto(sales,guest,hair,event);
+
+					list.add(hairrangDto);
 				//	list.add(hairrangDto);
 				}
 
