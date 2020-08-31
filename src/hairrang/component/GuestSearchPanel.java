@@ -47,7 +47,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private GuestService gService;
 	private ArrayList<Guest> guestList;
-	private GuestSearch mainFrame;
+	private GuestSearch guestSearch;
 	
 	
 
@@ -215,16 +215,17 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "한글과 영어만 입력가능");
 			return;
 		}
-		mainFrame.searchResult(search);
+		guestSearch.searchResult(search);
 		System.out.println(search);
 	}
 	
 	public GuestSearch getMainFrame() {
-		return mainFrame;
+		return guestSearch;
 	}
 
-	public void setMainFrame(GuestSearch mainFrame) {
-		this.mainFrame = mainFrame;
+	// 내 부모는 GuestSearch야~
+	public void setGuestSearch(GuestSearch guestSearch) {
+		this.guestSearch = guestSearch;
 	}
 	
 	
