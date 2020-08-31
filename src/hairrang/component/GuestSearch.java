@@ -177,10 +177,11 @@ public class GuestSearch extends JPanel implements ActionListener {
 		}
 		
 		Guest guest = getSelectedGuest();
+		
 		int no = guest.getGuestNo();
 		String name = guest.getGuestName();
-		program.switchPanel(2);
 		orderPanel.setGuest(no, name);
+		program.switchPanel(2);
 		
 	}
 

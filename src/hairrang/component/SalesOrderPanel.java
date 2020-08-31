@@ -39,6 +39,7 @@ public class SalesOrderPanel extends JPanel {
 	private JTextField tfGuestName;
 	private JTextField tfGuestNo;
 	private JTextField tfSale;
+
 	private JCheckBox checkMember;
 	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
 	HairService hairService = new HairService();
@@ -52,9 +53,10 @@ public class SalesOrderPanel extends JPanel {
 	private JTextField tfTotalPrice = new JTextField();
 	private List<Hair> hairList = hairService.getHairList();
 	private List<Event> eventList = eventService.getEventList();
+	
 
 	public SalesOrderPanel() {
-
+		
 		setLayout(null);
 		JLabel lblSalesNo = new JLabel("영업번호 :");
 		lblSalesNo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -130,7 +132,9 @@ public class SalesOrderPanel extends JPanel {
 		tfGuestNo.setColumns(10);
 		tfGuestNo.setEditable(false);
 		tfGuestNo.setBounds(86, 191, 115, 21);
+		
 		add(tfGuestNo);
+		
 
 		JLabel lblSale = new JLabel("할인율 :");
 		lblSale.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,6 +166,8 @@ public class SalesOrderPanel extends JPanel {
 
 		comboHair.addActionListener(addActionlistener);
 		comboEvent.addActionListener(addActionlistener);
+		
+		
 	}
 
 	public void setHtable(HairItemTable htable) {
@@ -174,6 +180,15 @@ public class SalesOrderPanel extends JPanel {
 
 	public void setTfTotalPrice(JTextField tfTotalPrice) {
 		this.tfTotalPrice = tfTotalPrice;
+	}
+	
+
+	public JTextField getTfGuestNo() {
+		return tfGuestNo;
+	}
+
+	public void setTfGuestNo(JTextField tfGuestNo) {
+		this.tfGuestNo = tfGuestNo;
 	}
 
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -224,9 +239,27 @@ public class SalesOrderPanel extends JPanel {
 	}
 
 	// 수정해야함!!!!!!!!!!!!!!!!!!!!!!!!!
-	public void setSales(Guest guest) {
-		tfGuestName.setText(guest.getGuestName());
+//	public void setSales(Guest guest) {
+//		tfGuestName.setText(guest.getGuestName());
+//		tfGuestNo.setText(String.valueOf(guest.getGuestNo()));
+//
+//	}
+//	
+//	// 고객검색에서 주문 눌렀을때 고객명, 고객번호 set
+	public void setGuest(int no, String name) {
+		
+		tfGuestName.setText("");
+		
+		tfGuestNo.setEditable(true);
+		tfGuestName.setEditable(true);
+		
+		Guest guest = guestService.selectGuestByNo(new Guest(no));
 		tfGuestNo.setText(String.valueOf(guest.getGuestNo()));
+		tfGuestName.setText(guest.getGuestName());
+		System.out.println("메소드소환" + no + name);
+		System.out.println("tf필드값 " + tfGuestNo.getText() + tfGuestName.getText());
+		
+		
 
 	}
 
@@ -351,16 +384,6 @@ public class SalesOrderPanel extends JPanel {
 		}
 		tfSumPrice.setText("");
 		tfTotalPrice.setText("");
-
-	}
-
-	// 고객검색에서 주문 눌렀을때 고객명, 고객번호 set
-	public void setGuest(int no, String name) {
-		// System.out.println("오나");
-		
-		tfGuestNo.setText(String.valueOf(no));
-		tfGuestName.setText(name);
-		System.out.println(tfGuestNo.getText() + tfGuestName.getText());
 
 	}
 
