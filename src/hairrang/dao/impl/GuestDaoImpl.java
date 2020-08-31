@@ -50,7 +50,7 @@ public class GuestDaoImpl implements GuestDao {
 	
 	@Override
 	public List<Guest> selectGuestByAll() {
-		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST ORDER BY GUEST_NO";
+		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE GUEST_NO != 0 ORDER BY GUEST_NO ";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()){
