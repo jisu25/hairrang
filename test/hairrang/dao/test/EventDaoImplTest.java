@@ -39,7 +39,7 @@ public class EventDaoImplTest {
 		System.out.println();
 	}
 
-	@Test
+	//@Test
 	public void test05SelectEventNames() {
 		System.out.println("testSelectEventNames()");
 		List<String> list = dao.selectEventNames();
@@ -49,7 +49,7 @@ public class EventDaoImplTest {
 		System.out.println();
 	}
 
-	@Test
+	//@Test
 	public void test06SelectEventByEventNo() {
 		System.out.println("testSelectEventByAll()");
 		Event event = dao.selectEventByEventNo(new Event(1));
@@ -58,7 +58,7 @@ public class EventDaoImplTest {
 		System.out.println(event + "\n");
 	}
 
-	@Test
+	//@Test
 	public void test01InsertEvent() {
 		System.out.println("test01InsertEvent()");
 		Event event = new Event(10, "1주년", 0.1);
@@ -67,7 +67,7 @@ public class EventDaoImplTest {
 		System.out.println("추가된 이벤트 : " + event + "\n");
 	}
 
-	@Test
+	//@Test
 	public void test02UpdateEvent() {
 		System.out.println("test02UpdateEvent()");
 		Event event = new Event(10, "1분기 행사", 0.15);
@@ -76,7 +76,7 @@ public class EventDaoImplTest {
 		System.out.println("수정 후 이벤트 : " + event + "\n");
 	}
 
-	@Test
+	//@Test
 	public void test03DeleteEvent() {
 		System.out.println("test03DeleteEvent()");
 		Event event = new Event(10);

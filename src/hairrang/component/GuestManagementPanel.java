@@ -57,69 +57,69 @@ public class GuestManagementPanel extends JPanel {
 		setLayout(null);
 
 		JLabel lblNo = new JLabel("고객 번호 : ");
-		lblNo.setBounds(100, 35, 70, 15);
+		lblNo.setBounds(100, 33, 70, 15);
 		add(lblNo);
 
 		tfNo = new JTextField();
-		tfNo.setBounds(185, 32, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfNo.setBounds(185, 30, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfNo);
 		tfNo.setColumns(10);
 		tfNo.setEditable(false);
 
 		JLabel lblName = new JLabel("고  객  명 : ");
-		lblName.setBounds(100, 72, 70, 15);
+		lblName.setBounds(100, 70, 70, 15);
 		add(lblName);
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(185, 67, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfName.setBounds(185, 65, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfName);
 
 		JLabel lblBirthday = new JLabel("생년월일  : ");
-		lblBirthday.setBounds(100, 107, 70, 15);
+		lblBirthday.setBounds(100, 105, 70, 15);
 		add(lblBirthday);
 
 		JLabel lblJoinDay = new JLabel("가입일자  : ");
-		lblJoinDay.setBounds(100, 140, 70, 15);
+		lblJoinDay.setBounds(100, 138, 70, 15);
 
 		add(lblJoinDay);
 
 		tfJoinDay = new JTextField();
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(185, 137, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfJoinDay.setBounds(185, 135, Configuration.tfDim.width, Configuration.tfDim.height);
 		tfJoinDay.setEditable(false);
 		add(tfJoinDay);
 
 		JLabel lblGender = new JLabel("성       별 : ");
-		lblGender.setBounds(400, 33, 70, 15);
+		lblGender.setBounds(400, 31, 70, 15);
 		add(lblGender);
 
 		JLabel lblPhone = new JLabel("연  락  처 : ");
-		lblPhone.setBounds(400, 70, 70, 15);
+		lblPhone.setBounds(400, 68, 70, 15);
 		add(lblPhone);
 
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(478, 67, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfPhone.setBounds(478, 65, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(tfPhone);
 
 		JLabel lblMemo = new JLabel("메      모  : ");
-		lblMemo.setBounds(400, 107, 70, 15);
+		lblMemo.setBounds(400, 105, 70, 15);
 		add(lblMemo);
 
 		rBtnFemale = new JRadioButton("여성");
 		rBtnFemale.setBackground(Color.WHITE);
 		buttonGroup.add(rBtnFemale);
-		rBtnFemale.setBounds(478, 32, 60, 23);
+		rBtnFemale.setBounds(478, 30, 60, 23);
 		add(rBtnFemale);
 
 		rBtnMale = new JRadioButton("남성");
 		buttonGroup.add(rBtnMale);
-		rBtnMale.setBounds(542, 32, 60, 23);
+		rBtnMale.setBounds(542, 30, 60, 23);
 		add(rBtnMale);
 
 		tfMemo = new JTextField();
-		tfMemo.setBounds(478, 104, Configuration.tfDim.width, 60);
+		tfMemo.setBounds(478, 102, Configuration.tfDim.width, 60);
 		add(tfMemo);
 		tfMemo.setColumns(10);
 
@@ -127,8 +127,9 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dateChooser.setDate(date);
-		dateChooser.setBounds(185, 101, Configuration.tfDim.width, Configuration.tfDim.height);
+		dateChooser.setBounds(185, 99, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(dateChooser);
+		
 	}
 
 	public Guest getGuest() throws ParseException {

@@ -1,5 +1,7 @@
 package hairrang.table;
 
+import java.util.Date;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,7 +17,7 @@ public class BookingTable extends AbstractItemTable<Booking> {
 
 	@Override
 	Object[] getColName() {
-		return new String[] {"No", "예약시간", "고객명", "헤어명"};
+		return new String[] {"", "", "예약시간", "고객명", "헤어명"};
 	}
 
 
@@ -23,12 +25,15 @@ public class BookingTable extends AbstractItemTable<Booking> {
 	Object[] toArray(Booking itemList) {
 		return new Object[] {
 			itemList.getBookNo(),
+			itemList.getBookDay(),
 			itemList.getBookTimeStr(),
 			itemList.getGuestNo().getGuestName(),
 			itemList.getHairNo().getHairName(),
 //			itemList.getBookNote()
 		};
 	}
+	
+	// 총 너비 218px
 	
 	@Override
 	void setWidthAndAlign() {
@@ -39,11 +44,22 @@ public class BookingTable extends AbstractItemTable<Booking> {
 		tcm.getColumn(1).setCellRenderer(dtcr);
 		tcm.getColumn(2).setCellRenderer(dtcr);
 		tcm.getColumn(3).setCellRenderer(dtcr);
-//		tcm.getColumn(4).setCellRenderer(dtcr);
+		tcm.getColumn(4).setCellRenderer(dtcr);
 		
-		tableSetWidth(50,100,80,80);
+		tableSetWidth(0, 0, 90, 60, 78);
+		
+		tcm.getColumn(0).setMinWidth(0);
+		tcm.getColumn(0).setMaxWidth(0);
+		tcm.getColumn(1).setMinWidth(0);
+		tcm.getColumn(1).setMaxWidth(0);
 		
 	}
-
+//
+//	public int getSelBookNo() {
+//		int selIdx = getSelectedRow();
+//		int bookNo = (int)getValueAt(selIdx, 0);
+//		
+//		return bookNo;
+//	}
 
 }

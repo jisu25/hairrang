@@ -27,10 +27,11 @@ public class SalesDaoImpl implements SalesDao{
 	@Override
 	public List<Sales> selectSalesByAll() {
 
-		String sql = "SELECT * FROM SALES s \r\n" + 
-				"	LEFT OUTER JOIN HAIR h USING (HAIR_NO)\r\n" + 
-				"	LEFT OUTER JOIN GUEST g USING (GUEST_NO) \r\n" + 
-				"	LEFT OUTER JOIN EVENT e USING (EVENT_NO)";
+		String sql = "SELECT * FROM SALES s "
+				+ "LEFT OUTER JOIN HAIR h USING (HAIR_NO) "
+				+ "LEFT OUTER JOIN GUEST g USING (GUEST_NO) "
+				+ "LEFT OUTER JOIN EVENT e USING (EVENT_NO) "
+				+ "ORDER BY SALES_NO";
 		try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql);
 					ResultSet rs = pstmt.executeQuery()){
@@ -53,10 +54,10 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public List<Sales> selectSalesByGuestNo(Sales sales) {
-		String sql = "SELECT * FROM SALES s \r\n" + 
-				"	LEFT OUTER JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) \r\n" + 
-				"	LEFT OUTER JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) \r\n" + 
-				"	LEFT OUTER JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO)\r\n" + 
+		String sql = "SELECT * FROM SALES s " + 
+				"	LEFT OUTER JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) " + 
+				"	LEFT OUTER JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) " + 
+				"	LEFT OUTER JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) " + 
 				"	WHERE s.GUEST_NO = ?";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -79,14 +80,14 @@ public class SalesDaoImpl implements SalesDao{
 
 	@Override
 	public int insertSales(Sales sales) {
-		String sql = "INSERT INTO SALES VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO SALES VALUES (SALES_SEQ.NEXTVAL,?,?,?,?,?)";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setInt(1, sales.getSalesNo());
-			pstmt.setTimestamp(2, new java.sql.Timestamp(sales.getSalesDay().getTime()));
-			pstmt.setInt(3, sales.getGuestNo().getGuestNo());
-			pstmt.setInt(4, sales.getEventNo().getEventNo());
-			pstmt.setInt(5, sales.getHairNo().getHairNo());
+			pstmt.setTimestamp(1, new java.sql.Timestamp(sales.getSalesDay().getTime()));
+			pstmt.setInt(2, sales.getGuestNo().getGuestNo());
+			pstmt.setInt(3, sales.getEventNo().getEventNo());
+			pstmt.setInt(4, sales.getHairNo().getHairNo());
+			pstmt.setInt(5, sales.getTotalPrice());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -147,20 +148,30 @@ public class SalesDaoImpl implements SalesDao{
 		Hair hair = hdao.getHair(rs);
 		
 		//이후 헤어처럼 밑에 코드 수정
-		int no = rs.getInt("EVENT_NO");
-		String name = rs.getString("EVENT_NAME");
-		float sale = rs.getFloat("SALE");
-		
-		Event event = new Event(no, name, sale);
-		
 		
 		GuestDaoImpl gdao = GuestDaoImpl.getInstance();
-		Guest guest = gdao.getGuest(rs);
+		Guest guestt  = gdao.getGuest(rs);
+		
+		EventDaoImpl edao = EventDaoImpl.getInstance();
+		Event evnett = edao.getEvent(rs);
+		
+		
+		/*
+		 * int no = rs.getInt("EVENT_NO"); String name = rs.getString("EVENT_NAME");
+		 * float sale = rs.getFloat("SALE");
+		 * 
+		 * Event event = new Event(no, name, sale);
+		 * 
+		 * 
+		 * GuestDaoImpl gdao = GuestDaoImpl.getInstance(); Guest guest =
+		 * gdao.getGuest(rs);
+		 */
 		
 		int sno = rs.getInt("SALES_NO");
 		Date day = rs.getDate("SALES_DAY");
+		int totalPrice = rs.getInt("TOTAL_PRICE");
 		
-		Sales sales = new Sales(sno, day, guest, event, hair);
+		Sales sales = new Sales(sno, day, guestt, evnett, hair,totalPrice);
 		
 		return sales;
 	}
@@ -181,6 +192,20 @@ public class SalesDaoImpl implements SalesDao{
 			throw new RuntimeException(e);
 		}
 		
+		return 0;
+	}
+
+	public int sequencesLastNumber() {
+		String sql = "SELECT LAST_NUMBER FROM user_sequences WHERE SEQUENCE_NAME = UPPER('SALES_SEQ')";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				return rs.getInt("LAST_NUMBER");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return 0;
 	}
 	
