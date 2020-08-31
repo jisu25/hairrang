@@ -159,18 +159,18 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 			// X축 세팅
 			plot.setDomainAxis(new CategoryAxis()); // X축 종류 설정
 			plot.getDomainAxis().setTickLabelFont(axisF); // X축 눈금라벨 폰트 조정
-			plot.getDomainAxis().setTickLabelPaint(Color.WHITE); // X축 눈금라벨 폰트 색상 조정
+			plot.getDomainAxis().setTickLabelPaint(Color.black); // X축 눈금라벨 폰트 색상 조정
 			plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.STANDARD); // 카테고리 라벨 위치 조정
 
 			// Y축 세팅
 			plot.setRangeAxis(new NumberAxis()); // Y축 종류 설정
 			plot.getRangeAxis().setTickLabelFont(axisF); // Y축 눈금라벨 폰트 조정
-			plot.getRangeAxis().setTickLabelPaint(Color.WHITE); // X축 눈금라벨 폰트 색상 조정
+			plot.getRangeAxis().setTickLabelPaint(Color.black); // X축 눈금라벨 폰트 색상 조정
 
 			// 세팅된 plot을 바탕으로 chart 생성
 			JFreeChart chart = new JFreeChart(plot);
-			chart.setBackgroundPaint(Color.DARK_GRAY);
-			chart.getPlot().setBackgroundPaint(Color.DARK_GRAY );
+			chart.setBackgroundPaint(Color.WHITE);
+			chart.getPlot().setBackgroundPaint(Color.white );
 
 			// #생성된 차트로 차트 패널 생성#
 			ChartPanel chartp = new ChartPanel(chart);
@@ -236,7 +236,7 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 
 		}
 				
-	
+ 	
 			
 			return dataset;
 		}

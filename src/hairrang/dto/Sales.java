@@ -16,7 +16,7 @@ public class Sales {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+ 	
 	public Sales(int salesNo, Date salesDay, int totalPrice) {
 		super();
 		this.salesNo = salesNo;
