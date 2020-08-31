@@ -41,7 +41,15 @@ public abstract class AbstractItemTable<T> extends JTable {
     abstract Object[] getColName();
 
     Object[][] getRows(ArrayList<T> list) {
-    	//System.out.println("getRows : " + list);
+    	try {
+	    	if (list == null) {
+				return new Object[1][];
+			}
+    	}
+    	catch (NullPointerException e) {
+    		System.out.println("list Null이어서 빈칸 메우기");
+    	}
+	    	
         Object[][] rows = new Object[list.size()][];
         for(int i=0; i<rows.length; i++) {
             rows[i] = toArray(list.get(i));

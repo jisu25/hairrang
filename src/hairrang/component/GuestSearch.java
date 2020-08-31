@@ -37,7 +37,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	private ArrayList<Sales> salesList;
 	private GuestOrderInfo orderInfo;
 	private HairshopManagementProgram program;
-	private SalesOrderPanel orderPanel = new SalesOrderPanel();
+	
 
 	public GuestSearch() {
 		gService = new GuestService();
@@ -49,13 +49,15 @@ public class GuestSearch extends JPanel implements ActionListener {
 		initComponents();
 	}
 
+
 	private void initComponents() {
 		setLayout(null);
 
 		pGuest = new GuestSearchPanel();
 		pGuest.setBounds(0, 0, 700, 190);
 		add(pGuest);
-		pGuest.setMainFrame(this);
+		pGuest.setGuestSearch(this);
+		// pGuest(GuestSearchPanel)의 부모인 GuestSearch는 나야~~~!
 
 		pBtn = new JPanel();
 		pBtn.setBounds(0, 190, 700, 40);
@@ -179,8 +181,9 @@ public class GuestSearch extends JPanel implements ActionListener {
 		Guest guest = getSelectedGuest();
 		int no = guest.getGuestNo();
 		String name = guest.getGuestName();
+		program.getP3().getSalesPanel().setGuest(no, name);
+		
 		program.switchPanel(2);
-		orderPanel.setGuest(no, name);
 		
 	}
 
@@ -196,8 +199,6 @@ public class GuestSearch extends JPanel implements ActionListener {
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 	}
-	
-	
 	
 	
 }

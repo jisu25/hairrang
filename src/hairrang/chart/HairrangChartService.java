@@ -2,7 +2,6 @@ package hairrang.chart;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -83,7 +82,7 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 
 			// select 결과 저장
 			results = chartDao.findYearSell(startYear, endYear); // DB select 결과 저장 변수
-System.out.println(results);
+			System.out.println(results);
 			if (results.isEmpty()) { // 조회 결과 없으면, 알림창 날림
 				JOptionPane.showMessageDialog(null, "조회할 데이터가 없습니다.");
 			} else { // 조회 결과 있으면, 결과 보이기
@@ -94,13 +93,13 @@ System.out.println(results);
 				
 				for (int i = 0; i < size; i++) {
 					Vector<Object> rows = new Vector<Object>(); // 행
-
+ 
 					rows.addElement(results.get(i).getSales().getSalesNo());
 					rows.addElement(results.get(i).getSales().getSalesDay());
 					rows.addElement(results.get(i).getGuest().getGuestName());
 					rows.addElement(results.get(i).getEvent().getEventName());
 					rows.addElement(results.get(i).getHair().getHairName());
-					rows.addElement(results.get(i).getHair().getPrice());
+					rows.addElement(results.get(i).getSales().getTotalPrice());
 					hc.tmodel.addRow(rows);
 				}
 
@@ -160,18 +159,18 @@ System.out.println(results);
 			// X축 세팅
 			plot.setDomainAxis(new CategoryAxis()); // X축 종류 설정
 			plot.getDomainAxis().setTickLabelFont(axisF); // X축 눈금라벨 폰트 조정
-			plot.getDomainAxis().setTickLabelPaint(Color.WHITE); // X축 눈금라벨 폰트 색상 조정
+			plot.getDomainAxis().setTickLabelPaint(Color.black); // X축 눈금라벨 폰트 색상 조정
 			plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.STANDARD); // 카테고리 라벨 위치 조정
 
 			// Y축 세팅
 			plot.setRangeAxis(new NumberAxis()); // Y축 종류 설정
 			plot.getRangeAxis().setTickLabelFont(axisF); // Y축 눈금라벨 폰트 조정
-			plot.getRangeAxis().setTickLabelPaint(Color.WHITE); // X축 눈금라벨 폰트 색상 조정
+			plot.getRangeAxis().setTickLabelPaint(Color.black); // X축 눈금라벨 폰트 색상 조정
 
 			// 세팅된 plot을 바탕으로 chart 생성
 			JFreeChart chart = new JFreeChart(plot);
-			chart.setBackgroundPaint(Color.DARK_GRAY);
-			chart.getPlot().setBackgroundPaint(Color.DARK_GRAY );
+			chart.setBackgroundPaint(Color.WHITE);
+			chart.getPlot().setBackgroundPaint(Color.white );
 
 			// #생성된 차트로 차트 패널 생성#
 			ChartPanel chartp = new ChartPanel(chart);
@@ -216,7 +215,7 @@ System.out.println(results);
 					//rows.addElement((toString().valueOf(results.get(i).getHairname().getHairName())));
 					for (int i = 0; i < size; i++) {
 						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
-						values.addElement((results.get(i).getSales().getSalesNo())); 
+						values.addElement((results.get(i).getSales().getTotalPrice())); 
 
 						// 값, 범례, 카테고리 지정
 						dataset.addValue(values.get(i), type, date.get(i));
@@ -226,10 +225,10 @@ System.out.println(results);
 				case "연도별":
 					for (int i = 0; i < size; i++) {
 						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
-						values.addElement((results.get(i).getSales().getSalesNo()));   // 
+						values.addElement((results.get(i).getSales().getTotalPrice()));   // 
 
 					dataset.addValue(values.get(i), type, date.get(i));
-					break;
+					
 				}
 				default:
 					break;
@@ -237,7 +236,7 @@ System.out.println(results);
 
 		}
 				
-	
+ 	
 			
 			return dataset;
 		}

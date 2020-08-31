@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
+import hairrang.HairshopManagementProgram;
 import hairrang.dto.Hair;
 import hairrang.dto.Sales;
 import hairrang.service.SalesService;
@@ -31,7 +32,7 @@ public class SalesTest extends JPanel {
 	private JButton btnCancel;
 	private SalesOrderPanel salesPanel;
 	private SalesService salesService = new SalesService();
-
+	
 	/**
 	 * Create the panel.
 	 */
@@ -101,6 +102,10 @@ public class SalesTest extends JPanel {
 
 	}
 
+	public SalesOrderPanel getSalesPanel() {
+		return salesPanel;
+	}
+
 	ActionListener actionlistener = new ActionListener() {
 
 		@Override
@@ -159,6 +164,10 @@ public class SalesTest extends JPanel {
 		Hair selectHair = table.getSelectedRow(selectIndex);
 		table.removeRow(selectIndex);
 		salesPanel.subSumTotal(selectHair);
+	}
+
+	public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
+		
 	}
 
 

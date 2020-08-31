@@ -33,7 +33,7 @@ public class GuestOrderInfoTable extends JTable {
 	}
 
 	public void setItems(List<Sales> sales) {
-
+		
 		model = new DefaultTableModel(getRows(sales), getColNames());
 		setModel(model);
 
@@ -59,7 +59,10 @@ public class GuestOrderInfoTable extends JTable {
 	}
 
 	private Object[][] getRows(List<Sales> sales) {
-
+		if (sales == null) {
+			return new Object[1][];
+		}
+		
 		Object[][] rows = new Object[sales.size()][];
 		for (int i = 0; i < rows.length; i++) {
 			rows[i] = toArray(sales.get(i));
