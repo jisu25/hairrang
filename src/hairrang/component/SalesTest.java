@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
+import hairrang.HairshopManagementProgram;
 import hairrang.dto.Hair;
 import hairrang.dto.Sales;
+import hairrang.service.SalesService;
 import hairrang.table.HairItemTable;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -29,7 +31,8 @@ public class SalesTest extends JPanel {
 	private JButton btnGuestSreach;
 	private JButton btnCancel;
 	private SalesOrderPanel salesPanel;
-
+	private SalesService salesService = new SalesService();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -99,6 +102,10 @@ public class SalesTest extends JPanel {
 
 	}
 
+	public SalesOrderPanel getSalesPanel() {
+		return salesPanel;
+	}
+
 	ActionListener actionlistener = new ActionListener() {
 
 		@Override
@@ -110,13 +117,24 @@ public class SalesTest extends JPanel {
 
 			}
 			if (e.getSource() == btnOrder) {
-				salesPanel.getSales();
-				System.out.println(salesPanel.getSales());
+				btnOrderAction();
+				
 			}
 			if (e.getActionCommand().equals("상품삭제")) {
 				deleteHairItem(e);
 			}
 
+		}
+
+		private void btnOrderAction() {
+			System.out.println(salesPanel.getSales());
+			for(Sales sales : salesPanel.getSales()) {
+				salesService.insertSales(sales);
+			}
+			salesPanel.clearTf();
+			
+			
+			
 		}
 
 	};
@@ -146,6 +164,10 @@ public class SalesTest extends JPanel {
 		Hair selectHair = table.getSelectedRow(selectIndex);
 		table.removeRow(selectIndex);
 		salesPanel.subSumTotal(selectHair);
+	}
+
+	public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
+		
 	}
 
 
