@@ -1,21 +1,17 @@
 package hairrang.component;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import javax.management.modelmbean.ModelMBean;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.SpringLayout.Constraints;
 import javax.swing.table.DefaultTableModel;
 
 import hairrang.Configuration;
@@ -62,15 +58,17 @@ public class GuestManagement extends JPanel implements ActionListener {
 		pBtn.setBounds(0, 190, 700, 40);
 		add(pBtn);
 		pBtn.setLayout(null);
+		
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
-		btnCancel.setBounds(410, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
+		btnCancel.setBounds(250, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		pBtn.add(btnCancel);
 
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
-		btnAdd.setBounds(520, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
+		btnAdd.setBounds(360, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
+		//btnAdd.setBackground(Configuration.COLOR_BTN);
 		pBtn.add(btnAdd);
 
 		pTable = new JPanel();
@@ -104,6 +102,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 				}
 			}
 			if (e.getActionCommand().equals("수정"))
+				
 				try {
 					btnUpdateActionPerformed();
 
@@ -227,6 +226,7 @@ public class GuestManagement extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "고객을 선택하세요");
 			return;
 		}
+		
 
 		JOptionPane.showMessageDialog(null, "정보 수정 후 수정버튼을 눌러주세요.");
 		Guest update = getSelectedGuest();

@@ -57,43 +57,44 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 		getContentPane().setLayout(null);
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 550, 450);
+		panel.setBounds(0, 0, 500, 450);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		pGuest = new JPanel();
-		pGuest.setBounds(0, 0, 550, 180);
+		pGuest.setBounds(0, 0, 500, 158);
 		panel.add(pGuest);
 		pGuest.setLayout(null);
 		
 
 		lblNo = new JLabel("고객 번호: ");
-		lblNo.setBounds(184, 55, 70, 16);
+		lblNo.setBounds(159, 52, 70, 16);
 		pGuest.add(lblNo);
 
 		lblSetNo = new JLabel("");
-		lblSetNo.setBounds(278, 55, 70, 16);
+		lblSetNo.setBounds(253, 52, 70, 16);
 		pGuest.add(lblSetNo);
 
 		lblName = new JLabel("고객명 : ");
-		lblName.setBounds(184, 90, 70, 16);
+		lblName.setBounds(159, 87, 70, 16);
 		pGuest.add(lblName);
 
 		lblSetName = new JLabel("");
-		lblSetName.setBounds(278, 90, 70, 16);
+		lblSetName.setBounds(253, 87, 70, 16);
 		pGuest.add(lblSetName);
 		
 		btnClose = new JButton("닫기");
-		btnClose.setBounds(415, 133, 101, 25);
+		btnClose.setBounds(385, 108, 101, 25);
 		btnClose.addActionListener(this);
 		pGuest.add(btnClose);
 
 		pTable = new JPanel();
-		pTable.setBounds(0, 180, 550, 270);
+		pTable.setBounds(0, 180, 500, 270);
 		panel.add(pTable);
-		pTable.setLayout(new GridLayout(1, 0, 0, 0));
+		pTable.setLayout(null);
 
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 480, 248);
 		pTable.add(scrollPane);
 		
 		table = new GuestOrderInfoTable();

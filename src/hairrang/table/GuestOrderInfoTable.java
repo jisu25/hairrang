@@ -47,7 +47,7 @@ public class GuestOrderInfoTable extends JTable {
 		tcm.getColumn(4).setCellRenderer(dtcr);
 		tcm.getColumn(5).setCellRenderer(dtcr);
 
-		tableSetWidth(60, 100, 120, 100, 80, 100);
+		tableSetWidth(80, 100, 100, 100, 80, 100);
 	}
 
 	private void tableSetWidth(int... width) {

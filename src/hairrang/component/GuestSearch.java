@@ -38,6 +38,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	private GuestOrderInfo orderInfo;
 	private HairshopManagementProgram program;
 	
+	
 
 	public GuestSearch() {
 		gService = new GuestService();
@@ -54,33 +55,33 @@ public class GuestSearch extends JPanel implements ActionListener {
 		setLayout(null);
 
 		pGuest = new GuestSearchPanel();
-		pGuest.setBounds(0, 0, 700, 190);
+		pGuest.setBounds(0, 0, 700, 61);
 		add(pGuest);
-		pGuest.setGuestSearch(this);
+		pGuest.setMainFrame(this);
 		// pGuest(GuestSearchPanel)의 부모인 GuestSearch는 나야~~~!
 
 		pBtn = new JPanel();
-		pBtn.setBounds(0, 190, 700, 40);
+		pBtn.setBounds(0, 61, 700, 61);
 		add(pBtn);
 		pBtn.setLayout(null);
 
 		btnCancel = new JButton("취소");
-		btnCancel.setBounds(300, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height );
+		btnCancel.setBounds(190, 20, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height );
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 
 		btnInfo = new JButton("이용 내역");
-		btnInfo.setBounds(410, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
+		btnInfo.setBounds(300, 20, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		btnInfo.addActionListener(this);
 		pBtn.add(btnInfo);
 
 		btnOrder = new JButton("주문");
-		btnOrder.setBounds(520, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
+		btnOrder.setBounds(410, 20, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		btnOrder.addActionListener(this);
 		pBtn.add(btnOrder);
 
 		pTable = new JPanel();
-		pTable.setBounds(0, 230, 700, 310);
+		pTable.setBounds(0, 125, 700, 415);
 		add(pTable);
 		pTable.setLayout(new GridLayout(1, 0, 0, 0));
 
@@ -93,14 +94,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 1) {
-					getSelectedGuest();
-				}
-			}
-		});
+		
 
 	}
 
@@ -124,7 +118,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 		int selectedRow = table.getSelectedRow();
 		int no = (int) table.getValueAt(selectedRow, 0);
 		Guest guest = gService.selectGuestByNo(new Guest(no));
-		pGuest.setGuest(guest);
+		//pGuest.setGuest(guest);
 		return guest;
 	}
 
@@ -156,7 +150,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 		}
 		
 		orderInfo = new GuestOrderInfo();
-		orderInfo.setBounds(200, 200, 550, 480);
+		orderInfo.setBounds(220, 200, 515, 480);
 		orderInfo.setTitle("이용내역");
 		orderInfo.setVisible(true);
 
@@ -184,15 +178,26 @@ public class GuestSearch extends JPanel implements ActionListener {
 		String name = guest.getGuestName();
 
 		program.getP3().getSalesPanel().setGuest(no, name);
-		
-
 		program.switchPanel(2);
 		
 	}
 
-	public void searchResult(String search) {
-		
+	
+	public void searchGuestName(String search) {
 		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(new Guest(search));
+		// result.stream().forEach(System.out::println);
+		table.setItems(result);
+
+	}
+	
+	public void searchGuestBirthday(String search) {
+		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByBirthday(search);
+		//result.stream().forEach(System.out::println);
+		table.setItems(result);
+	}
+	
+	public void searchGuestPhone(String search) {
+		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByPhone(search);
 		// result.stream().forEach(System.out::println);
 		table.setItems(result);
 
@@ -202,6 +207,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 	}
+
 	
 	
 }
