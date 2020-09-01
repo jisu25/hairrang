@@ -36,7 +36,7 @@ public class BookingDaoImplTest {
 	@Test
 	public void test04SelectBookByAll() {
 		System.out.println("testSelectBookByAll()");
-		List<Booking> list = dao.selectBookByAll();
+		List<Booking> list = dao.selectBookAll();
 		Assert.assertNotNull(list);
 		System.out.println("> 전체 예약 내역 조회");
 		list.stream().forEach(System.out::println);

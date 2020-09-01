@@ -7,7 +7,7 @@ import hairrang.dto.Guest;
 
 public interface BookingDao {
 
-		List<Booking> selectBookByAll();
+		List<Booking> selectBookAll();
 
 		List<Booking> selectBookByGuestNo(Guest guest);
 
@@ -19,6 +19,7 @@ public interface BookingDao {
 		
 		int getBookCurrVal();
 		
+		List<Booking> selectTodayBook();
 		
 	
 }

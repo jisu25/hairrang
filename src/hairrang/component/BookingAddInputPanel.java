@@ -88,7 +88,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		dcBookDate.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dcBookDate.setDate(date);
-		dcBookDate.setBounds(100, 45, Configuration.tfDim.width, Configuration.tfDim.height);
+		dcBookDate.setBounds(100, 45, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(dcBookDate);
 		
 		JLabel lblHairName = new JLabel("헤어명");

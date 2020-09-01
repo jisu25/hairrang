@@ -29,9 +29,9 @@ public class BookingDaoImpl implements BookingDao {
 	
 
 	@Override
-	public List<Booking> selectBookByAll() {
+	public List<Booking> selectBookAll() {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING ORDER BY BOOK_DAY";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery() ) {
@@ -47,7 +47,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 		return null;
 	}
@@ -74,7 +74,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 		return null;
 	}
@@ -180,6 +180,31 @@ public class BookingDaoImpl implements BookingDao {
 		}
 		
 		return 0;
+	}
+
+	
+	public List<Booking> selectTodayBook() {
+		
+		String sql = "SELECT * FROM BOOKING WHERE TO_CHAR(BOOK_DAY, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd') ORDER BY BOOK_DAY";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			
+			if(rs.next()) {
+				List<Booking> list = new ArrayList<>();
+				
+				do {
+					list.add(getBook(rs));
+				} while(rs.next());
+				
+				return list;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return null;
 	}
 
 }
