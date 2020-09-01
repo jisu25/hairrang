@@ -24,7 +24,7 @@ public class BookingService {
 		}
 		
 		public List<Booking> getBookList(){
-			return dao.selectBookByAll();
+			return dao.selectBookAll();
 		}
 		
 		public List<Booking> getBookListByGuestNo(Guest guest) {
@@ -32,6 +32,13 @@ public class BookingService {
 		}
 		
 		
+		public int getBookingCurrVal() {
+			return dao.getBookCurrVal();
+		}
+		
+		public List<Booking> getTodayBookList() {
+			return dao.selectTodayBook();
+		}
 		/*
 		public List<Booking> selectBookByName(Booking book) {
 			return dao.selectBookByName(book);
@@ -41,8 +48,5 @@ public class BookingService {
 			return dao.searchBookByName(book);
 		}
 		
-		public int getBookingCurrVal() {
-			return dao.getBookCurrVal();
-		}
 		*/
 }

@@ -65,12 +65,12 @@ public class GuestManagement extends JPanel implements ActionListener {
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
-		btnCancel.setBounds(410, 0, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnCancel.setBounds(410, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		pBtn.add(btnCancel);
 
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
-		btnAdd.setBounds(520, 0, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnAdd.setBounds(520, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		pBtn.add(btnAdd);
 
 		pTable = new JPanel();

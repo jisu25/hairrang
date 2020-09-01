@@ -26,7 +26,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class OrderDetail extends JPanel {
+public abstract class AbstractDetail extends JPanel {
 	private GuestOrderInfoTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private SalesService salesService = new SalesService();
@@ -36,10 +36,7 @@ public class OrderDetail extends JPanel {
 	private JDateChooser afterDate;
 	private JDateChooser beforeDate;
 
-	/**
-	 * Create the panel.
-	 */
-	public OrderDetail() {
+	public AbstractDetail() {
 		setLayout(null);
 		
 		JPanel DetailTablePanel = new JPanel();
@@ -101,8 +98,8 @@ public class OrderDetail extends JPanel {
 	}
 	
 	ActionListener acitonLIstener = new ActionListener() {
-		Calendar beforecal = Calendar.getInstance();
-		Calendar aftercal = Calendar.getInstance();
+	Calendar beforecal = Calendar.getInstance();
+	Calendar aftercal = Calendar.getInstance();
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == radioMonth) {

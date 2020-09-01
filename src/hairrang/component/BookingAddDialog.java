@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -22,7 +23,8 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 	private JButton cancelBtn;
 	
 	private BookingService bService;
-
+	private BookingPanel parentPanel;
+	
 	public BookingAddDialog() {
 		bService = new BookingService();
 		
@@ -59,11 +61,27 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 	
 	// 등록 버튼을 눌렀을 때 패널에서 정보 가져오기
 	protected void okBtnActionPerformed(ActionEvent e) {
-		Guest newGuest = pBookAdd.getGuest();
-		
-		
-		Booking newBook = new Booking();
-//		bService.addBook();
-		
+		Booking newBook = pBookAdd.getBook();
+		int res = JOptionPane.showConfirmDialog(null, String.format("다음 예약 내역을 추가하시겠습니까?\n\n %s", newBook.getBookInfo()), "예약확인", JOptionPane.YES_NO_OPTION);
+		System.out.println(newBook);
+		// Yes: 0, No: 1
+		if (res == 0) {
+			bService.addBook(newBook);
+			parentPanel.updateList();
+			JOptionPane.showMessageDialog(null, "예약이 등록되었습니다!");
+			dispose();
+		}
 	}
+	
+	
+	/* 내 부모 패널 BookingPanel getter & setter*/
+	
+	public BookingPanel getParentPanel() {
+		return parentPanel;
+	}
+
+	public void setParentPanel(BookingPanel parentPanel) {
+		this.parentPanel = parentPanel;
+	}
+
 }

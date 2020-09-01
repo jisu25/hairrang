@@ -74,7 +74,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(185, 30, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfName.setBounds(185, 30, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfName);
 		
 		
@@ -85,7 +85,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		tfNo = new JTextField();
 		tfNo.setEditable(false);
 		tfNo.setColumns(10);
-		tfNo.setBounds(185, 65, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfNo.setBounds(185, 65, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfNo);
 		
 		lblBirthday = new JLabel("생년월일  : ");
@@ -102,7 +102,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		new SimpleDateFormat("yyyy-MM-dd").format(join);
 		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(join));
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(185, 135, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfJoinDay.setBounds(185, 135, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfJoinDay);
 		
 		lblGender = new JLabel("성       별 : ");
@@ -115,7 +115,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(478, 65, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfPhone.setBounds(478, 65, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfPhone);
 		
 		lblNote = new JLabel("메      모  : ");
@@ -134,12 +134,12 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		
 		tfMemo = new JTextField();
 		tfMemo.setColumns(10);
-		tfMemo.setBounds(478, 102, Configuration.tfDim.width, 60);
+		tfMemo.setBounds(478, 102, Configuration.DIM_TF.width, 60);
 		add(tfMemo);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(185, 99, Configuration.tfDim.width, Configuration.tfDim.height);
+		dateChooser.setBounds(185, 99, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(dateChooser);
 		
 		btnSearch = new JButton("검색");
