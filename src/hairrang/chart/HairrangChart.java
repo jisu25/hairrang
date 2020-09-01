@@ -45,7 +45,7 @@ public class HairrangChart extends JPanel {
 		pSetSearch.setLayout(null);
 		pSetSearch.setBounds(12, 27, 495, 37);
 		add(pSetSearch);
-
+ 
 		JLabel lbShowDate = new JLabel("조회년도 :");
 		lbShowDate.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lbShowDate.setBounds(12, 0, 101, 37);

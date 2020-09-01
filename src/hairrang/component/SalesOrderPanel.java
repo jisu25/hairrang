@@ -152,12 +152,13 @@ public class SalesOrderPanel extends JPanel {
 		comboHair = new JComboBox<String>();
 		setHairDateModel();
 		comboHair.setBounds(287, 49, 117, 21);
-
+		comboHair.setSelectedIndex(-1);
 		add(comboHair);
 
 		comboEvent = new JComboBox<String>();
 		setEventDateModel();
 		comboEvent.setBounds(287, 156, 117, 21);
+		comboEvent.setSelectedIndex(-1);
 		add(comboEvent);
 
 		comboHair.addActionListener(addActionlistener);
