@@ -36,7 +36,6 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JButton btnClose;
 	private JPanel panel;
 	private JPanel pGuest;
-	private JLabel lblNewLabel;
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	
@@ -69,24 +68,20 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 		
 
 		lblNo = new JLabel("고객 번호: ");
-		lblNo.setBounds(195, 28, 70, 16);
+		lblNo.setBounds(184, 55, 70, 16);
 		pGuest.add(lblNo);
 
 		lblSetNo = new JLabel("");
-		lblSetNo.setBounds(289, 28, 70, 16);
+		lblSetNo.setBounds(278, 55, 70, 16);
 		pGuest.add(lblSetNo);
 
 		lblName = new JLabel("고객명 : ");
-		lblName.setBounds(195, 63, 70, 16);
+		lblName.setBounds(184, 90, 70, 16);
 		pGuest.add(lblName);
 
 		lblSetName = new JLabel("");
-		lblSetName.setBounds(289, 63, 70, 16);
+		lblSetName.setBounds(278, 90, 70, 16);
 		pGuest.add(lblSetName);
-
-		lblNewLabel = new JLabel("~확인용~");
-		lblNewLabel.setBounds(249, 123, 61, 16);
-		pGuest.add(lblNewLabel);
 		
 		btnClose = new JButton("닫기");
 		btnClose.setBounds(415, 133, 101, 25);
@@ -122,10 +117,8 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		table.setItems(salesList);
-		System.out.println(salesList.size());
 		
-		
-		salesList.stream().forEach(System.out::println);
+		//salesList.stream().forEach(System.out::println);
 		
 	}
 }

@@ -25,6 +25,7 @@ public interface GuestDao {
 	List<Guest> selectGuestByName(Guest guest);
 
 
+
 	//이름으로 검색
 	
 }

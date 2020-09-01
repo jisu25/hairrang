@@ -219,14 +219,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		System.out.println(search);
 	}
 	
-	public GuestSearch getMainFrame() {
-		return guestSearch;
-	}
 
-	// 내 부모는 GuestSearch야~
-	public void setGuestSearch(GuestSearch guestSearch) {
-		this.guestSearch = guestSearch;
-	}
 	
 	
 	private boolean isValidTf() {
@@ -235,5 +228,16 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		return nameCheck;
 	}
 
+
+	public GuestSearch getGuestSearch() {
+		return guestSearch;
+	}
+
+
+	public void setGuestSearch(GuestSearch guestSearch) {
+		this.guestSearch = guestSearch;
+	}
+	
+	
 
 }
