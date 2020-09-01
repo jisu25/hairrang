@@ -32,7 +32,7 @@ public class HairService {
 		return dao.selectHairByName();
 	}
 	
-	public Hair getHairListByHairNo(Hair event) {
+	public Hair getHairByHairNo(Hair event) {
 		return dao.selectHairByNo(event);
 	}
 }

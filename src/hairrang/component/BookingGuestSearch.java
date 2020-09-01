@@ -101,10 +101,7 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 	}
 	
 	
-	public void searchGuest(Guest guest) {
-		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(guest);
-		table.setItems(result);
-	}
+	/* ActionPerformed */
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
@@ -112,11 +109,19 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		}
 	}
 	
+	// 1. search 버튼 클릭하면 검색하도록 이름을 넘겨줌
 	protected void btnSearchActionPerformed(ActionEvent e) {
 		String name = tfName.getText().trim();
 		searchGuest(new Guest(name));
 	}
 	
+	// 2. 넘겨받은 이름으로 회원 검색
+	public void searchGuest(Guest guest) {
+		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(guest);
+		table.setItems(result);
+	}
+	
+	// 테이블에서 선택된 고객 정보를 얻어온 후, 이전의 입력 패널에 set 해줌 
 	private void getSelectedGuest() {
 		int selectedRow = table.getSelectedRow();
 		int no = (int) table.getValueAt(selectedRow, 0);

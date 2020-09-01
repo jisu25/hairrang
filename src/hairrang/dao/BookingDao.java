@@ -16,5 +16,9 @@ public interface BookingDao {
 		int updateBook(Booking book);
 
 		int deleteBook(Booking book);
+		
+		int getBookCurrVal();
+		
+		
 	
 }

@@ -72,6 +72,7 @@ public class BookingPanel extends JPanel implements ActionListener {
 		btnDel.addActionListener(this);
 		pBtns.add(btnDel);
 	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnDel) {
 			btnDelActionPerformed(e);
@@ -86,6 +87,7 @@ public class BookingPanel extends JPanel implements ActionListener {
 		addDialog = new BookingAddDialog();
 		addDialog.setTitle("이용내역");
 		addDialog.setVisible(true);
+		addDialog.setParentPanel(this);
 	}
 	
 	// - 버튼을 눌렀을 때
@@ -110,5 +112,10 @@ public class BookingPanel extends JPanel implements ActionListener {
 					"예약 내역 삭제 완료",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
+	}
+	
+	public void updateList() {
+		bookList = (ArrayList<Booking>) bService.getBookList();
+		table.setItems(bookList);
 	}
 }

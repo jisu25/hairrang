@@ -32,6 +32,10 @@ public class BookingService {
 		}
 		
 		
+		public int getBookingCurrVal() {
+			return dao.getBookCurrVal();
+		}
+		
 		/*
 		public List<Booking> selectBookByName(Booking book) {
 			return dao.selectBookByName(book);
@@ -41,8 +45,5 @@ public class BookingService {
 			return dao.searchBookByName(book);
 		}
 		
-		public int getBookingCurrVal() {
-			return dao.getBookCurrVal();
-		}
 		*/
 }

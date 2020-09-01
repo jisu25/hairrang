@@ -83,7 +83,7 @@ public class BookingDaoImpl implements BookingDao {
 	public int insertBook(Booking book) {
 //		INSERT INTO BOOKING
 //		values(BOOKING_SEQ.NEXTVAL, 1, SYSDATE, 1, '10분 늦을 수도 있다고 하심');
-		String sql = "INSERT INTO BOOKING VALUES(BOOKING_SEQ.NEXTVAL, ?, ?, ?, ?)";
+		String sql = "INSERT INTO BOOKING VALUES(BOOK_SEQ.NEXTVAL, ?, ?, ?, ?)";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -96,7 +96,7 @@ public class BookingDaoImpl implements BookingDao {
 			return pstmt.executeUpdate();
 	
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -161,5 +161,25 @@ public class BookingDaoImpl implements BookingDao {
 		
 		return book;
 	}
-	
+
+	@Override
+	public int getBookCurrVal() {
+		
+		String sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BOOK_SEQ'";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			
+			if(rs.next()) {
+				return rs.getInt("LAST_NUMBER");
+			}
+			
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return 0;
+	}
+
 }
