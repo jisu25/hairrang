@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import com.toedter.calendar.IDateEvaluator;
+import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 
 import hairrang.Configuration;
 import hairrang.dto.Guest;
@@ -22,6 +25,8 @@ import hairrang.exception.EmptyTfException;
 import hairrang.exception.InValidationException;
 import hairrang.service.GuestService;
 import java.awt.Color;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class GuestManagementPanel extends JPanel {
 	private JTextField tfNo;
@@ -129,7 +134,8 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDate(date);
 		dateChooser.setBounds(185, 99, Configuration.tfDim.width, Configuration.tfDim.height);
 		add(dateChooser);
-		
+				
+	
 	}
 
 	public Guest getGuest() throws ParseException {

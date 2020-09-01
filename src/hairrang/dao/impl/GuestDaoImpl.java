@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,8 +77,7 @@ public class GuestDaoImpl implements GuestDao {
 		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE GUEST_NAME LIKE '%' || ? || '%'";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
-
-			pstmt.setString(1, "%" + guest.getGuestName() + "%");
+			pstmt.setString(1,"%" + guest.getGuestName() + "%");
 			try(ResultSet rs = pstmt.executeQuery()){
 				if(rs.next()) {
 					List<Guest> list = new ArrayList<>();
@@ -101,7 +100,7 @@ public class GuestDaoImpl implements GuestDao {
 		String sql = "SELECT  GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE GUEST_NAME = ?";
 			try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql)){
-				pstmt.setString(1, guest.getGuestName());
+				pstmt.setString(1, "%" + guest.getGuestName() + "%");
 				
 				try(ResultSet rs = pstmt.executeQuery()){
 					if(rs.next()) {
@@ -117,6 +116,55 @@ public class GuestDaoImpl implements GuestDao {
 			}
 			return null;
 	}
+	
+	@Override
+	public List<Guest> searchGuestByBirthday(String test) {
+		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST "
+				+ "WHERE to_char(BIRTHDAY, 'yyyyMMdd') LIKE '%' || ? || '%'";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			SimpleDateFormat date = new SimpleDateFormat("yyyy");
+			//System.out.println(date.format(guest.getBirthday()));
+			
+			pstmt.setString(1, test);
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Guest> list = new ArrayList<>();
+					do {
+						list.add(getGuest(rs));
+					}while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Guest> searchGuestByPhone(String guest) {
+		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE REGEXP_REPLACE(phone, '[^0-9]+') LIKE '%' || ? || '%'";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, guest);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<Guest> list = new ArrayList<>();
+					do {
+						list.add(getGuest(rs));
+					}while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+	
 	
 	@Override
 	public Guest selectGuestByNo(Guest guest) {
@@ -209,5 +257,8 @@ public class GuestDaoImpl implements GuestDao {
 		}
 		return guest;
 	}
+
+	
+	
 
 }

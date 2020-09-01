@@ -90,6 +90,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		
 		
 		
+		
 		/* Frame 생성*/
 		initComponents();
 		

@@ -23,6 +23,8 @@ import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class GuestSearchPanel extends JPanel implements ActionListener {
@@ -201,6 +203,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnSearch) {
 			btnSearchActionPerformed(e);
+			System.out.println();
 		}
 	}
 
@@ -234,6 +237,4 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		boolean nameCheck = Pattern.matches("^[가-힣a-zA-Z]+$", name);
 		return nameCheck;
 	}
-
-
 }
