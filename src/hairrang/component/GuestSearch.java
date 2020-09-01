@@ -65,17 +65,17 @@ public class GuestSearch extends JPanel implements ActionListener {
 		pBtn.setLayout(null);
 
 		btnCancel = new JButton("취소");
-		btnCancel.setBounds(300, 0, Configuration.btnDim.width, Configuration.btnDim.height );
+		btnCancel.setBounds(300, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height );
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 
 		btnInfo = new JButton("이용 내역");
-		btnInfo.setBounds(410, 0, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnInfo.setBounds(410, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		btnInfo.addActionListener(this);
 		pBtn.add(btnInfo);
 
 		btnOrder = new JButton("주문");
-		btnOrder.setBounds(520, 0, Configuration.btnDim.width, Configuration.btnDim.height);
+		btnOrder.setBounds(520, 0, Configuration.DIM_BTN.width, Configuration.DIM_BTN.height);
 		btnOrder.addActionListener(this);
 		pBtn.add(btnOrder);
 

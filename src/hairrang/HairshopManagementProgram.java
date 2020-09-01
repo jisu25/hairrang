@@ -52,11 +52,11 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JButton btnMenu5;
 	private JButton btnHome;
 	private JButton[] btnsMenu;
-	private String[] menuNames = new String[] { "▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계" };
 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
+	private JPanel p6;
 
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
@@ -64,13 +64,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		setUIFont(CustomFonts.getNanumSqReg(14));
 
 		UIManager.put("Panel.background", Color.WHITE);
-		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, Configuration.lineGrayColor));
+		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, Configuration.COLOR_GRAY_LINE));
 		UIManager.put("TextField.inactiveBackground", Color.WHITE);
 		
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
-		UIManager.put("Button.foreground", Configuration.mainColor);
+		UIManager.put("Button.foreground", Configuration.COLOR_MAIN);
 		UIManager.put("Button.background", Color.WHITE);
-		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.mainColor, 1));
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
 		
 		UIManager.put("CheckBox.background", Color.WHITE);
 		UIManager.put("RadioButton.background", Color.WHITE);
@@ -80,12 +80,12 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		
 		UIManager.put("ScrollPane.border", BorderFactory.createEmptyBorder());
 		UIManager.put("Viewport.background", Color.WHITE);
-		UIManager.put("Table.gridColor", Configuration.lineGrayColor);
+		UIManager.put("Table.gridColor", Configuration.COLOR_GRAY_LINE);
 		
 		UIManager.put("TableHeader.font", CustomFonts.getNanumSqBold(14));
-		UIManager.put("TableHeader.gridColor", Configuration.lineGrayColor);
+		UIManager.put("TableHeader.gridColor", Configuration.COLOR_GRAY_LINE);
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
-		UIManager.put("TableHeader.background", Configuration.mainColor);
+		UIManager.put("TableHeader.background", Configuration.COLOR_MAIN);
 		UIManager.put("TableHeader.foreground", Color.white);
 		
 		
@@ -136,13 +136,15 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
 		
-		pArr = new JPanel[] { p1, p2, p3, p4, p5};
+		p6 = new JPanel();
+		
+		pArr = new JPanel[] { p1, p2, p3, p4, p5, p6};
 		
 		
 		/* 메뉴부 */
 
 		menuPanel = new JPanel();
-		menuPanel.setBackground(Configuration.mainColor);
+		menuPanel.setBackground(Configuration.COLOR_MAIN);
 		menuPanel.setBounds(0, 0, 1008, 90);
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -192,12 +194,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		menuBtnsPanel.add(btnMenu4);
 		menuBtnsPanel.add(btnMenu5);
 
-		lblMenuName = new JLabel(menuNames[0]);
+		lblMenuName = new JLabel(Configuration.MENU_NAMES[0]);
 		lblMenuName.setBounds(30, 120, 140, 32);
 		lblMenuName.setFont(Configuration.GSANS_BOLD_20);
 		contentPane.add(lblMenuName);
 
 		sidePanel = new SidePanel();
+		sidePanel.setMainProgram(this);
 		sidePanel.setBounds(750, 90, 258, 639);
 		contentPane.add(sidePanel);
 	}
@@ -233,17 +236,12 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		for (int i = 0; i < btnsMenu.length; i++) {
 			if (e.getSource() == btnsMenu[i]) {
 				switchPanel(i);
-				switchMenuLabel(i);
 			}
 		}
 	}
 
-	private void switchMenuLabel(int i) {
-		lblMenuName.setText(menuNames[i]);
-	}
-
 	public void switchPanel(int i) {
-		
+		lblMenuName.setText(Configuration.MENU_NAMES[i]);
 		pArr[i].revalidate();
 		layeredPane.removeAll();
 		layeredPane.add(pArr[i]);
@@ -272,7 +270,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			if (dotIdx != -1) {
 				if (keyStr.substring(dotIdx + 1).equals("foreground")) {
 					//System.out.println(keyStr);
-					UIManager.put(key, Configuration.textDeepGrayColor);
+					UIManager.put(key, Configuration.COLOR_DEEPGRAY_TEXT);
 				}
 			}
 				

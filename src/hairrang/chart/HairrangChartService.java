@@ -1,4 +1,4 @@
-package hairrang.chart;
+ package hairrang.chart;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,6 +28,8 @@ import org.jfree.ui.TextAnchor;
 
 
 public class HairrangChartService  implements ActionListener, ItemListener{
+	
+	private static ChartDaoo dao = ChartDaoImpl.getInstance();
 
 	private HairrangChart hc;
 
@@ -77,11 +79,11 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 			int startYear = (int) hc.comboStartYear.getItemAt(hc.comboStartYear.getSelectedIndex());
 			int endYear = (int) hc.comboEndYear.getItemAt(hc.comboEndYear.getSelectedIndex());
 
-			ChartDao chartDao = new ChartDao(); // Dao 객체
+			ChartDaoo chartDaoo =  ChartDaoImpl.getInstance(); // Dao 객체
 			results = new Vector<HairrangDto>(); // 쿼리 결과
 
 			// select 결과 저장
-			results = chartDao.findYearSell(startYear, endYear); // DB select 결과 저장 변수
+			results = chartDaoo.selectHairrangDtoByYear(startYear, endYear); // DB select 결과 저장 변수
 			System.out.println(results);
 			if (results.isEmpty()) { // 조회 결과 없으면, 알림창 날림
 				JOptionPane.showMessageDialog(null, "조회할 데이터가 없습니다.");
@@ -197,8 +199,8 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 		}
 
 		// <타입(월별,연도별)에 따른 그래프 데이터셋 리턴> 메소드
-		public static DefaultCategoryDataset getGraphDataset(String type, Vector<HairrangDto> results) {
-
+		public DefaultCategoryDataset getGraphDataset(String type, Vector<HairrangDto> results) {
+			
 			DefaultCategoryDataset dataset = null;
 
 			if (results != null) { // 조회 결과 있을 때만 그래프 값 설정
@@ -213,9 +215,11 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 				switch (type) {
 				case "월별":
 					//rows.addElement((toString().valueOf(results.get(i).getHairname().getHairName())));
+					System.out.println("");
 					for (int i = 0; i < size; i++) {
+						
 						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
-						values.addElement((results.get(i).getSales().getTotalPrice())); 
+						values.addElement((results.get(i).getSales().getTotalPrice()));
 
 						// 값, 범례, 카테고리 지정
 						dataset.addValue(values.get(i), type, date.get(i));
@@ -225,11 +229,13 @@ public class HairrangChartService  implements ActionListener, ItemListener{
 				case "연도별":
 					for (int i = 0; i < size; i++) {
 						date.addElement(String.valueOf((results.get(i).getSales().getSalesDay()))); 
-						values.addElement((results.get(i).getSales().getTotalPrice()));   // 
-
+						System.out.println((int)hc.getComboStartYear().getSelectedItem());
+						System.out.println();
+						values.addElement(dao.totalPrice((int)hc.getComboStartYear().getSelectedItem(), (int)hc.getComboEndYear().getSelectedItem()).get(i)); 
 					dataset.addValue(values.get(i), type, date.get(i));
 					
 				}
+					break;
 				default:
 					break;
 			}
