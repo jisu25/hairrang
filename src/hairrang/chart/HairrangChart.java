@@ -120,8 +120,7 @@ public class HairrangChart extends JPanel {
 
 		
 		// #이벤트 등록#
-		HairrangChartService hcs = new  HairrangChartService(this);
-		
+		HairrangChartService hcs = new HairrangChartService(this);
 		JRadioButton rdbtnYearRadioButton = new JRadioButton("연도별");
 		buttonGroup.add(rdbtnYearRadioButton);
 		rdbtnYearRadioButton.setBounds(511, 31, 82, 33);
@@ -137,4 +136,14 @@ public class HairrangChart extends JPanel {
 		rdbtnMonthRadioButton.addItemListener(hcs);
 				
 	}
+
+	public JComboBox getComboStartYear() {
+		return comboStartYear;
+	}
+
+	public JComboBox getComboEndYear() {
+		return comboEndYear;
+	}
+	
+	
 }

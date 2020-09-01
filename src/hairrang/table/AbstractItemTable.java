@@ -63,7 +63,7 @@ public abstract class AbstractItemTable<T> extends JTable {
     public void setItems(ArrayList<T> itemList) {
         loadData(itemList);
         setWidthAndAlign();
-    }
+    } 
 
     /**
      * //column width<br>
