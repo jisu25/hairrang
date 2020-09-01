@@ -1,6 +1,6 @@
 package hairrang.component;
 
-import java.awt.Font;
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import javax.swing.BoxLayout;
@@ -8,16 +8,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import hairrang.Configuration;
+import hairrang.HairshopManagementProgram;
 import hairrang.service.SalesService;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
 
 public class SidePanel extends JPanel {
+	
+	
 	private JPanel pNotice;
 	private BookingPanel pBooking;
 	private SalesService sService;
 	private String todayCount;
 	
+	private HairshopManagementProgram mainProgram;
+	
+	public HairshopManagementProgram getMainProgram() {
+		return mainProgram;
+	}
+
+	public void setMainProgram(HairshopManagementProgram mainProgram) {
+		this.mainProgram = mainProgram;
+	}
+
 	public SidePanel() {
 		setBackground(new Color(255, 250, 205));
 		
@@ -52,7 +63,9 @@ public class SidePanel extends JPanel {
 		add(pNotice);
 		
 		pBooking = new BookingPanel();
+		pBooking.setSidePanel(this);
 		pBooking.setBounds(20, 260, 218, 360);
 		add(pBooking);
 	}
+	
 }

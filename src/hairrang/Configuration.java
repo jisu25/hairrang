@@ -25,17 +25,18 @@ public class Configuration {
 	
 	
 	/* Color */
-	public static Color mainColor = new Color(153, 102, 255);
-	public static Color lineGrayColor = new Color(225, 225, 225);
-	public static Color textDeepGrayColor = new Color(60, 60, 60);
+	public static Color COLOR_MAIN = new Color(153, 102, 255);
+	public static Color COLOR_GRAY_LINE = new Color(225, 225, 225);
+	public static Color COLOR_DEEPGRAY_TEXT = new Color(60, 60, 60);
 	
 	
 	
-	// tfDim : 텍스트필드 사이즈...
-	public static Dimension tfDim = new Dimension(120, 28); 
+	// 텍스트 사이즈...
+	public static Dimension DIM_TF = new Dimension(120, 28); 
 	
-	// btnDim
-	public static Dimension btnDim = new Dimension(100, 32); 
+	// 버튼 사이즈
+	public static Dimension DIM_BTN = new Dimension(100, 32); 
+	public static Dimension DIM_BTNMINI = new Dimension(24, 24);
 	
-	public static String[] menuNames = new String[] {"▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계"};
+	public static String[] MENU_NAMES = new String[] {"▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계", "▶ 예약 내역"};
 }

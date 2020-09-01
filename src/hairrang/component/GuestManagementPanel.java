@@ -61,7 +61,7 @@ public class GuestManagementPanel extends JPanel {
 		add(lblNo);
 
 		tfNo = new JTextField();
-		tfNo.setBounds(185, 30, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfNo.setBounds(185, 30, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfNo);
 		tfNo.setColumns(10);
 		tfNo.setEditable(false);
@@ -72,7 +72,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(185, 65, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfName.setBounds(185, 65, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfName);
 
 		JLabel lblBirthday = new JLabel("생년월일  : ");
@@ -86,7 +86,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfJoinDay = new JTextField();
 		tfJoinDay.setColumns(10);
-		tfJoinDay.setBounds(185, 135, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfJoinDay.setBounds(185, 135, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		tfJoinDay.setEditable(false);
 		add(tfJoinDay);
 
@@ -100,7 +100,7 @@ public class GuestManagementPanel extends JPanel {
 
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
-		tfPhone.setBounds(478, 65, Configuration.tfDim.width, Configuration.tfDim.height);
+		tfPhone.setBounds(478, 65, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(tfPhone);
 
 		JLabel lblMemo = new JLabel("메      모  : ");
@@ -119,7 +119,7 @@ public class GuestManagementPanel extends JPanel {
 		add(rBtnMale);
 
 		tfMemo = new JTextField();
-		tfMemo.setBounds(478, 102, Configuration.tfDim.width, 60);
+		tfMemo.setBounds(478, 102, Configuration.DIM_TF.width, 60);
 		add(tfMemo);
 		tfMemo.setColumns(10);
 
@@ -127,7 +127,7 @@ public class GuestManagementPanel extends JPanel {
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dateChooser.setDate(date);
-		dateChooser.setBounds(185, 99, Configuration.tfDim.width, Configuration.tfDim.height);
+		dateChooser.setBounds(185, 99, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(dateChooser);
 		
 	}

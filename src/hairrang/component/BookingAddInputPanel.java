@@ -17,7 +17,10 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 import hairrang.Configuration;
+import hairrang.dto.Booking;
 import hairrang.dto.Guest;
+import hairrang.dto.Hair;
+import hairrang.service.BookingService;
 import hairrang.service.GuestService;
 import hairrang.service.HairService;
 
@@ -33,11 +36,13 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 	
 	private JComboBox<String> comboHair;
 	
+//	private List<Hair> hairList;
 	private List<String> hairNames;
 	private JDateChooser dcBookDate;
 	
 	
 	private int guestNo; // 이름만으로 고객을 기억할 수 없어서 보이지 않는 곳에 고객번호 저장.
+	private BookingService bService;
 	private GuestService gService;
 	private HairService hService;
 	
@@ -45,11 +50,14 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 	public BookingAddInputPanel() {
 
 		hService = new HairService();
+		bService = new BookingService();
 		gService = new GuestService();
 		
-		hairNames = hService.getHairNames();
+//		hairList = hService.getHairList();
+		
 		initComponents();
 	}
+	
 	private void initComponents() {
 		setLayout(null);
 		
@@ -62,6 +70,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		add(lblGuestName);
 		
 		tfBookingNo = new JTextField();
+		tfBookingNo.setText(bService.getBookingCurrVal() + "");
 		tfBookingNo.setBounds(100, 10, 116, 21);
 		add(tfBookingNo);
 		tfBookingNo.setColumns(10);
@@ -79,7 +88,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		dcBookDate.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dcBookDate.setDate(date);
-		dcBookDate.setBounds(100, 45, Configuration.tfDim.width, Configuration.tfDim.height);
+		dcBookDate.setBounds(100, 45, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
 		add(dcBookDate);
 		
 		JLabel lblHairName = new JLabel("헤어명");
@@ -102,7 +111,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		
 		comboHair = new JComboBox<String>();
 		comboHair.setBounds(100, 188, 116, 21);
-		setHairModel(hairNames);
+		setHairModel();
 		add(comboHair);
 		
 		JLabel lblNote = new JLabel("비고");
@@ -120,7 +129,8 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		
 	}
 	
-	private void setHairModel(List<String> hairNames) {
+	private void setHairModel() {
+		hairNames = hService.getHairNames();
 		String[] items = (String[]) hairNames.toArray(new String[hairNames.size()]);
 
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
@@ -148,5 +158,26 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 	
 	public Guest getGuest() {
 		return gService.selectGuestByNo(new Guest(guestNo));
+	}
+	
+	// 필요한가...?
+	public void clearTf() {
+		tfBookingNo.setText(bService.getBookingCurrVal() + "");
+		Date date = new Date();
+		dcBookDate.setDate(date);
+		tfGuestName.setText("");
+		tfPhone.setText("");
+		setHairModel();
+		taNote.setText("");
+	}
+	
+	protected Booking getBook() {
+		int no = Integer.parseInt(tfBookingNo.getText().trim());
+		Guest guest = getGuest();		
+		Date day = dcBookDate.getDate();
+		Hair hair = hService.getHairByHairNo(new Hair(comboHair.getSelectedIndex()));
+		String note = taNote.getText().trim();
+		
+		return new Booking(no, guest, day, hair, note); 
 	}
 }

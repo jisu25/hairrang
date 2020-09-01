@@ -100,6 +100,13 @@ public class Booking {
 	public void setBookNote(String bookNote) {
 		this.bookNote = bookNote;
 	}
+	
+	public String getBookInfo() {
+		Guest guest = getGuestNo();
+		
+		return String.format("[%s %s] %s님(%d, %s) %s 예약",
+				getBookDayStr(), getBookTimeStr(), guest.getGuestName(), guest.getGuestNo(), guest.getPhone(), getHairNo().getHairName());
+	}
 
 	@Override
 	public String toString() {
