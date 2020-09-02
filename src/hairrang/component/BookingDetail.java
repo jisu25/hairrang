@@ -26,7 +26,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public abstract class AbstractDetail extends JPanel {
+public abstract class BookingDetail extends JPanel {
 	private GuestOrderInfoTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private SalesService salesService = new SalesService();
@@ -36,7 +36,7 @@ public abstract class AbstractDetail extends JPanel {
 	private JDateChooser afterDate;
 	private JDateChooser beforeDate;
 
-	public AbstractDetail() {
+	public BookingDetail() {
 		setLayout(null);
 		
 		JPanel DetailTablePanel = new JPanel();
