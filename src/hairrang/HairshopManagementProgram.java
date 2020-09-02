@@ -20,12 +20,13 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.HairrangChart;
+import hairrang.component.BookingDetail;
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
+import hairrang.component.OrderDetail;
 import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
-import hairrang.component.OrderDetail;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -37,6 +38,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private SalesTest p3;
 	private OrderDetail p4;
 	private HairrangChart p5;
+	private BookingDetail p6;
 	private JPanel emptyPane;
 
 	private JPanel menuPanel;
@@ -56,7 +58,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
-	private JPanel p6;
 
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
@@ -87,8 +88,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
 		UIManager.put("TableHeader.background", Configuration.COLOR_MAIN);
 		UIManager.put("TableHeader.foreground", Color.white);
-		
-		
 		
 		
 		/* Frame 생성*/
@@ -137,7 +136,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p5 = new HairrangChart();
 		layeredPane.add(p5, "name_779540758050400");
 		
-		p6 = new JPanel();
+		p6 = new BookingDetail();
 		
 		pArr = new JPanel[] { p1, p2, p3, p4, p5, p6};
 		

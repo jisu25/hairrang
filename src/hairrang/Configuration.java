@@ -31,7 +31,6 @@ public class Configuration {
 	public static Color COLOR_BTN = new Color(182, 146, 254);
 	
 	
-	
 	// 텍스트 사이즈...
 	public static Dimension DIM_TF = new Dimension(120, 28); 
 	
