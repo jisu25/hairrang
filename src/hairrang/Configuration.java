@@ -38,5 +38,5 @@ public class Configuration {
 	public static Dimension DIM_BTN = new Dimension(100, 32); 
 	public static Dimension DIM_BTNMINI = new Dimension(24, 24);
 	
-	public static String[] MENU_NAMES = new String[] {"▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계", "▶ 예약 내역"};
+	public static String[] MENU_NAMES = new String[] {"▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계", "▶ 예약 내역"};
 }
