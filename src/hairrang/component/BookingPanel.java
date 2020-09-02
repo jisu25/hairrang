@@ -159,7 +159,7 @@ public class BookingPanel extends JPanel implements ActionListener {
 	
 	
 	protected void btnShowAllActionPerformed(ActionEvent e) {
-		sidePanel.getMainProgram().switchPanel(5);
+		sidePanel.getMainProgram().switchPanel(4);
 	}
 	
 }
