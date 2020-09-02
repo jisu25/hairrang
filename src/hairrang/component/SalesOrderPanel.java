@@ -80,7 +80,7 @@ public class SalesOrderPanel extends JPanel {
 		lblSalesDay.setBounds(12, 84, 62, 25);
 		add(lblSalesDay);
 
-		java.util.Date today = new java.util.Date();
+		Date today = new Date();
 		tfSalesDay = new JTextField();
 		tfSalesDay.setHorizontalAlignment(SwingConstants.CENTER);
 		tfSalesDay.setColumns(10);
@@ -169,6 +169,15 @@ public class SalesOrderPanel extends JPanel {
 		comboEvent.addActionListener(addActionlistener);
 		
 		
+	}
+
+	public JCheckBox getCheckMember() {
+		return checkMember;
+	}
+
+
+	public JComboBox<String> getComboHair() {
+		return comboHair;
 	}
 
 	public void setHtable(HairItemTable htable) {

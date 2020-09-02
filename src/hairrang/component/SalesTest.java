@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -32,6 +33,7 @@ public class SalesTest extends JPanel {
 	private JButton btnCancel;
 	private SalesOrderPanel salesPanel;
 	private SalesService salesService = new SalesService();
+	private HairshopManagementProgram program;
 	
 	/**
 	 * Create the panel.
@@ -114,6 +116,7 @@ public class SalesTest extends JPanel {
 				btnCancelAction();
 			}
 			if (e.getSource() == btnGuestSreach) {
+				GuestSreachDialog();
 
 			}
 			if (e.getSource() == btnOrder) {
@@ -126,7 +129,32 @@ public class SalesTest extends JPanel {
 
 		}
 
+		private void GuestSreachDialog() {
+			/*
+			 * dialog = new SalesDialog(); dialog.setBounds(300, 200, 700, 500);
+			 * dialog.setTitle("고객 등록"); dialog.setVisible(true);
+			 */
+			
+			/*
+			 * program.getP3().getSalesPanel().setGuest(no, name); program.switchPanel(2);
+			 */
+	
+			
+		}
+
 		private void btnOrderAction() {
+			if(salesPanel.getComboHair().getSelectedItem() == null) {
+				JOptionPane.showMessageDialog(null, "상품을 선택해 주세요");
+				return;
+			}
+			
+			if(salesPanel.getCheckMember().isSelected() == false) {
+				if(salesPanel.getTfGuestNo().getText().trim().equals("")) { 
+					JOptionPane.showMessageDialog(null, "고객을 선택해주세요");
+					return;
+				}
+			}
+
 			System.out.println(salesPanel.getSales());
 			for(Sales sales : salesPanel.getSales()) {
 				salesService.insertSales(sales);
@@ -166,9 +194,21 @@ public class SalesTest extends JPanel {
 		salesPanel.subSumTotal(selectHair);
 	}
 
-	public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
-		
+	public HairshopManagementProgram getProgram() {
+		return program;
 	}
 
+	public void setProgram(HairshopManagementProgram program) {
+		this.program = program;
+	}
+	
+	
 
+	/*
+	 * public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
+	 * 
+	 * }
+	 */
+
+	
 }
