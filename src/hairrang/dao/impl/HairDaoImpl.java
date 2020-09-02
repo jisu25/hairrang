@@ -129,7 +129,7 @@ public class HairDaoImpl implements HairDao{
 		
 		return null;
 	}
-	
+	 
 	
 	public Hair getHair(ResultSet rs) throws SQLException {
 		int no = rs.getInt("HAIR_NO");

@@ -53,17 +53,17 @@ import hairrang.dto.Sales;
 				conn = JdbcUtil.getConnection();
 
 				// 쿼리문 세팅
-				String query = "SELECT s.SALES_NO ,TO_CHAR( s.SALES_DAY ,'YYYY-MM-DD') day,g.GUEST_NAME,h.HAIR_NAME  ,e.EVENT_NAME ,s.TOTAL_PRICE " + 
-						"FROM SALES s" + 
+				String query = "SELECT S.SALES_NO AS 영업번호 ,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD')AS 영업일자 ,g.GUEST_NAME AS 고객명,h.HAIR_NAME AS 헤어명  ,E.EVENT_NAME AS 이벤트명 ,S.TOTAL_PRICE AS 가격" + 
+						"FROM SALES " + 
 						"	LEFT OUTER JOIN GUEST g ON S.GUEST_NO = G.GUEST_NO " + 
 						"	LEFT OUTER JOIN HAIR h  ON S.SALES_NO =  H.HAIR_NO " + 
 						"	LEFT OUTER JOIN EVENT e ON S.EVENT_NO = E.EVENT_NO " + 
-						"WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?"	+
-						"ORDER BY S.SALES_NO ";
+						"	WHERE TO_CHAR(S.SALES_DAY,'YYYY') BETWEEN ? AND ?" + 
+						"	ORDER BY SALES_NO";
 				ps = conn.prepareStatement(query);
 				ps.setInt(1, startYear);
 				ps.setInt(2, endYear);
-				
+			 	
  
 				// 쿼리문 실행
 				rs = ps.executeQuery();
@@ -137,7 +137,7 @@ import hairrang.dto.Sales;
 
 				// 쿼리문 실행
 				rs = ps.executeQuery();
-
+ 
 				// 결과 저장
 				while (rs.next()) {
 					
@@ -153,7 +153,7 @@ import hairrang.dto.Sales;
 					Hair hair = new Hair(rs.getString("HAIR_NAME"));
 					Event event = new Event(rs.getString("EVENT_NAME"));
 //					S.SALES_NO ,h.HAIR_NAME,TO_CHAR( S.SALES_DAY ,'YYYY-MM-DD') ,g.GUEST_NAME  ,E.EVENT_NAME ,H.PRICE
-
+ 
 
 					
 
@@ -171,12 +171,15 @@ import hairrang.dto.Sales;
 					JdbcUtil.dbClose(rs, ps, conn);
 				} catch (SQLException e) {
 					e.printStackTrace();
+					
 				}
 			}
 
 			// 결과 리턴
 			return list;
 		}
+		
+		
 
 		
 		
@@ -190,6 +193,8 @@ import hairrang.dto.Sales;
 				}
 			}
 		}
+		
+		
 
 	}
 

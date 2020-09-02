@@ -12,7 +12,7 @@ public class HairrangDto {
 	private Event event;
 	public HairrangDto() {
 		// TODO Auto-generated constructor stub
-	}
+	} 
 	public HairrangDto(Sales sales, Guest guest, Hair hair, Event event) {
 		super();
 		this.sales = sales;

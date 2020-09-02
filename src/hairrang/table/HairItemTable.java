@@ -85,6 +85,8 @@ public class HairItemTable extends AbstractItemTable<Hair> {
 		
 		
 	}
+
+	
 	
 	
 	
