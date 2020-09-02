@@ -1,6 +1,7 @@
 package hairrang.component;
 
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,6 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import hairrang.Configuration;
 import hairrang.HairshopManagementProgram;
@@ -39,6 +44,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	private ArrayList<Guest> guestList;
 	private ArrayList<Sales> salesList;
 	private GuestOrderInfoDialog orderInfo;
+	
 	private GuestJoinDialog joinDialog;
 	private GuestUpdateDialog UpdateDialog;
 	private HairshopManagementProgram program;
@@ -95,7 +101,16 @@ public class GuestSearch extends JPanel implements ActionListener {
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		table.setItems(guestList);
 		table.setComponentPopupMenu(createPopMenu());
-
+		
+		
+	}
+	
+	public void mouseClicked(MouseEvent e) {
+		if(SwingUtilities.isRightMouseButton(e)) {
+			int col = table.columnAtPoint(e.getPoint());
+			int row = table.rowAtPoint(e.getPoint());
+			table.changeSelection(row, col, false, false);
+		}
 	}
 
 	public GuestOrderInfoDialog getOrderInfo() {
@@ -218,10 +233,40 @@ public class GuestSearch extends JPanel implements ActionListener {
 		table.setItems(guestList);
 	}
 
-	// 팝메뉴//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 팝메뉴//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
+		
+		popMenu.addPopupMenuListener(new PopupMenuListener() {
+
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        int rowAtPoint = table.rowAtPoint(SwingUtilities.convertPoint(popMenu, new Point(0, 0), table));
+                        if (rowAtPoint > -1) {
+                            table.setRowSelectionInterval(rowAtPoint, rowAtPoint);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+		
 
 		JMenuItem updateMenu = new JMenuItem("고객 정보 수정");
 		JMenuItem deleteMenu = new JMenuItem("고객 정보 삭제");
