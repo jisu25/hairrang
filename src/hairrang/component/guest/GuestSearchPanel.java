@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.guest;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import hairrang.component.GuestSearchView;
 import hairrang.dto.Guest;
 import hairrang.exception.EmptyTfException;
 import hairrang.service.GuestService;
@@ -21,7 +22,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 	private GuestService gService;
 	private ArrayList<Guest> guestList;
 	private JComboBox<Object> comboBox;
-	private GuestSearch mainFrame;
+	private GuestSearchView mainFrame;
 	private JButton btnCancel;
 	
 
@@ -60,11 +61,11 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		add(btnCancel);
 	}
 	
-	public GuestSearch getMainFrame() {
+	public GuestSearchView getMainFrame() {
 		return mainFrame;
 	}
 
-	public void setMainFrame(GuestSearch mainFrame) {
+	public void setMainFrame(GuestSearchView mainFrame) {
 		this.mainFrame = mainFrame;
 	}
 

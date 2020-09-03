@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.guest;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
 import hairrang.Configuration;
+import hairrang.component.GuestSearchView;
 import hairrang.dto.Guest;
 import hairrang.exception.EmptyTfException;
 import hairrang.exception.InValidationException;
@@ -29,11 +30,11 @@ import hairrang.service.GuestService;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 
-public class GuestJoinDialog extends JDialog implements ActionListener{
+public class GuestUpdateDialog extends JDialog implements ActionListener {
 
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
-	private JButton btnAdd;
+	private JButton btnUpdate;
 	private JButton btnCancel;
 	private JTextField tfName;
 	private JTextField tfNo;
@@ -41,29 +42,26 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 	private JTextField tfPhone;
 	private JTextField tfMemo;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
+
 	private ArrayList<Guest> guestList;
 	private GuestService gService;
 	private int curr;
 	private JRadioButton rBtnFemale;
 	private JRadioButton rBtnMale;
 	private JDateChooser dateChooser;
-	private GuestSearch guestSearch;
+	private GuestSearchView guestSearch;
 
-
-
-	
-	public GuestJoinDialog() {
+	public GuestUpdateDialog() {
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 		curr = gService.getGuestCurrVal();
-		
+
 		initComponent();
 
 	}
 
 	private void initComponent() {
-		
+
 		setBounds(100, 100, 441, 444);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 370, 359);
@@ -89,8 +87,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		tfNo.setColumns(10);
 		setTfNo(curr);
 		tfNo.setBounds(144, 35, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
-		
-		
+
 		contentPanel.add(tfNo);
 
 		JLabel lblBirthday = new JLabel("생년월일  : ");
@@ -150,12 +147,12 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		getContentPane().add(buttonPane);
 		buttonPane.setLayout(null);
 
-		btnAdd = new JButton("등록");
-		btnAdd.setBounds(124, 11, 65, 25);
-		btnAdd.setActionCommand("OK");
-		btnAdd.addActionListener(this);
-		buttonPane.add(btnAdd);
-		getRootPane().setDefaultButton(btnAdd);
+		btnUpdate = new JButton("수정");
+		btnUpdate.setBounds(124, 11, 65, 25);
+		btnUpdate.setActionCommand("OK");
+		btnUpdate.addActionListener(this);
+		buttonPane.add(btnUpdate);
+		getRootPane().setDefaultButton(btnUpdate);
 
 		btnCancel = new JButton("취소");
 		btnCancel.setBounds(197, 11, 65, 25);
@@ -165,61 +162,83 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 	}
 	
 	
+//버튼////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnAdd) {
-			btnAddActionPerformed(e);
+		if (e.getSource() == btnUpdate) {
+			try {
+				btnUpdateActionPerformed(e);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
 		}
-		if(e.getSource() == btnCancel) {
+		if (e.getSource() == btnCancel) {
 			btnCancelActionPerformed(e);
 		}
 	}
-	
-	
 
-	private void btnAddActionPerformed(ActionEvent e) {
-		Guest addGuest;
-		try {
-			addGuest = getGuest();
-			System.out.println(addGuest);
-			gService.addGuest(addGuest);
-			//테이블에 추가
-			curr++;
+	private void btnUpdateActionPerformed(ActionEvent e) throws ParseException {
+		guestList = (ArrayList<Guest>) gService.getGuestList();
+		// 패널에 업데이트된 정보를 저장
 
-			JOptionPane.showMessageDialog(null, String.format("%s님이 추가되었습니다.", addGuest.getGuestName()));
-			
-			
-			guestSearch.listUpdate();
-			
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		clearTf();
-		setTfNo(curr);
-		
-	}
+		Guest updateInfo = getGuest();
+		Guest selectGuest = guestSearch.getSelectedGuest();
 
-	private void btnCancelActionPerformed(ActionEvent e) {
-		int result = JOptionPane.showConfirmDialog(null,"고객 등록을 취소하시겠습니까?", "등록 취소",
-				JOptionPane.YES_NO_OPTION);
+		//System.out.println("수정전" + selectGuest);
+
+		// 게스트번호 조건으로 수정하는거니까
+
+		int result = JOptionPane.showConfirmDialog(null, "고객 정보를 수정하시겠습니까?", "고객 수정", JOptionPane.YES_NO_OPTION);
 		if (result == JOptionPane.YES_OPTION) {
-			dispose();
-		}else {
+			
+			int guestNo = selectGuest.getGuestNo();
+			gService.selectGuestByNo(new Guest(guestNo));
+			selectGuest.setGuestName(updateInfo.getGuestName());
+			selectGuest.setBirthday(updateInfo.getBirthday());
+			selectGuest.setGender(updateInfo.getGender());
+			selectGuest.setPhone(updateInfo.getPhone());
+			selectGuest.setGuestNote(updateInfo.getGuestNote());
+			
+			gService.updateGuest(selectGuest);
+			//System.out.println("수정후" + selectGuest);
+			JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.",selectGuest.getGuestName()));
+		} else {
 			return;
 		}
-		
-		
+		guestSearch.listUpdate();
 		
 	}
 
+	
+	
+	private void btnCancelActionPerformed(ActionEvent e) {
+		int result = JOptionPane.showConfirmDialog(null, "고객 정보 수정을 취소하시겠습니까?", "수정 취소", JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			dispose();
+		} else {
+			return;
+		}
+
+	}
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////////
+	
 	public void setTfNo(int curr) {
 		tfNo.setText(String.valueOf(curr));
 
 	}
-	
+
 	public Guest getGuest() throws ParseException {
 		isEmpty();
-		isValidTf();
-		
+
+		if (!isValidTf()) {
+			JOptionPane.showMessageDialog(null, "형식이 맞지 않습니다.");
+			throw new InValidationException("형식오류");
+
+		}
+
 		Calendar c = Calendar.getInstance();
 		Date join = new Date(c.getTimeInMillis());
 
@@ -234,56 +253,62 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		return new Guest(guestNo, guestName, birthday, joinDay, phone, gender, guestNote);
 
 	}
-	
+
+	public void setGuest(Guest guest) {
+		tfNo.setText(String.valueOf(guest.getGuestNo()));
+		tfName.setText(guest.getGuestName());
+		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(guest.getJoinDay()));
+		tfPhone.setText(guest.getPhone());
+		dateChooser.setDate(guest.getBirthday());
+
+		if (guest.getGender() == 1) {
+			rBtnFemale.setSelected(true);
+		} else {
+			rBtnMale.setSelected(true);
+		}
+		tfMemo.setText(guest.getGuestNote());
+
+	}
+
 	private void isEmpty() {
 		String error = "";
-		if(tfName.getText().isEmpty()) {
-			error= "고객명";
-			JOptionPane.showMessageDialog(null, String.format("%s을 입력하세요.",error));
+		if (tfName.getText().isEmpty()) {
+			error = "고객명";
+			JOptionPane.showMessageDialog(null, String.format("%s을 입력하세요.", error));
 			throw new EmptyTfException("공란존재");
 		}
-		if(buttonGroup.isSelected(null)) {
+		if (buttonGroup.isSelected(null)) {
 			error = "성별";
-			JOptionPane.showMessageDialog(null, String.format("%s을 선택하세요.",error));
+			JOptionPane.showMessageDialog(null, String.format("%s을 선택하세요.", error));
 			throw new EmptyTfException("공란존재");
 		}
-		if(tfPhone.getText().isEmpty()) {
+		if (tfPhone.getText().isEmpty()) {
 			error = "연락처";
-			JOptionPane.showMessageDialog(null, String.format("%s를 입력하세요.",error));
+			JOptionPane.showMessageDialog(null, String.format("%s를 입력하세요.", error));
 			throw new EmptyTfException("공란존재");
 		}
-		
+
 		setTfNo(curr);
-		
-		
+
 	}
-	
-	void isValidTf() {
+
+	boolean isValidTf() {
 		String name = tfName.getText().trim();
 		String phone = tfPhone.getText().trim();
-		
+
 		boolean nameCheck = Pattern.matches("^[가-힣a-zA-Z]+$", name);
 		boolean phoneCheck = Pattern.matches("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$", phone);
-		
-		//return nameCheck && phoneCheck;
-		
-		if(!nameCheck) {
-			JOptionPane.showMessageDialog(null, "고객명은 한글과 영어만 입력가능합니다.");
-			throw new InValidationException("형식오류");
-		}
-		if(!phoneCheck) {
-			JOptionPane.showMessageDialog(null, "연락처는 010-1234-5678 형식으로 입력하세요.");
-			throw new InValidationException("형식오류");
-		}
+
+		return nameCheck && phoneCheck;
 	}
-	
+
 	public void clearTf() {
-		
+
 		tfName.setText("");
 		Date date = new Date();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setDate(date);
-		
+
 		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		tfPhone.setText("");
 		buttonGroup.clearSelection();
@@ -291,14 +316,12 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 
 	}
 
-	public GuestSearch getGuestSearch() {
+	public GuestSearchView getGuestSearch() {
 		return guestSearch;
 	}
 
-	public void setGuestSearch(GuestSearch guestSearch) {
+	public void setGuestSearch(GuestSearchView guestSearch) {
 		this.guestSearch = guestSearch;
 	}
 
-	
-	
 }

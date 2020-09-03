@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.sales;
 
 import java.awt.Font;
 import java.awt.MenuItem;
@@ -378,6 +378,7 @@ public class SalesOrderPanel extends JPanel {
 	};
 
 	public void clearTf() {
+		tfSalesNo.setText(String.valueOf(salesService.getSalesNO()));
 		tfGuestName.setText("");
 		tfGuestNo.setText("");
 		tfHairPrice.setText("");

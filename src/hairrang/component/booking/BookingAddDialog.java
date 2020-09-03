@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.booking;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import hairrang.component.BookingPanel;
 import hairrang.dto.Booking;
 import hairrang.dto.Guest;
 import hairrang.service.BookingService;

@@ -20,10 +20,10 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.SalesChart;
-import hairrang.component.BookingDetail;
-import hairrang.component.GuestSearch;
-import hairrang.component.OrderDetail;
-import hairrang.component.SalesTest;
+import hairrang.component.BookingDetailView;
+import hairrang.component.GuestSearchView;
+import hairrang.component.SalesDetailView;
+import hairrang.component.SalesView;
 import hairrang.component.SidePanel;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
@@ -31,11 +31,11 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel contentPane;
 	private JPanel layeredPane;
 
-	private GuestSearch p2;
-	private SalesTest p3;
-	private OrderDetail p4;
+	private GuestSearchView p2;
+	private SalesView p3;
+	private SalesDetailView p4;
 	private SalesChart p5;
-	private BookingDetail p6;
+	private BookingDetailView p6;
 	private JPanel emptyPane;
 
 	private JPanel menuPanel;
@@ -117,24 +117,24 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 //		layeredPane.add(p1, "name_190917990402500");
 //		p1.setLayout(null);
 
-		p2 = new GuestSearch();
+		p2 = new GuestSearchView();
 		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
 		p2.setProgram(this);
 
-		p3 = new SalesTest();
+		p3 = new SalesView();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
 		p3.setProgram(this);
 		
-		p4 = new OrderDetail();
+		p4 = new SalesDetailView();
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
 		
 		p5 = new SalesChart();
 		layeredPane.add(p5, "name_779540758050400");
 		
-		p6 = new BookingDetail();
+		p6 = new BookingDetailView();
 		
 		pArr = new JPanel[] { p2, p3, p4, p5, p6};
 		
@@ -203,7 +203,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.add(sidePanel);
 	}
 
-	public SalesTest getP3() {
+	public SalesView getP3() {
 		return p3;
 	}
 

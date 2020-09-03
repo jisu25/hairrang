@@ -26,7 +26,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class OrderDetail extends JPanel implements ActionListener {
+public class SalesDetailView extends JPanel implements ActionListener {
 	
 	private GuestOrderInfoTable table;
 	private SalesService salesService = new SalesService();
@@ -35,13 +35,14 @@ public class OrderDetail extends JPanel implements ActionListener {
 	private JRadioButton radioWeek;
 	private JRadioButton radioMonth;
 	private JRadioButton radioDay;
-	private JDateChooser afterDate;
-	private JDateChooser beforeDate;
-	
 	private JButton btnSreach;
 	
+	private JDateChooser afterDate;
+	private JDateChooser beforeDate;
+	private Calendar beforecal;
+	private Calendar aftercal;
 
-	public OrderDetail() {
+	public SalesDetailView() {
 		initComponents();
 
 		clearTf();
@@ -140,8 +141,7 @@ public class OrderDetail extends JPanel implements ActionListener {
 			aftercal = Calendar.getInstance();
 		}
 	};
-	private Calendar beforecal;
-	private Calendar aftercal;
+
 	
 	
 	
