@@ -321,12 +321,42 @@ public class SalesDaoImpl implements SalesDao{
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public List<Sales> selectSalesByMonth(int startMonthYear) {
+		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) "
+				+ "WHERE TO_CHAR(SALES_DAY, 'YYYY') = ? " ;
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setInt(1, startMonthYear);
+		
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) { 
+					List<Sales> list = new ArrayList<Sales>();
+					do {
+						list.add(getSales(rs));
+					}while(rs.next());
+					return list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+		
+		
+	}
 
 	@Override
 	public List<Sales> selectSalesBy(int before, int after) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 		
 	}
 	

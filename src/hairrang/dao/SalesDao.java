@@ -45,5 +45,7 @@ public interface SalesDao {
 	List<int[]> selectSalesByYearForChart(int startYear, int endYear);
 	
 	List<int[]> selectSalesByMonthForChart(int startMonthYear);
+	
+	public List<Sales> selectSalesByMonth(int startMonthYear);
 
 }

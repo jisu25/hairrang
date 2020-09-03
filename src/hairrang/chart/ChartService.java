@@ -2,17 +2,8 @@ package hairrang.chart;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
-
-import javax.swing.JRadioButton;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -157,7 +148,7 @@ public class ChartService {
 			switch (type) {
 			case "월별":
 				for (int i = 0; i < results.size(); i++) {
-					dataset.addValue((Integer) results.get(i)[1], type, (Integer) results.get(i)[0]);
+					dataset.addValue((Integer) results.get(i)[0], type, (Integer) results.get(i)[0]);
 				}
 				break;
 			/*case "월별":

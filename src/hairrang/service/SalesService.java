@@ -50,7 +50,7 @@ public class SalesService {
 	
 	// 테이블 월별
 	public List<Sales> getTableDateByMonth(int startMonthYear){
-		return null;
+		return dao.selectSalesByMonth(startMonthYear);
 		
 	}
 	
@@ -61,7 +61,7 @@ public class SalesService {
 	
 	// 차트 월별
 	
-	public List<int[]> getCharDateByMonth(int startMonthYear){
+	public List<int[]> getChartDateByMonth(int startMonthYear){
 		return dao.selectSalesByMonthForChart(startMonthYear);
 		
 	}
