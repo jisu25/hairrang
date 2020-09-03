@@ -30,6 +30,8 @@ public class GuestOrderInfoTable extends JTable {
 
 	private void initComponents() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getTableHeader().setReorderingAllowed(false);
+    	getTableHeader().setResizingAllowed(false);
 	}
 
 	public void setItems(List<Sales> sales) {
@@ -47,7 +49,7 @@ public class GuestOrderInfoTable extends JTable {
 		tcm.getColumn(4).setCellRenderer(dtcr);
 		tcm.getColumn(5).setCellRenderer(dtcr);
 
-		tableSetWidth(60, 100, 120, 100, 80, 100);
+		tableSetWidth(80, 100, 100, 100, 80, 100);
 	}
 
 	private void tableSetWidth(int... width) {

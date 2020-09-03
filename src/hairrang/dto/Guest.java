@@ -22,9 +22,15 @@ public class Guest {
 	public Guest(String guestName) { 
 		this.guestName = guestName;
 	}
-
-	// return new Guest(guestNo, guestName, birthday, joinDay, phone, gender, guestNote);
 	
+	
+
+	public Guest(Date birthday) {
+		this.birthday = birthday;
+	}
+	
+	
+
 	public Guest(int guestNo, String guestName, Date birthday, Date joinDay, String phone, int gender,
 			String guestNote) {
 		this.guestNo = guestNo;

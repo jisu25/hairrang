@@ -15,6 +15,7 @@ import hairrang.dao.HairDao;
 import hairrang.dto.Booking;
 import hairrang.dto.Guest;
 import hairrang.dto.Hair;
+import hairrang.dto.Sales;
 
 public class BookingDaoImpl implements BookingDao {
 
@@ -29,9 +30,9 @@ public class BookingDaoImpl implements BookingDao {
 	
 
 	@Override
-	public List<Booking> selectBookByAll() {
+	public List<Booking> selectBookAll() {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING ORDER BY BOOK_DAY";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery() ) {
@@ -47,7 +48,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 		return null;
 	}
@@ -74,7 +75,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 		return null;
 	}
@@ -83,7 +84,7 @@ public class BookingDaoImpl implements BookingDao {
 	public int insertBook(Booking book) {
 //		INSERT INTO BOOKING
 //		values(BOOKING_SEQ.NEXTVAL, 1, SYSDATE, 1, '10분 늦을 수도 있다고 하심');
-		String sql = "INSERT INTO BOOKING VALUES(BOOKING_SEQ.NEXTVAL, ?, ?, ?, ?)";
+		String sql = "INSERT INTO BOOKING VALUES(BOOK_SEQ.NEXTVAL, ?, ?, ?, ?)";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -96,7 +97,7 @@ public class BookingDaoImpl implements BookingDao {
 			return pstmt.executeUpdate();
 	
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -161,5 +162,82 @@ public class BookingDaoImpl implements BookingDao {
 		
 		return book;
 	}
+
+	@Override
+	public int getBookCurrVal() {
+		
+		String sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'BOOK_SEQ'";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			
+			if(rs.next()) {
+				return rs.getInt("LAST_NUMBER");
+			}
+			
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return 0;
+	}
+
 	
+	public List<Booking> selectTodayBook() {
+		
+		String sql = "SELECT * FROM BOOKING WHERE TO_CHAR(BOOK_DAY, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd') ORDER BY BOOK_DAY";
+		
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			
+			if(rs.next()) {
+				List<Booking> list = new ArrayList<>();
+				
+				do {
+					list.add(getBook(rs));
+				} while(rs.next());
+				
+				return list;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return null;
+	}
+	
+	
+	@Override
+	public List<Booking> selectBookByDate(Date from, Date to) {
+		String sql = "SELECT * FROM BOOKING WHERE TO_CHAR(BOOK_DAY , 'YYYY-MM-DD') BETWEEN TO_CHAR(?, 'YYYY-MM-DD') AND TO_CHAR(?, 'YYYY-MM-DD') ORDER BY BOOK_DAY ";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setDate(1, new java.sql.Date(from.getTime()));
+			pstmt.setDate(2, new java.sql.Date(to.getTime()));
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) { 
+					
+					List<Booking> list = new ArrayList<Booking>();
+					
+					do {
+						list.add(getBook(rs));
+					} while(rs.next());
+					
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return null;
+		
+		
+	}
+
 }

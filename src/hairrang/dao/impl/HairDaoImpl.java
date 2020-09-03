@@ -25,7 +25,7 @@ public class HairDaoImpl implements HairDao{
 	
 	@Override
 	public List<Hair> selectHairByAll() {
-		String sql =  "SELECT * FROM hair";
+		String sql =  "SELECT * FROM hair ORDER BY HAIR_NO";
 		try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement ptst =  con.prepareStatement(sql);
 					ResultSet rs = ptst.executeQuery()){
@@ -129,7 +129,7 @@ public class HairDaoImpl implements HairDao{
 		
 		return null;
 	}
-	
+	 
 	
 	public Hair getHair(ResultSet rs) throws SQLException {
 		int no = rs.getInt("HAIR_NO");

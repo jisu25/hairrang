@@ -62,10 +62,10 @@ public class GuestDaoImplTest {
 		
 	}
 
-	@Test
+	//@Test
 	public void test03SelectGuestByNo() {
 		System.out.printf("%s()%n", "test02SelectGuestByNo");
-		Guest selectNo = dao.selectGuestByNo(new Guest(6));
+		Guest selectNo = dao.selectGuestByNo(new Guest(1));
 		Assert.assertNotNull(selectNo);
 		System.out.println(selectNo);
 		System.out.println();
@@ -86,16 +86,16 @@ public class GuestDaoImplTest {
 	@Test
 	public void test05UpdateGuest() {
 		System.out.printf("%s()%n", "test05UpdateGuest");
-		Guest update = dao.selectGuestByNo(new Guest(6));
+		Guest update = dao.selectGuestByNo(new Guest(1));
 		
 		Calendar c = Calendar.getInstance();
 		c.set(1999, 05, 29);
 		Date birth = new Date(c.getTimeInMillis());
 		
-		update.setGuestName("김변경");
+		update.setGuestName("김혜진");
 		update.setBirthday(birth);
 		update.setPhone("010-5290-5290");
-		update.setGender(2);
+		//update.setGender(2);
 		update.setGuestNote("변경변경");
 		
 		int res = dao.updateGuest(update);
@@ -138,4 +138,29 @@ public class GuestDaoImplTest {
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
 	}
+	
+	@Test
+	public void test09SearchGuestByBirthday() {
+		System.out.printf("%s()%n", "test09birth");
+		//date -> string
+		//tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(guest.getJoinDay()));
+		//string을 date로
+		
+		String test = "1011";
+		
+		List<Guest> list = dao.searchGuestByBirthday(test);
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
+	}
+	
+	@Test
+	public void test09SearchGuestByPhone() {
+		System.out.printf("%s()%n", "test10phone");
+		String search = "052";
+		List<Guest> list = dao.searchGuestByPhone(search);
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
+	}
+	
+	
 }

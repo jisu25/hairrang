@@ -1,12 +1,9 @@
-package hairrang.component;
+package hairrang.component.guest;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.activation.MailcapCommandMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,7 +17,7 @@ import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 import hairrang.table.GuestOrderInfoTable;
 
-public class GuestOrderInfo extends JDialog implements ActionListener {
+public class GuestOrderInfoDialog extends JDialog implements ActionListener {
 	private JLabel lblNo;
 	private JLabel lblName;
 	private JLabel lblSetName;
@@ -36,14 +33,13 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JButton btnClose;
 	private JPanel panel;
 	private JPanel pGuest;
-	private JLabel lblNewLabel;
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	
 	private JLabel lblSetNo;
 	private GuestOrderInfoTable table;
 
-	public GuestOrderInfo() {
+	public GuestOrderInfoDialog() {
 		
 		sService = new SalesService();
 		salesList = (ArrayList<Sales>) sService.selectSalesByAll();
@@ -58,47 +54,44 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 		getContentPane().setLayout(null);
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 550, 450);
+		panel.setBounds(0, 0, 500, 450);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		pGuest = new JPanel();
-		pGuest.setBounds(0, 0, 550, 180);
+		pGuest.setBounds(0, 0, 500, 158);
 		panel.add(pGuest);
 		pGuest.setLayout(null);
 		
 
 		lblNo = new JLabel("고객 번호: ");
-		lblNo.setBounds(195, 28, 70, 16);
+		lblNo.setBounds(159, 52, 70, 16);
 		pGuest.add(lblNo);
 
 		lblSetNo = new JLabel("");
-		lblSetNo.setBounds(289, 28, 70, 16);
+		lblSetNo.setBounds(253, 52, 70, 16);
 		pGuest.add(lblSetNo);
 
 		lblName = new JLabel("고객명 : ");
-		lblName.setBounds(195, 63, 70, 16);
+		lblName.setBounds(159, 87, 70, 16);
 		pGuest.add(lblName);
 
 		lblSetName = new JLabel("");
-		lblSetName.setBounds(289, 63, 70, 16);
+		lblSetName.setBounds(253, 87, 70, 16);
 		pGuest.add(lblSetName);
-
-		lblNewLabel = new JLabel("~확인용~");
-		lblNewLabel.setBounds(249, 123, 61, 16);
-		pGuest.add(lblNewLabel);
 		
 		btnClose = new JButton("닫기");
-		btnClose.setBounds(415, 133, 101, 25);
+		btnClose.setBounds(385, 108, 101, 25);
 		btnClose.addActionListener(this);
 		pGuest.add(btnClose);
 
 		pTable = new JPanel();
-		pTable.setBounds(0, 180, 550, 270);
+		pTable.setBounds(0, 180, 500, 270);
 		panel.add(pTable);
-		pTable.setLayout(new GridLayout(1, 0, 0, 0));
+		pTable.setLayout(null);
 
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 480, 248);
 		pTable.add(scrollPane);
 		
 		table = new GuestOrderInfoTable();
@@ -122,10 +115,8 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		table.setItems(salesList);
-		System.out.println(salesList.size());
 		
-		
-		salesList.stream().forEach(System.out::println);
+		//salesList.stream().forEach(System.out::println);
 		
 	}
 }

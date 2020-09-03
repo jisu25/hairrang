@@ -24,6 +24,13 @@ public interface GuestDao {
 
 	List<Guest> selectGuestByName(Guest guest);
 
+	List<Guest> searchGuestByBirthday(String guest);
+
+	List<Guest> searchGuestByPhone(String guest);
+	
+	
+
+
 
 	//이름으로 검색
 	

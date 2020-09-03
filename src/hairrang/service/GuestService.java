@@ -41,4 +41,12 @@ public class GuestService {
 	public int getGuestCurrVal() {
 		return dao.getGuestCurrVal();
 	}
+	
+	public List<Guest> searchGuestByBirthday(String test){
+		return dao.searchGuestByBirthday(test);
+	}
+	
+	public List<Guest> searchGuestByPhone(String guest){
+		return dao.searchGuestByPhone(guest);
+	}
 }

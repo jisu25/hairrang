@@ -48,7 +48,7 @@ public class Booking {
 
 	
 	public void setBookDayStr(Date bookDay) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		this.bookDayStr = dateFormat.format(bookDay);
 	}
 	
@@ -99,6 +99,13 @@ public class Booking {
 
 	public void setBookNote(String bookNote) {
 		this.bookNote = bookNote;
+	}
+	
+	public String getBookInfo() {
+		Guest guest = getGuestNo();
+		
+		return String.format("[%s %s] %s님(%d, %s) %s 예약",
+				getBookDayStr(), getBookTimeStr(), guest.getGuestName(), guest.getGuestNo(), guest.getPhone(), getHairNo().getHairName());
 	}
 
 	@Override
