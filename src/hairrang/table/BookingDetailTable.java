@@ -17,6 +17,7 @@ public class BookingDetailTable extends AbstractItemTable<Booking> {
 
 	@Override
 	Object[] getColName() {
+		cnt = 1;
 		return new String[] {"", "", "No", "예약시간", "고객명", "연락처", "헤어명", "비고"};
 	}
 

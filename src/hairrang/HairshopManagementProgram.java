@@ -68,7 +68,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Button.foreground", Configuration.COLOR_MAIN);
 		UIManager.put("Button.background", Color.WHITE);
-		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_GRAY_LINE, 1));
 		
 		UIManager.put("CheckBox.background", Color.WHITE);
 		UIManager.put("RadioButton.background", Color.WHITE);
@@ -85,6 +86,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("TableHeader.cellBorder", BorderFactory.createMatteBorder(0, 1, 0, 1, Color.WHITE));
 		UIManager.put("TableHeader.background", Configuration.COLOR_MAIN);
 		UIManager.put("TableHeader.foreground", Color.white);
+		
+//		UIManager.put("Panel.background", Configuration.COLOR_TRANSPARENT);
 		
 		
 		/* Frame 생성*/
