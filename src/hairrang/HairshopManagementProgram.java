@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import hairrang.chart.HairrangChart;
+import hairrang.chart.SalesChart;
 import hairrang.component.BookingDetail;
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
@@ -37,7 +37,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private GuestSearch p2;
 	private SalesTest p3;
 	private OrderDetail p4;
-	private HairrangChart p5;
+	private SalesChart p5;
 	private BookingDetail p6;
 	private JPanel emptyPane;
 
@@ -133,7 +133,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
 		
-		p5 = new HairrangChart();
+		p5 = new SalesChart();
 		layeredPane.add(p5, "name_779540758050400");
 		
 		p6 = new BookingDetail();

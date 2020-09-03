@@ -15,6 +15,9 @@ public interface SalesDao {
 	// where sales_day between ( and ) 아닐까... 잘 찾아봐
 	List<Sales> selectSalesByDate(Date before, Date after);
 	
+	public List<Sales> selectSalesByDate(int before, int after);
+	
+	
 	// 언니쪽(고객검색)에서 필요한 메서드임 만들어야 해
 	List<Sales> selectSalesByGuestNo(Sales sales);
 	
@@ -38,5 +41,7 @@ public interface SalesDao {
 	 */
 	
 	int getTodaySalesCount();
+
+	List<int[]> selectSalesByYearForChart(int startYear, int endYear);
 
 }
