@@ -15,6 +15,7 @@ import hairrang.service.HairService;
 public class HairItemTable extends AbstractItemTable<Hair> {
 	private HairService hService = new HairService();
 	private List<Hair> hairList = hService.getHairList();
+	private List<Hair> resetList = hService.getHairList();
 	private int count = 0;
 	
 	public void setCount(int count) {
@@ -86,6 +87,10 @@ public class HairItemTable extends AbstractItemTable<Hair> {
 		return hairList.get(selectIndex);
 		
 		
+	}
+	
+	public void resetList() {
+		hairList = null;
 	}
 
 	
