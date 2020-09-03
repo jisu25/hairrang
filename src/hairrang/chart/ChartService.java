@@ -64,6 +64,7 @@ public class ChartService {
 		// [렌더링]
 		// 렌더링 생성
 		final BarRenderer renderer = new BarRenderer();
+		
 
 		// 공통 옵션 정의
 		final CategoryItemLabelGenerator generator = new StandardCategoryItemLabelGenerator();
@@ -78,11 +79,12 @@ public class ChartService {
 		renderer.setBasePositiveItemLabelPosition(p_center);
 		renderer.setBaseItemLabelFont(f);
 		renderer.setBaseItemLabelPaint(Color.white); //막대 글씨 색
-		renderer.setSeriesPaint(0, new Color(152, 84, 147)); //막대 색
+		renderer.setSeriesPaint(0, new Color(167,153,177)); //막대 색
 
 		// [plot]
 		// plot 생성
 		final CategoryPlot plot = new CategoryPlot();
+		
 
 		// plot 에 데이터 적재
 		plot.setDataset(dataset);
@@ -120,7 +122,7 @@ public class ChartService {
 			break;
 
 		case "연도별":
-			renderer.setSeriesPaint(0, new Color(80, 107, 102));
+			renderer.setSeriesPaint(0, new Color(153, 102, 255));
 			salesChart.pGraph.add("graphYear", chartp);
 			salesChart.graphCard.show(salesChart.pGraph, "graphYear");
 			break;
