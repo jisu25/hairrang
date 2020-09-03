@@ -1,53 +1,73 @@
 package hairrang.component;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import hairrang.dto.Sales;
-import hairrang.service.SalesService;
-import hairrang.table.GuestOrderInfoTable;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
-
-import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+
+import com.toedter.calendar.JDateChooser;
+
+import hairrang.dto.Booking;
+import hairrang.service.BookingService;
+import hairrang.table.BookingDetailTable;
+import hairrang.table.BookingTable;
 
 @SuppressWarnings("serial")
-public abstract class AbstractDetail extends JPanel {
-	private GuestOrderInfoTable table;
+public class BookingDetail extends JPanel implements ActionListener {
+	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private SalesService salesService = new SalesService();
-	private JRadioButton radioWeek;
+	
 	private JRadioButton radioMonth;
+	private JRadioButton radioWeek;
 	private JRadioButton radioDay;
-	private JDateChooser afterDate;
-	private JDateChooser beforeDate;
+	
+	private JButton btnSreach;
+	
+	private JDateChooser toDate;
+	private JDateChooser fromDate;
 
-	public AbstractDetail() {
+	private BookingDetailTable table;
+	private BookingService bService = new BookingService();
+	private ArrayList<Booking> list;
+
+	private Calendar fromCal;
+	private Calendar toCal;
+
+	public BookingDetail() {
+		
+		list = (ArrayList<Booking>) bService.getBookList();
+		
+		fromCal = Calendar.getInstance();
+		toCal = Calendar.getInstance();
+		
+		initComponents();
+
+	}
+
+
+	private void initComponents() {
 		setLayout(null);
 		
-		JPanel DetailTablePanel = new JPanel();
-		DetailTablePanel.setBounds(0, 157, 697, 315);
-		add(DetailTablePanel);
-		DetailTablePanel.setLayout(new BorderLayout(0, 0));
+		JPanel pTable = new JPanel();
+		pTable.setBounds(0, 157, 697, 315);
+		add(pTable);
+		pTable.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		DetailTablePanel.add(scrollPane, BorderLayout.CENTER);
+		pTable.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new GuestOrderInfoTable();
+		table = new BookingDetailTable();
+		table.setItems(list);
 		scrollPane.setViewportView(table);
 		
 		JLabel lblDate = new JLabel("날  짜 :");
@@ -55,9 +75,9 @@ public abstract class AbstractDetail extends JPanel {
 		lblDate.setBounds(120, 30, 62, 21);
 		add(lblDate);
 		
-		beforeDate = new JDateChooser();
-		beforeDate.setBounds(194, 30, 125, 21);
-		add(beforeDate);
+		fromDate = new JDateChooser();
+		fromDate.setBounds(194, 30, 125, 21);
+		add(fromDate);
 		
 		JLabel lblDate2 = new JLabel("~");
 		lblDate2.setFont(new Font("굴림", Font.BOLD, 12));
@@ -65,103 +85,89 @@ public abstract class AbstractDetail extends JPanel {
 		lblDate2.setBounds(331, 33, 29, 15);
 		add(lblDate2);
 		
-		afterDate = new JDateChooser();
-		afterDate.setBounds(372, 30, 125, 21);
-		add(afterDate);
+		toDate = new JDateChooser();
+		toDate.setBounds(372, 30, 125, 21);
+		add(toDate);
 		
 		radioMonth = new JRadioButton("한달");
 		buttonGroup.add(radioMonth);
 		radioMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		radioMonth.setBounds(416, 76, 81, 23);
-		radioMonth.addActionListener(acitonLIstener);
+		radioMonth.addActionListener(this);
 		add(radioMonth);
 		
 		radioWeek = new JRadioButton("일주일");
 		buttonGroup.add(radioWeek);
 		radioWeek.setHorizontalAlignment(SwingConstants.CENTER);
 		radioWeek.setBounds(302, 76, 81, 23);
-		radioWeek.addActionListener(acitonLIstener);
+		radioWeek.addActionListener(this);
 		add(radioWeek);
 		
 		radioDay = new JRadioButton("하루");
 		buttonGroup.add(radioDay);
 		radioDay.setHorizontalAlignment(SwingConstants.CENTER);
 		radioDay.setBounds(194, 76, 81, 23);
-		radioDay.addActionListener(acitonLIstener);
+		radioDay.addActionListener(this);
 		add(radioDay);
 		
 		btnSreach = new JButton("검색");
-		btnSreach.addActionListener(acitonLIstener);
+		btnSreach.addActionListener(this);
 		btnSreach.setBounds(505, 76, 57, 23);
 		add(btnSreach);
-
 	}
 	
-	ActionListener acitonLIstener = new ActionListener() {
-	Calendar beforecal = Calendar.getInstance();
-	Calendar aftercal = Calendar.getInstance();
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == radioMonth) {
-				System.out.println("한달 실행");
-				
-				beforecal.add(Calendar.MONTH, -1);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
-				return;
-				
-			}
-			if(e.getSource() == radioWeek) {
-				System.out.println("일주일 실행");
-				
-				beforecal.add(Calendar.DATE, -7);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
-				return;
-				
-			}
-			if(e.getSource() == radioDay) {
-				System.out.println("하루 실행");
-				beforecal.add(Calendar.DATE, -1);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
-				return;
-				
-			}
-			if(e.getSource() == btnSreach) {
-				changeTable();
-			}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == radioMonth) {
+			setPeriod(Calendar.MONTH, 1);
 		}
-	};
+		
+		if(e.getSource() == radioWeek) {
+			setPeriod(Calendar.DATE, 7);
+		}
+		
+		if(e.getSource() == radioDay) {
+			setPeriod(Calendar.DATE, 1);
+		}
+		
+		if(e.getSource() == btnSreach) {
+			changeTable();
+		}
+	}
+
+
+	private void setPeriod(int field, int amount) {
+		toCal.add(field, amount);
+		toDate.setDate(toCal.getTime());
+		
+		fromDate.setDate(fromCal.getTime());
+		
+		fromCal = Calendar.getInstance();
+		toCal = Calendar.getInstance();
+	}
 	
 	
-	private JButton btnSreach;
+	
+	
 	private void changeTable() {
 		try {
-		List<Sales> list = new ArrayList<Sales>();
-		System.out.println(beforeDate.getDate());
-		System.out.println(afterDate.getDate());
-		list = salesService.selectSalesByDate(beforeDate.getDate(), afterDate.getDate());
-		table.setItems(list);
+			list = (ArrayList<Booking>) bService.getBookListByDate(fromDate.getDate(), toDate.getDate());
+			table.setItems(list);
 		}catch (NullPointerException e) {
-			table.setItems(salesService.selectSalesByAll());
+			table.setItems((ArrayList<Booking>)bService.getBookList());
 		}
 	}
 	
-	public void clreaTf() {
+	public void clearTf() {
 		Calendar beforecal = Calendar.getInstance();
 		Calendar aftercal = Calendar.getInstance();
 		System.out.println("일주일 실행");
 		
-		beforecal.add(Calendar.DATE, -7);
-		beforeDate.setDate(beforecal.getTime());
-		afterDate.setDate(aftercal.getTime());
+		beforecal.add(Calendar.DATE, 7);
+		fromDate.setDate(beforecal.getTime());
+		toDate.setDate(aftercal.getTime());
 		beforecal = Calendar.getInstance();
 		aftercal = Calendar.getInstance();
 	};

@@ -20,12 +20,13 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.HairrangChart;
+import hairrang.component.BookingDetail;
 import hairrang.component.CustomFonts;
 import hairrang.component.GuestManagement;
 import hairrang.component.GuestSearch;
+import hairrang.component.OrderDetail;
 import hairrang.component.SalesTest;
 import hairrang.component.SidePanel;
-import hairrang.component.OrderDetail;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
 
@@ -37,6 +38,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private SalesTest p3;
 	private OrderDetail p4;
 	private HairrangChart p5;
+	private BookingDetail p6;
+	private SidePanel sidePanel;
 	private JPanel emptyPane;
 
 	private JPanel menuPanel;
@@ -55,8 +58,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
-	private SidePanel sidePanel;
-	private JPanel p6;
 
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
@@ -117,26 +118,27 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		// dto에 맞게 구현하고 나면 morph 하세요.
 
 		p1 = new GuestManagement();
-		layeredPane.add(p1, "name_190917990402500");
+		layeredPane.add(p1, "GuestManagement");
 		p1.setLayout(null);
 
 		p2 = new GuestSearch();
-		layeredPane.add(p2, "name_191035038994000");
+		layeredPane.add(p2, "GuestSearch");
 		p2.setLayout(null);
 		p2.setProgram(this);
 
 		p3 = new SalesTest();
-		layeredPane.add(p3, "name_191036958001300");
+		layeredPane.add(p3, "SalesTest");
 		p3.setLayout(null);
 		
 		p4 = new OrderDetail();
-		layeredPane.add(p4, "name_779538988255300");
+		layeredPane.add(p4, "OrderDetail");
 		p4.setLayout(null);
 		
 		p5 = new HairrangChart();
-		layeredPane.add(p5, "name_779540758050400");
+		layeredPane.add(p5, "Chart");
 		
-		p6 = new JPanel();
+		p6 = new BookingDetail();
+		layeredPane.add(p6, "BookingDetail");
 		
 		pArr = new JPanel[] { p1, p2, p3, p4, p5, p6};
 		
@@ -159,10 +161,10 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		btnHome.setForeground(Color.white);
 		menuPanel.add(btnHome);
 
-		emptyPane = new JPanel();
-		emptyPane.setPreferredSize(new Dimension(20, 90));
-		emptyPane.setOpaque(false);
-		menuPanel.add(emptyPane);
+//		emptyPane = new JPanel();
+//		emptyPane.setPreferredSize(new Dimension(20, 90));
+//		emptyPane.setOpaque(false);
+//		menuPanel.add(emptyPane);
 
 		menuBtnsPanel = new JPanel();
 		menuBtnsPanel.setOpaque(false);

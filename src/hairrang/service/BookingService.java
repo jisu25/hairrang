@@ -1,5 +1,6 @@
 package hairrang.service;
 
+import java.util.Date;
 import java.util.List;
 
 import hairrang.dao.BookingDao;
@@ -31,6 +32,9 @@ public class BookingService {
 			return dao.selectBookByGuestNo(guest);
 		}
 		
+		public List<Booking> getBookListByDate(Date from, Date to) {
+			return dao.selectBookByDate(from, to);
+		}
 		
 		public int getBookingCurrVal() {
 			return dao.getBookCurrVal();

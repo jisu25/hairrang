@@ -1,5 +1,6 @@
 package hairrang.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import hairrang.dto.Booking;
@@ -20,6 +21,8 @@ public interface BookingDao {
 		int getBookCurrVal();
 		
 		List<Booking> selectTodayBook();
+
+		List<Booking> selectBookByDate(Date from, Date to);
 		
 	
 }
