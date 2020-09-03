@@ -14,6 +14,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import hairrang.HairshopManagementProgram;
+import hairrang.component.sales.SalesOrderPanel;
 import hairrang.dto.Hair;
 import hairrang.dto.Sales;
 import hairrang.service.SalesService;
@@ -23,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class SalesTest extends JPanel {
+public class SalesView extends JPanel {
 	private ArrayList<Hair> list = new ArrayList<Hair>();
 	private HairItemTable table;
 	private JTextField tfSumPrice;
@@ -38,7 +39,7 @@ public class SalesTest extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public SalesTest() {
+	public SalesView() {
 		setLayout(null);
 
 		JPanel panel = new JPanel();

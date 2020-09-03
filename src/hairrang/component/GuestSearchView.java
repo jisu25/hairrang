@@ -24,13 +24,17 @@ import javax.swing.event.PopupMenuListener;
 
 import hairrang.Configuration;
 import hairrang.HairshopManagementProgram;
+import hairrang.component.guest.GuestJoinDialog;
+import hairrang.component.guest.GuestOrderInfoDialog;
+import hairrang.component.guest.GuestSearchPanel;
+import hairrang.component.guest.GuestUpdateDialog;
 import hairrang.dto.Guest;
 import hairrang.dto.Sales;
 import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 import hairrang.table.GuestSearchTable;
 
-public class GuestSearch extends JPanel implements ActionListener {
+public class GuestSearchView extends JPanel implements ActionListener {
 	private GuestSearchPanel pGuest;
 	private JPanel pBtn;
 	private JButton btnJoin;
@@ -49,7 +53,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 	private GuestUpdateDialog UpdateDialog;
 	private HairshopManagementProgram program;
 
-	public GuestSearch() {
+	public GuestSearchView() {
 		gService = new GuestService();
 		guestList = (ArrayList<Guest>) gService.getGuestList();
 

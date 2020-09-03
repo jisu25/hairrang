@@ -26,20 +26,29 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class OrderDetail extends JPanel {
+public class SalesDetailView extends JPanel implements ActionListener {
+	
 	private GuestOrderInfoTable table;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private SalesService salesService = new SalesService();
+	
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton radioWeek;
 	private JRadioButton radioMonth;
 	private JRadioButton radioDay;
+	private JButton btnSreach;
+	
 	private JDateChooser afterDate;
 	private JDateChooser beforeDate;
+	private Calendar beforecal;
+	private Calendar aftercal;
 
-	/**
-	 * Create the panel.
-	 */
-	public OrderDetail() {
+	public SalesDetailView() {
+		initComponents();
+
+		clearTf();
+	}
+
+	private void initComponents() {
 		setLayout(null);
 		
 		JPanel DetailTablePanel = new JPanel();
@@ -80,6 +89,7 @@ public class OrderDetail extends JPanel {
 		add(radioMonth);
 		
 		radioWeek = new JRadioButton("일주일");
+		radioWeek.setSelected(true);
 		buttonGroup.add(radioWeek);
 		radioWeek.setHorizontalAlignment(SwingConstants.CENTER);
 		radioWeek.setBounds(302, 76, 81, 23);
@@ -97,7 +107,6 @@ public class OrderDetail extends JPanel {
 		btnSreach.addActionListener(acitonLIstener);
 		btnSreach.setBounds(505, 76, 57, 23);
 		add(btnSreach);
-
 	}
 	
 	ActionListener acitonLIstener = new ActionListener() {
@@ -106,68 +115,81 @@ public class OrderDetail extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == radioMonth) {
-				System.out.println("한달 실행");
-				
-				beforecal.add(Calendar.MONTH, -1);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
+				setPeriod(Calendar.MONTH, -1);
 				return;
-				
 			}
 			if(e.getSource() == radioWeek) {
-				System.out.println("일주일 실행");
-				
-				beforecal.add(Calendar.DATE, -7);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
+				setPeriod(Calendar.DATE, -7);
 				return;
-				
 			}
 			if(e.getSource() == radioDay) {
-				System.out.println("하루 실행");
-				beforecal.add(Calendar.DATE, -1);
-				beforeDate.setDate(beforecal.getTime());
-				afterDate.setDate(aftercal.getTime());
-				beforecal = Calendar.getInstance();
-				aftercal = Calendar.getInstance();
+				setPeriod(Calendar.DATE, -1);
 				return;
-				
 			}
 			if(e.getSource() == btnSreach) {
 				changeTable();
 			}
 		}
+		
+		private void setPeriod(int field, int amount ) {
+			beforecal.add(Calendar.MONTH, -1);
+			
+			beforeDate.setDate(beforecal.getTime());
+			afterDate.setDate(aftercal.getTime());
+			
+			beforecal = Calendar.getInstance();
+			aftercal = Calendar.getInstance();
+		}
 	};
+
 	
 	
-	private JButton btnSreach;
+	
 	private void changeTable() {
 		try {
-		List<Sales> list = new ArrayList<Sales>();
-		System.out.println(beforeDate.getDate());
-		System.out.println(afterDate.getDate());
-		list = salesService.selectSalesByDate(beforeDate.getDate(), afterDate.getDate());
-		table.setItems(list);
+			List<Sales> list = new ArrayList<Sales>();
+			list = salesService.selectSalesByDate(beforeDate.getDate(), afterDate.getDate());
+			table.setItems(list);
 		}catch (NullPointerException e) {
 			table.setItems(salesService.selectSalesByAll());
 		}
 	}
 	
-	public void clreaTf() {
-		Calendar beforecal = Calendar.getInstance();
-		Calendar aftercal = Calendar.getInstance();
-		System.out.println("일주일 실행");
+	public void clearTf() {
+		setPeriod(Calendar.DATE, -7);
+		changeTable();
+	}
+
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == radioMonth) {
+			setPeriod(Calendar.MONTH, -1);
+			return;
+		}
+		if(e.getSource() == radioWeek) {
+			setPeriod(Calendar.DATE, -7);
+			return;
+		}
+		if(e.getSource() == radioDay) {
+			setPeriod(Calendar.DATE, -1);
+			return;
+		}
+		if(e.getSource() == btnSreach) {
+			changeTable();
+		}
+	}
 		
-		beforecal.add(Calendar.DATE, -7);
-		beforeDate.setDate(beforecal.getTime());
-		afterDate.setDate(aftercal.getTime());
+	
+	private void setPeriod(int field, int amount ) {
 		beforecal = Calendar.getInstance();
 		aftercal = Calendar.getInstance();
-	};
-	
+		
+		beforecal.add(Calendar.MONTH, -1);
+		
+		beforeDate.setDate(beforecal.getTime());
+		afterDate.setDate(aftercal.getTime());
+		
+	}
 	
 }

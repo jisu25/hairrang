@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.booking;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

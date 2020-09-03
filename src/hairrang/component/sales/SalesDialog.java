@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.sales;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import hairrang.HairshopManagementProgram;
+import hairrang.component.guest.GuestSearchPanel;
 import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestSearchTable;

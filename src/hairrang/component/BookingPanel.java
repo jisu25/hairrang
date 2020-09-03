@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import hairrang.Configuration;
+import hairrang.component.booking.BookingAddDialog;
 import hairrang.dto.Booking;
 import hairrang.service.BookingService;
 import hairrang.table.BookingTable;
