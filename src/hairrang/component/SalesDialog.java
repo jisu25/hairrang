@@ -31,9 +31,6 @@ public class SalesDialog extends JDialog {
 	private JButton btnOk;
 	private HairshopManagementProgram program;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			SalesDialog dialog = new SalesDialog();
@@ -44,9 +41,6 @@ public class SalesDialog extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public SalesDialog() {
 		setBounds(100, 100, 783, 567);
 		getContentPane().setLayout(new BorderLayout());
