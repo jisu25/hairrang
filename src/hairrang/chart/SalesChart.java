@@ -34,7 +34,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	JScrollPane spTable;
 	ChartTable tableResult;
 	DefaultTableModel tmodel;
-
+	JLabel label;
 	SalesService sService = new SalesService();
 	
 	ArrayList<int[]> chartList;
@@ -89,7 +89,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		comboStartYear.setBounds(113, 0, 114, 37);
 		pSetSearch.add(comboStartYear);
 		 
-		JLabel label = new JLabel("-");
+		label = new JLabel("-");
 		label.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		label.setBounds(236, 2, 15, 32);
 		pSetSearch.add(label);

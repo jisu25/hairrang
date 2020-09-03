@@ -19,7 +19,7 @@ public class SalesDaoImpl implements SalesDao{
 	private static final SalesDaoImpl instance = new SalesDaoImpl();
 	
 	private SalesDaoImpl() {};
-	 
+	  
 	public static SalesDaoImpl getInstance() {
 		return instance;
 	}
@@ -282,6 +282,53 @@ public class SalesDaoImpl implements SalesDao{
 			}
 			return null;
 		}
+
+	@Override
+	public List<int[]> selectSalesByMonthForChart(int selectMonthYear) {
+		String sql=" SELECT TO_CHAR(SALES_DAY, 'MM') MONTH , SUM(TOTAL_PRICE ) SUM " + 
+				" FROM SALES S " + 
+				" WHERE TO_CHAR(SALES_DAY, 'YYYY') = ? " + 
+				" GROUP BY TO_CHAR(SALES_DAY, 'MM')" + 
+				" ORDER BY MONTH ASC ";
+		
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, selectMonthYear);
+		
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				
+				while (rs.next()) {
+					
+					List<int[]> list = new ArrayList<>();
+					
+					for(int i = 0; i <= selectMonthYear; i++) {
+						int year = rs.getInt("MONTH");
+						if (i != year) {
+							list.add(new int[] {i, 0});
+							continue;
+						}
+						
+						list.add(new int[] {rs.getInt("MONTH"), rs.getInt("SUM")});
+						rs.next();
+					}
+					
+					return list;
+				}
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Sales> selectSalesBy(int before, int after) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+		
+	}
 	
 	/*
 	 * @Override public int updateSales(Sales sales) { String sql =
@@ -307,4 +354,4 @@ public class SalesDaoImpl implements SalesDao{
 	 * }
 	 */
 
-}
+

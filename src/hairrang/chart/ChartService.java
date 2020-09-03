@@ -119,12 +119,17 @@ public class ChartService {
 		case "월별":
 			salesChart.pGraph.add("graphMonth", chartp);
 			salesChart.graphCard.show(salesChart.pGraph, "graphMonth");
+			salesChart.comboEndYear.setVisible(false);
+			salesChart.label.setVisible(false);
 			break;
 
 		case "연도별":
 			renderer.setSeriesPaint(0, new Color(153, 102, 255));
 			salesChart.pGraph.add("graphYear", chartp);
 			salesChart.graphCard.show(salesChart.pGraph, "graphYear");
+			salesChart.comboEndYear.setVisible(true);
+			salesChart.label.setVisible(true);
+			
 			break;
 
 		default:
@@ -150,6 +155,11 @@ public class ChartService {
 			int size = results.size();
 
 			switch (type) {
+			case "월별":
+				for (int i = 0; i < results.size(); i++) {
+					dataset.addValue((Integer) results.get(i)[1], type, (Integer) results.get(i)[0]);
+				}
+				break;
 			/*case "월별":
 				//rows.addElement((toString().valueOf(results.get(i).getHairname().getHairName())));
 				System.out.println("");
