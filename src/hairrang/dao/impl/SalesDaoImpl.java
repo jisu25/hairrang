@@ -68,7 +68,7 @@ public class SalesDaoImpl implements SalesDao{
 					do {
 						list.add(getSales(rs));
 					}while(rs.next());
-					return list;
+ 					return list;
 				}
 			}
 			
@@ -106,6 +106,38 @@ public class SalesDaoImpl implements SalesDao{
 			
 			pstmt.setDate(1, beforeDate);
 			pstmt.setDate(2, afterDate);
+			
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) { 
+					List<Sales> list = new ArrayList<Sales>();
+					do {
+						list.add(getSales(rs));
+					}while(rs.next());
+					return list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+		
+		
+	}
+	
+	
+	@Override
+	public List<Sales> selectSalesByDate(int before, int after) {
+		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) WHERE TO_CHAR(SALES_DAY, 'YYYY') BETWEEN ? AND ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+//			java.sql.Date beforeDate = new java.sql.Date(before.getTime());
+//			java.sql.Date afterDate = new java.sql.Date(after.getTime());
+			
+			pstmt.setInt(1, before);
+			pstmt.setInt(2, after);
 			
 			
 			try(ResultSet rs = pstmt.executeQuery()){
@@ -210,6 +242,45 @@ public class SalesDaoImpl implements SalesDao{
 		return 0;
 	}
 	
+	
+	@Override
+	public List<int[]> selectSalesByYearForChart (int startYear, int endYear) {
+		
+		  String sql =
+			  "SELECT TO_CHAR(SALES_DAY, 'YYYY') YEAR, SUM(TOTAL_PRICE) SUM "
+			  + " FROM SALES " + " GROUP BY TO_CHAR(SALES_DAY, 'YYYY') " +
+			  " HAVING to_char(sales_day, 'YYYY') BETWEEN ? AND ? ORDER BY YEAR ASC";
+		  
+			try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1, startYear);
+				pstmt.setInt(2, endYear);
+				
+				try (ResultSet rs = pstmt.executeQuery()) {
+					
+					while (rs.next()) {
+						
+						List<int[]> list = new ArrayList<>();
+						
+						for(int i = startYear; i <= endYear; i++) {
+							int year = rs.getInt("YEAR");
+							if (i != year) {
+								list.add(new int[] {i, 0});
+								continue;
+							}
+							
+							list.add(new int[] {rs.getInt("YEAR"), rs.getInt("SUM")});
+							rs.next();
+						}
+						
+						return list;
+					}
+				}
+
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+			return null;
+		}
 	
 	/*
 	 * @Override public int updateSales(Sales sales) { String sql =

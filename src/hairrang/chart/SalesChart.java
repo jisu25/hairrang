@@ -3,7 +3,13 @@ package hairrang.chart;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -13,47 +19,55 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-import hairrang.TestMain;
+import hairrang.dto.Sales;
+import hairrang.service.SalesService;
+import hairrang.table.ChartTable;
 
-public class HairrangChart extends JPanel {
-	JComboBox comboStartYear;
-	JComboBox comboEndYear;
+public class SalesChart extends JPanel implements ActionListener, ItemListener {
+	
+	JComboBox<Integer> comboStartYear;
+	JComboBox<Integer> comboEndYear;
 	JButton btnSearch;
 
 	JScrollPane spTable;
-	JTable tableResult;
+	ChartTable tableResult;
 	DefaultTableModel tmodel;
 
-	JRadioButton rdbtnYearRadioButton;
-	JRadioButton rdbtnMonthRadioButton;
-
+	SalesService sService = new SalesService();
+	
+	ArrayList<int[]> chartList;
+	
 	JPanel pGraph;
 	CardLayout graphCard = new CardLayout();
-
+	
 	final ButtonGroup buttonGroup = new ButtonGroup();
+	
+	// 이게 차트네
+	private ChartService hcs;
+	
+	private String type = "연도별";
 
-	public HairrangChart() {
+	public SalesChart() {
+		
 		setLayout(null);
 		setSize(new Dimension(1144, 623));
 
+		
 		// #검색조건 패널#
+		
 		JPanel pSetSearch = new JPanel();
 		pSetSearch.setLayout(null);
 		pSetSearch.setBounds(12, 27, 495, 37);
 		add(pSetSearch);
  
 		JLabel lbShowDate = new JLabel("조회년도 :");
-		lbShowDate.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		lbShowDate.setBounds(12, 0, 101, 37);
 		pSetSearch.add(lbShowDate);
 
 		btnSearch = new JButton("조회");
-		btnSearch.setBorder(UIManager.getBorder("Button.border"));
-		btnSearch.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		btnSearch.addActionListener(this);
 		btnSearch.setBounds(379, 0, 101, 37);
 		pSetSearch.add(btnSearch);
 		
@@ -85,29 +99,14 @@ public class HairrangChart extends JPanel {
 		comboEndYear.setBounds(251, 0, 114, 37);
 		pSetSearch.add(comboEndYear);
 
+		
 		// #테이블 스크롤 패널#
 		spTable = new JScrollPane();
 		spTable.setBounds(12, 74, 682, 174);
 		add(spTable);
-		
-		// [테이블]
-		// 테이블 열 세팅
-		Vector<String> col = new Vector<String>(); // 열
-		col.add("영업번호");
-		col.add("영업일자");
-		col.add("고객명");
-		col.add("헤어명");
-		col.add("이벤트명");
-		col.add("단가");
-		tmodel = new DefaultTableModel(col, 0);
-
-		// 테이블 보이기
-		tableResult = new JTable(tmodel);
-		tableResult.setRowHeight(26);
-		// 테이블 값 가운데 정렬
-//		tableCellCenter(tableResult);
-
+		tableResult = new ChartTable();
 		spTable.setViewportView(tableResult);
+		
 		
 		// #그래프 패널#
 		pGraph = new JPanel();
@@ -119,30 +118,52 @@ public class HairrangChart extends JPanel {
 		
 
 		
-		// #이벤트 등록#
-		HairrangChartService hcs = new HairrangChartService(this);
-		JRadioButton rdbtnYearRadioButton = new JRadioButton("연도별");
-		buttonGroup.add(rdbtnYearRadioButton);
-		rdbtnYearRadioButton.setBounds(511, 31, 82, 33);
-		add(rdbtnYearRadioButton);
+		// #이벤트 등록 (라디오버튼)#
+		hcs = new ChartService(this);
+		JRadioButton rdbtnYear = new JRadioButton("연도별");
+		rdbtnYear.setSelected(true);
+		buttonGroup.add(rdbtnYear);
+		rdbtnYear.setBounds(511, 31, 82, 33);
+		add(rdbtnYear);
 		
-		JRadioButton rdbtnMonthRadioButton = new JRadioButton("월별");
-		buttonGroup.add(rdbtnMonthRadioButton);
-		rdbtnMonthRadioButton.setBounds(598, 27, 82, 37);
-		add(rdbtnMonthRadioButton);
+		JRadioButton rdbtnMonth = new JRadioButton("월별");
+		buttonGroup.add(rdbtnMonth);
+		rdbtnMonth.setBounds(598, 27, 82, 37);
+		add(rdbtnMonth);
 		
-		btnSearch.addActionListener(hcs);
-		rdbtnYearRadioButton.addItemListener(hcs);
-		rdbtnMonthRadioButton.addItemListener(hcs);
-				
+		rdbtnYear.addItemListener(this);
+		rdbtnMonth.addItemListener(this);
+		
+		// 테이블 setItems, 차트 setChart
+		searchTableChart();
 	}
 
-	public JComboBox getComboStartYear() {
-		return comboStartYear;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			// '검색' 버튼을 눌렀을 때
+			searchTableChart();
+		}
+		
 	}
 
-	public JComboBox getComboEndYear() {
-		return comboEndYear;
+	// 콤보박스의 값을 받아서 serach(start, end)에 넘겨준다
+	private void searchTableChart() {
+		int startYear = (int) comboStartYear.getItemAt(comboStartYear.getSelectedIndex());
+		int endYear = (int) comboEndYear.getItemAt(comboEndYear.getSelectedIndex());
+		
+		ArrayList<Sales> list = (ArrayList<Sales>) sService.getTableDataByYear(startYear, endYear);
+		tableResult.setItems(list);
+		
+		chartList = (ArrayList<int[]>) sService.getChartDataByYear(startYear, endYear);
+		hcs.setChart(type, chartList);
+	}
+
+	// 라디오 버튼의 글자를 읽는 itemListener
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		type = ((JRadioButton) e.getSource()).getText();
+		hcs.setChart(type, chartList); // 차트 생성 & pGraph패널의 카드 레이아웃으로 show()
 	}
 	
 	
