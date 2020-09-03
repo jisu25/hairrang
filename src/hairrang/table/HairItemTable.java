@@ -23,6 +23,8 @@ public class HairItemTable extends AbstractItemTable<Hair> {
 
 	public HairItemTable() {
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		getTableHeader().setReorderingAllowed(false);
+    	getTableHeader().setResizingAllowed(false);
 	}
 
 	@Override
