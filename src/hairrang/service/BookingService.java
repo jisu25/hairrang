@@ -43,6 +43,8 @@ public class BookingService {
 		public List<Booking> getTodayBookList() {
 			return dao.selectTodayBook();
 		}
+		
+		
 		/*
 		public List<Booking> selectBookByName(Booking book) {
 			return dao.selectBookByName(book);

@@ -19,9 +19,14 @@ public class SalesService {
 		return dao.selectSalesByGuestNo(sales);
 	}
 	
+
+	
+	
 	public List<Sales> selectSalesByDate(Date before, Date after){
 		return dao.selectSalesByDate(before, after);	
 	}
+	
+	
 	
 	public int insertSales(Sales sales) {
 		return dao.insertSales(sales);
@@ -34,5 +39,30 @@ public class SalesService {
 	public int getSalesNO() {
 		return dao.sequencesLastNumber();
 	}
-
+	
+	
+	/* 차트 패널 */
+	
+	// 테이블 연도별
+	public List<Sales> getTableDataByYear(int startYear, int endYear) {
+		return dao.selectSalesByDate(startYear, endYear);
+	}
+	
+	// 테이블 월별
+	public List<Sales> getTableDateByMonth(int startMonthYear){
+		return dao.selectSalesByMonth(startMonthYear);
+		
+	}
+	
+	// 차트 연도별
+	public List<int[]> getChartDataByYear(int startYear, int endYear) {
+		return dao.selectSalesByYearForChart(startYear, endYear);
+	}
+	
+	// 차트 월별
+	
+	public List<int[]> getChartDateByMonth(int startMonthYear){
+		return dao.selectSalesByMonthForChart(startMonthYear);
+		
+	}
 }

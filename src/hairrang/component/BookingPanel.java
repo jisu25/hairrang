@@ -1,6 +1,7 @@
 package hairrang.component;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import hairrang.Configuration;
+import hairrang.component.booking.BookingAddDialog;
 import hairrang.dto.Booking;
 import hairrang.service.BookingService;
 import hairrang.table.BookingTable;
@@ -56,6 +58,8 @@ public class BookingPanel extends JPanel implements ActionListener {
 	private void initComponents() {
 		setBounds(new Rectangle(0, 0, 218, 300));
 		setLayout(null);
+		setOpaque(false);
+		setBackground(Configuration.COLOR_TRANSPARENT);
 		
 		JLabel lblBookingTitle = new JLabel("예약 상황");
 		lblBookingTitle.setBounds(0, 0, 100, 36);
@@ -64,19 +68,23 @@ public class BookingPanel extends JPanel implements ActionListener {
 		
 		panel = new JPanel();
 		panel.setBounds(0, 39, 218, 261);
+		panel.setBackground(Configuration.COLOR_TRANSPARENT);
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setBackground(Configuration.COLOR_TRANSPARENT);
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new BookingTable();
+		table.setBackground(Configuration.COLOR_TRANSPARENT);
 		table.setItems(bookList);
-		System.out.println("BooingPanel : " + bookList);
+		scrollPane.getViewport().setBackground(Configuration.COLOR_TRANSPARENT);
 		scrollPane.setViewportView(table);
 		
 		pBtns = new JPanel();
 		pBtns.setBounds(114, 5, 110, 30);
+		pBtns.setOpaque(false);
 		add(pBtns);
 		pBtns.setLayout(null);
 		
@@ -159,7 +167,7 @@ public class BookingPanel extends JPanel implements ActionListener {
 	
 	
 	protected void btnShowAllActionPerformed(ActionEvent e) {
-		sidePanel.getMainProgram().switchPanel(5);
+		sidePanel.getMainProgram().switchPanel(4);
 	}
 	
 }

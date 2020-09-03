@@ -20,45 +20,38 @@ import com.toedter.calendar.JDateChooser;
 import hairrang.dto.Booking;
 import hairrang.service.BookingService;
 import hairrang.table.BookingDetailTable;
-import hairrang.table.BookingTable;
 
 @SuppressWarnings("serial")
-public class BookingDetail extends JPanel implements ActionListener {
-	
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	
-	private JRadioButton radioMonth;
+public class BookingDetailView extends JPanel implements ActionListener {
 	private JRadioButton radioWeek;
+	private JRadioButton radioMonth;
 	private JRadioButton radioDay;
-	
 	private JButton btnSreach;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	private JDateChooser toDate;
 	private JDateChooser fromDate;
-
+	
+	private JPanel pTable;
 	private BookingDetailTable table;
-	private BookingService bService = new BookingService();
+	private BookingService bService;
 	private ArrayList<Booking> list;
 
-	private Calendar fromCal;
-	private Calendar toCal;
-
-	public BookingDetail() {
-		
-		list = (ArrayList<Booking>) bService.getBookList();
-		
-		fromCal = Calendar.getInstance();
-		toCal = Calendar.getInstance();
+	Calendar fromCal;
+	Calendar toCal;
+	private JRadioButton radioAll;
+	
+	public BookingDetailView() {
+		bService = new BookingService();
 		
 		initComponents();
-
+		listUpdate();
 	}
-
 
 	private void initComponents() {
 		setLayout(null);
 		
-		JPanel pTable = new JPanel();
+		pTable = new JPanel();
 		pTable.setBounds(0, 157, 697, 315);
 		add(pTable);
 		pTable.setLayout(new BorderLayout(0, 0));
@@ -67,68 +60,72 @@ public class BookingDetail extends JPanel implements ActionListener {
 		pTable.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new BookingDetailTable();
-		table.setItems(list);
 		scrollPane.setViewportView(table);
 		
-		JLabel lblDate = new JLabel("날  짜 :");
+		JLabel lblDate = new JLabel("기 간 ");
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDate.setBounds(120, 30, 62, 21);
 		add(lblDate);
 		
 		fromDate = new JDateChooser();
 		fromDate.setBounds(194, 30, 125, 21);
+//		fromDate.setDateFormatString("yyyy-MM-dd");
 		add(fromDate);
 		
 		JLabel lblDate2 = new JLabel("~");
-		lblDate2.setFont(new Font("굴림", Font.BOLD, 12));
 		lblDate2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDate2.setBounds(331, 33, 29, 15);
 		add(lblDate2);
 		
 		toDate = new JDateChooser();
 		toDate.setBounds(372, 30, 125, 21);
+//		toDate.setDateFormatString("yyyy-MM-dd");
 		add(toDate);
 		
-		radioMonth = new JRadioButton("한달");
+		radioAll = new JRadioButton("전체");
+		buttonGroup.add(radioAll);
+		radioAll.setHorizontalAlignment(SwingConstants.CENTER);
+		radioAll.setBounds(129, 76, 70, 23);
+		radioAll.addActionListener(this);
+		add(radioAll);
+		
+		radioMonth = new JRadioButton("1개월");
 		buttonGroup.add(radioMonth);
 		radioMonth.setHorizontalAlignment(SwingConstants.CENTER);
-		radioMonth.setBounds(416, 76, 81, 23);
+		radioMonth.setBounds(200, 76, 70, 23);
 		radioMonth.addActionListener(this);
 		add(radioMonth);
 		
 		radioWeek = new JRadioButton("일주일");
 		buttonGroup.add(radioWeek);
 		radioWeek.setHorizontalAlignment(SwingConstants.CENTER);
-		radioWeek.setBounds(302, 76, 81, 23);
+		radioWeek.setBounds(290, 76, 70, 23);
 		radioWeek.addActionListener(this);
 		add(radioWeek);
 		
-		radioDay = new JRadioButton("하루");
+		radioDay = new JRadioButton("1일");
 		buttonGroup.add(radioDay);
 		radioDay.setHorizontalAlignment(SwingConstants.CENTER);
-		radioDay.setBounds(194, 76, 81, 23);
+		radioDay.setBounds(364, 76, 70, 23);
 		radioDay.addActionListener(this);
 		add(radioDay);
 		
 		btnSreach = new JButton("검색");
 		btnSreach.addActionListener(this);
-		btnSreach.setBounds(505, 76, 57, 23);
+		btnSreach.setBounds(441, 76, 57, 23);
 		add(btnSreach);
 	}
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if(e.getSource() == radioMonth) {
+		if(e.getSource() == radioAll) {
+			fromDate.setDate(null);
+			toDate.setDate(null);
+		} else if(e.getSource() == radioMonth) {
 			setPeriod(Calendar.MONTH, 1);
-		}
-		
-		if(e.getSource() == radioWeek) {
+		} else if (e.getSource() == radioWeek) {
 			setPeriod(Calendar.DATE, 7);
-		}
-		
-		if(e.getSource() == radioDay) {
+		} else if (e.getSource() == radioDay) {
 			setPeriod(Calendar.DATE, 1);
 		}
 		
@@ -137,40 +134,32 @@ public class BookingDetail extends JPanel implements ActionListener {
 		}
 	}
 
-
+	// JDateChooser 날짜 셋팅
 	private void setPeriod(int field, int amount) {
+		fromCal = Calendar.getInstance();
+		toCal = Calendar.getInstance();
+		
 		toCal.add(field, amount);
 		toDate.setDate(toCal.getTime());
 		
 		fromDate.setDate(fromCal.getTime());
-		
-		fromCal = Calendar.getInstance();
-		toCal = Calendar.getInstance();
 	}
 	
-	
-	
-	
+	// 검색 버튼 눌렀을 때 테이블 바꾸는 메서드
 	private void changeTable() {
 		try {
 			list = (ArrayList<Booking>) bService.getBookListByDate(fromDate.getDate(), toDate.getDate());
 			table.setItems(list);
-		}catch (NullPointerException e) {
-			table.setItems((ArrayList<Booking>)bService.getBookList());
+		} catch (NullPointerException e) {
+			list = (ArrayList<Booking>) bService.getBookList();
+			table.setItems(list);
 		}
 	}
 	
-	public void clearTf() {
-		Calendar beforecal = Calendar.getInstance();
-		Calendar aftercal = Calendar.getInstance();
-		System.out.println("일주일 실행");
-		
-		beforecal.add(Calendar.DATE, 7);
-		fromDate.setDate(beforecal.getTime());
-		toDate.setDate(aftercal.getTime());
-		beforecal = Calendar.getInstance();
-		aftercal = Calendar.getInstance();
-	};
-	
-	
+	// == clearTf()랑 같음
+	public void listUpdate() {
+		radioWeek.setSelected(true);
+		setPeriod(Calendar.DATE, 7);
+		changeTable();
+	}
 }

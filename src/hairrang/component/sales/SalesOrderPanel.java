@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.sales;
 
 import java.awt.Font;
 import java.awt.MenuItem;
@@ -41,7 +41,7 @@ public class SalesOrderPanel extends JPanel {
 	private JTextField tfSale;
 
 	private JCheckBox checkMember;
-	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	HairService hairService = new HairService();
 	EventService eventService = new EventService();
 	SalesService salesService = new SalesService();
@@ -66,7 +66,7 @@ public class SalesOrderPanel extends JPanel {
 		tfSalesNo = new JTextField();
 		tfSalesNo.setHorizontalAlignment(SwingConstants.CENTER);
 		tfSalesNo.setBounds(86, 49, 115, 21);
-		tfSalesNo.setText(String.valueOf(salesService.getSalesNO()) + "번");
+		tfSalesNo.setText(String.valueOf(salesService.getSalesNO()));
 		add(tfSalesNo);
 		tfSalesNo.setColumns(10);
 
@@ -80,7 +80,7 @@ public class SalesOrderPanel extends JPanel {
 		lblSalesDay.setBounds(12, 84, 62, 25);
 		add(lblSalesDay);
 
-		java.util.Date today = new java.util.Date();
+		Date today = new Date();
 		tfSalesDay = new JTextField();
 		tfSalesDay.setHorizontalAlignment(SwingConstants.CENTER);
 		tfSalesDay.setColumns(10);
@@ -169,6 +169,15 @@ public class SalesOrderPanel extends JPanel {
 		comboEvent.addActionListener(addActionlistener);
 		
 		
+	}
+
+	public JCheckBox getCheckMember() {
+		return checkMember;
+	}
+
+
+	public JComboBox<String> getComboHair() {
+		return comboHair;
 	}
 
 	public void setHtable(HairItemTable htable) {
@@ -348,7 +357,7 @@ public class SalesOrderPanel extends JPanel {
 		tfSumPrice.setText(sum + "원");
 
 		addEventItemResult(e);
-
+		
 	}
 
 	ItemListener itemlistener = new ItemListener() {
@@ -369,6 +378,7 @@ public class SalesOrderPanel extends JPanel {
 	};
 
 	public void clearTf() {
+		tfSalesNo.setText(String.valueOf(salesService.getSalesNO()));
 		tfGuestName.setText("");
 		tfGuestNo.setText("");
 		tfHairPrice.setText("");

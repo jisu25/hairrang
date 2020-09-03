@@ -8,11 +8,13 @@ import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import hairrang.HairshopManagementProgram;
+import hairrang.component.sales.SalesOrderPanel;
 import hairrang.dto.Hair;
 import hairrang.dto.Sales;
 import hairrang.service.SalesService;
@@ -22,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class SalesTest extends JPanel {
+public class SalesView extends JPanel {
 	private ArrayList<Hair> list = new ArrayList<Hair>();
 	private HairItemTable table;
 	private JTextField tfSumPrice;
@@ -32,11 +34,12 @@ public class SalesTest extends JPanel {
 	private JButton btnCancel;
 	private SalesOrderPanel salesPanel;
 	private SalesService salesService = new SalesService();
+	private HairshopManagementProgram program;
 	
 	/**
 	 * Create the panel.
 	 */
-	public SalesTest() {
+	public SalesView() {
 		setLayout(null);
 
 		JPanel panel = new JPanel();
@@ -114,6 +117,7 @@ public class SalesTest extends JPanel {
 				btnCancelAction();
 			}
 			if (e.getSource() == btnGuestSreach) {
+				GuestSreachDialog();
 
 			}
 			if (e.getSource() == btnOrder) {
@@ -126,18 +130,40 @@ public class SalesTest extends JPanel {
 
 		}
 
+		private void GuestSreachDialog() {
+			/*
+			 * dialog = new SalesDialog(); dialog.setBounds(300, 200, 700, 500);
+			 * dialog.setTitle("고객 등록"); dialog.setVisible(true);
+			 */
+			 program.switchPanel(0);
+		}
+
 		private void btnOrderAction() {
+			if(salesPanel.getComboHair().getSelectedItem() == null) {
+				JOptionPane.showMessageDialog(null, "상품을 선택해 주세요");
+				return;
+			}
+			
+			if(salesPanel.getCheckMember().isSelected() == false) {
+				if(salesPanel.getTfGuestNo().getText().trim().equals("")) { 
+					JOptionPane.showMessageDialog(null, "고객을 선택해주세요");
+					return;
+				}
+			}
+
 			System.out.println(salesPanel.getSales());
 			for(Sales sales : salesPanel.getSales()) {
 				salesService.insertSales(sales);
+				
 			}
 			salesPanel.clearTf();
-			
+			JOptionPane.showMessageDialog(null, "주문이 완료되었습니다");
 			
 			
 		}
 
 	};
+
 
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
@@ -164,11 +190,30 @@ public class SalesTest extends JPanel {
 		Hair selectHair = table.getSelectedRow(selectIndex);
 		table.removeRow(selectIndex);
 		salesPanel.subSumTotal(selectHair);
-	}
-
-	public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
+		System.out.println(list);
+		
+		/*
+		 * for(int i=0; i<list.size(); ){ list.get(i).setHairNo(i++); }
+		 * table.resetList(); table.setItems(list);
+		 */
 		
 	}
 
+	public HairshopManagementProgram getProgram() {
+		return program;
+	}
 
+	public void setProgram(HairshopManagementProgram program) {
+		this.program = program;
+	}
+	
+	
+
+	/*
+	 * public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
+	 * 
+	 * }
+	 */
+
+	
 }

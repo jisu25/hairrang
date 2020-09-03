@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.booking;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import hairrang.CustomFonts;
 import hairrang.dto.Guest;
 import hairrang.service.GuestService;
 import hairrang.table.GuestSearchTable;

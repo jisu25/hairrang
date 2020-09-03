@@ -1,12 +1,9 @@
-package hairrang.component;
+package hairrang.component.guest;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.activation.MailcapCommandMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,7 +17,7 @@ import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 import hairrang.table.GuestOrderInfoTable;
 
-public class GuestOrderInfo extends JDialog implements ActionListener {
+public class GuestOrderInfoDialog extends JDialog implements ActionListener {
 	private JLabel lblNo;
 	private JLabel lblName;
 	private JLabel lblSetName;
@@ -42,7 +39,7 @@ public class GuestOrderInfo extends JDialog implements ActionListener {
 	private JLabel lblSetNo;
 	private GuestOrderInfoTable table;
 
-	public GuestOrderInfo() {
+	public GuestOrderInfoDialog() {
 		
 		sService = new SalesService();
 		salesList = (ArrayList<Sales>) sService.selectSalesByAll();

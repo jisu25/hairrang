@@ -19,13 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import hairrang.chart.HairrangChart;
-import hairrang.component.BookingDetail;
-import hairrang.component.CustomFonts;
-import hairrang.component.GuestManagement;
-import hairrang.component.GuestSearch;
-import hairrang.component.OrderDetail;
-import hairrang.component.SalesTest;
+import hairrang.chart.SalesChart;
+import hairrang.component.BookingDetailView;
+import hairrang.component.GuestSearchView;
+import hairrang.component.SalesDetailView;
+import hairrang.component.SalesView;
 import hairrang.component.SidePanel;
 
 public class HairshopManagementProgram extends JFrame implements ActionListener {
@@ -33,13 +31,12 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel contentPane;
 	private JPanel layeredPane;
 
-	private GuestManagement p1;
-	private GuestSearch p2;
-	private SalesTest p3;
-	private OrderDetail p4;
-	private HairrangChart p5;
-	private BookingDetail p6;
-	private SidePanel sidePanel;
+	private GuestSearchView p2;
+	private SalesView p3;
+	private SalesDetailView p4;
+	private SalesChart p5;
+	private BookingDetailView p6;
+
 	private JPanel emptyPane;
 
 	private JPanel menuPanel;
@@ -48,7 +45,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private Dimension btnHomeDim = new Dimension(230, 90);
 
 	private JPanel menuBtnsPanel;
-	private JButton btnMenu1;
+//	private JButton btnMenu1;
 	private JButton btnMenu2;
 	private JButton btnMenu3;
 	private JButton btnMenu4;
@@ -58,6 +55,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
+	private SidePanel sidePanel;
 
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
@@ -71,7 +69,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Button.foreground", Configuration.COLOR_MAIN);
 		UIManager.put("Button.background", Color.WHITE);
-		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_GRAY_LINE, 1));
 		
 		UIManager.put("CheckBox.background", Color.WHITE);
 		UIManager.put("RadioButton.background", Color.WHITE);
@@ -89,6 +88,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("TableHeader.background", Configuration.COLOR_MAIN);
 		UIManager.put("TableHeader.foreground", Color.white);
 		
+//		UIManager.put("Panel.background", Configuration.COLOR_TRANSPARENT);
 		
 		
 		/* Frame 생성*/
@@ -117,30 +117,30 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		// dto 수정하면서 각 패널들 고장나서 기본 JPanel로 바꿔 넣음
 		// dto에 맞게 구현하고 나면 morph 하세요.
 
-		p1 = new GuestManagement();
-		layeredPane.add(p1, "GuestManagement");
-		p1.setLayout(null);
+//		p1 = new GuestManagement();
+//		layeredPane.add(p1, "name_190917990402500");
+//		p1.setLayout(null);
 
-		p2 = new GuestSearch();
-		layeredPane.add(p2, "GuestSearch");
+		p2 = new GuestSearchView();
+		layeredPane.add(p2, "name_191035038994000");
 		p2.setLayout(null);
 		p2.setProgram(this);
 
-		p3 = new SalesTest();
-		layeredPane.add(p3, "SalesTest");
+		p3 = new SalesView();
+		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
+		p3.setProgram(this);
 		
-		p4 = new OrderDetail();
-		layeredPane.add(p4, "OrderDetail");
+		p4 = new SalesDetailView();
+		layeredPane.add(p4, "name_779538988255300");
 		p4.setLayout(null);
 		
-		p5 = new HairrangChart();
-		layeredPane.add(p5, "Chart");
+		p5 = new SalesChart();
+		layeredPane.add(p5, "name_779540758050400");
 		
-		p6 = new BookingDetail();
-		layeredPane.add(p6, "BookingDetail");
+		p6 = new BookingDetailView();
 		
-		pArr = new JPanel[] { p1, p2, p3, p4, p5, p6};
+		pArr = new JPanel[] { p2, p3, p4, p5, p6};
 		
 		
 		/* 메뉴부 */
@@ -172,13 +172,13 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		menuBtnsPanel.setLayout(new GridLayout(1, 6, 0, 0));
 		menuBtnsPanel.setPreferredSize(new Dimension(700, 90));
 
-		btnMenu1 = new JButton("고객 관리");
-		btnMenu2 = new JButton("고객 검색");
+//		btnMenu1 = new JButton("고객 관리");
+		btnMenu2 = new JButton("고객 관리");
 		btnMenu3 = new JButton("주문");
 		btnMenu4 = new JButton("주문 내역");
 		btnMenu5 = new JButton("통계");
 
-		btnsMenu = new JButton[] { btnMenu1, btnMenu2, btnMenu3, btnMenu4, btnMenu5 };
+		btnsMenu = new JButton[] { btnMenu2, btnMenu3, btnMenu4, btnMenu5 };
 
 		for (int i = 0; i < btnsMenu.length; i++) {
 			btnsMenu[i].addActionListener(this);
@@ -190,7 +190,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			btnsMenu[i].setForeground(Color.white);
 		}
 
-		menuBtnsPanel.add(btnMenu1);
+//		menuBtnsPanel.add(btnMenu1);
 		menuBtnsPanel.add(btnMenu2);
 		menuBtnsPanel.add(btnMenu3);
 		menuBtnsPanel.add(btnMenu4);
@@ -207,7 +207,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		contentPane.add(sidePanel);
 	}
 
-	public SalesTest getP3() {
+	public SalesView getP3() {
 		return p3;
 	}
 
@@ -229,7 +229,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 //			return;
 //		}
 		 
-		if (e.getSource() == btnMenu1 || e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
+		if (e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
+			p2.listUpdate(); //야매메소드,,
 			btnsMenuActionPerformed(e);
 		}
 	}
@@ -237,6 +238,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	protected void btnsMenuActionPerformed(ActionEvent e) {
 		for (int i = 0; i < btnsMenu.length; i++) {
 			if (e.getSource() == btnsMenu[i]) {
+				
 				switchPanel(i);
 			}
 		}
@@ -251,11 +253,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		//layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
 		repaint();
 		revalidate();
-		
-		//관리-검색 이동할때 테이블 리스트 재셋팅
-		p2.listUpdate(); //야매메소드,,
-		
-		//검색에서 주문 누르면 해당 고객 정보 가지고 주문창으로 이동
 		
 	}
 

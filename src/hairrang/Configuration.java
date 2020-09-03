@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import hairrang.component.CustomFonts;
-
 public class Configuration {
 
 	public static Font GSANS_BOLD_16 = CustomFonts.getGSansBold(16);
@@ -26,6 +24,9 @@ public class Configuration {
 	
 	/* Color */
 	public static Color COLOR_MAIN = new Color(153, 102, 255);
+	public static Color COLOR_TRANSPARENT = new Color(0, 0, 0, 0);
+	
+	public static Color COLOR_LIGHTGRAY = new Color(245, 245, 245);
 	public static Color COLOR_GRAY_LINE = new Color(225, 225, 225);
 	public static Color COLOR_DEEPGRAY_TEXT = new Color(60, 60, 60);
 	public static Color COLOR_BTN = new Color(182, 146, 254);
@@ -39,5 +40,5 @@ public class Configuration {
 	public static Dimension DIM_BTN = new Dimension(100, 32); 
 	public static Dimension DIM_BTNMINI = new Dimension(24, 24);
 	
-	public static String[] MENU_NAMES = new String[] {"▶ 고객 등록", "▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계", "▶ 예약 내역"};
+	public static String[] MENU_NAMES = new String[] {"▶ 고객 관리", "▶ 주문", "▶ 주문 내역", "▶ 통계", "▶ 예약 내역"};
 }
