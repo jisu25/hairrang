@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import hairrang.chart.HairrangChart;
 import hairrang.component.BookingDetail;
 import hairrang.component.CustomFonts;
-import hairrang.component.GuestManagement;
+
 import hairrang.component.GuestSearch;
 import hairrang.component.OrderDetail;
 import hairrang.component.SalesTest;
@@ -33,7 +33,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel contentPane;
 	private JPanel layeredPane;
 
-	private GuestManagement p1;
 	private GuestSearch p2;
 	private SalesTest p3;
 	private OrderDetail p4;

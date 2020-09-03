@@ -218,12 +218,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 	
 	public Guest getGuest() throws ParseException {
 		isEmpty();
-		
-		if(!isValidTf()) {
-			JOptionPane.showMessageDialog(null, "형식ㄴㄴ");
-			throw new InValidationException("형식오류");
-			
-		}
+		isValidTf();
 		
 		Calendar c = Calendar.getInstance();
 		Date join = new Date(c.getTimeInMillis());
@@ -263,14 +258,23 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		
 	}
 	
-	boolean isValidTf() {
+	void isValidTf() {
 		String name = tfName.getText().trim();
 		String phone = tfPhone.getText().trim();
 		
 		boolean nameCheck = Pattern.matches("^[가-힣a-zA-Z]+$", name);
 		boolean phoneCheck = Pattern.matches("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$", phone);
 		
-		return nameCheck && phoneCheck;
+		//return nameCheck && phoneCheck;
+		
+		if(!nameCheck) {
+			JOptionPane.showMessageDialog(null, "고객명은 한글과 영어만 입력가능합니다.");
+			throw new InValidationException("형식오류");
+		}
+		if(!phoneCheck) {
+			JOptionPane.showMessageDialog(null, "연락처는 010-1234-5678 형식으로 입력하세요.");
+			throw new InValidationException("형식오류");
+		}
 	}
 	
 	public void clearTf() {

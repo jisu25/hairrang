@@ -184,7 +184,7 @@ public class GuestUpdateDialog extends JDialog implements ActionListener {
 		Guest updateInfo = getGuest();
 		Guest selectGuest = guestSearch.getSelectedGuest();
 
-		System.out.println("수정전" + selectGuest);
+		//System.out.println("수정전" + selectGuest);
 
 		// 게스트번호 조건으로 수정하는거니까
 
@@ -200,7 +200,7 @@ public class GuestUpdateDialog extends JDialog implements ActionListener {
 			selectGuest.setGuestNote(updateInfo.getGuestNote());
 			
 			gService.updateGuest(selectGuest);
-			System.out.println("수정후" + selectGuest);
+			//System.out.println("수정후" + selectGuest);
 			JOptionPane.showMessageDialog(null, String.format("%s님의 정보가 수정되었습니다.",selectGuest.getGuestName()));
 		} else {
 			return;

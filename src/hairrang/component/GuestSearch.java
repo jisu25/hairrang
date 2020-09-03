@@ -255,14 +255,10 @@ public class GuestSearch extends JPanel implements ActionListener {
 
             @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
-                // TODO Auto-generated method stub
-
             }
         });
 
@@ -341,5 +337,7 @@ public class GuestSearch extends JPanel implements ActionListener {
 		}
 
 	}
+	
+	
 
 }

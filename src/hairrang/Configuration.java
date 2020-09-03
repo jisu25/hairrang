@@ -26,6 +26,7 @@ public class Configuration {
 	
 	/* Color */
 	public static Color COLOR_MAIN = new Color(153, 102, 255);
+	
 	public static Color COLOR_GRAY_LINE = new Color(225, 225, 225);
 	public static Color COLOR_DEEPGRAY_TEXT = new Color(60, 60, 60);
 	public static Color COLOR_BTN = new Color(182, 146, 254);

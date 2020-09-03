@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import hairrang.dto.Guest;
+import hairrang.exception.EmptyTfException;
 import hairrang.service.GuestService;
 
 public class GuestSearchPanel extends JPanel implements ActionListener {
@@ -74,6 +76,7 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnSearch) {
+			isEmpty();
 			if(comboBox.getSelectedIndex() == 0) {
 				//System.out.println("고객명");
 				String search = tfSearch.getText().trim();
@@ -94,8 +97,13 @@ public class GuestSearchPanel extends JPanel implements ActionListener {
 		if(e.getSource() == btnCancel) {
 			clearTf();
 			mainFrame.listUpdate();
+		}	
+	}
+	
+	public void isEmpty() {
+		if(tfSearch.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "검색어를 입력하세요");
+			throw new EmptyTfException("공란존재");
 		}
-		
-		
 	}
 }
