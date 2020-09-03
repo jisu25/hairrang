@@ -129,7 +129,8 @@ public class SalesDaoImpl implements SalesDao{
 	
 	@Override
 	public List<Sales> selectSalesByDate(int before, int after) {
-		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) WHERE TO_CHAR(SALES_DAY, 'YYYY') BETWEEN ? AND ?";
+		String sql = "SELECT * FROM SALES s JOIN HAIR h ON (s.HAIR_NO = h.HAIR_NO ) JOIN GUEST g ON (g.GUEST_NO = s.GUEST_NO) JOIN EVENT e ON (s.EVENT_NO = e.EVENT_NO) "
+				+ "WHERE TO_CHAR(SALES_DAY, 'YYYY') BETWEEN ? AND ? ORDER BY SALES_NO";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
