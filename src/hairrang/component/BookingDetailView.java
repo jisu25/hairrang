@@ -69,6 +69,7 @@ public class BookingDetailView extends JPanel implements ActionListener {
 		
 		fromDate = new JDateChooser();
 		fromDate.setBounds(194, 30, 125, 21);
+//		fromDate.setDateFormatString("yyyy-MM-dd");
 		add(fromDate);
 		
 		JLabel lblDate2 = new JLabel("~");
@@ -78,6 +79,7 @@ public class BookingDetailView extends JPanel implements ActionListener {
 		
 		toDate = new JDateChooser();
 		toDate.setBounds(372, 30, 125, 21);
+//		toDate.setDateFormatString("yyyy-MM-dd");
 		add(toDate);
 		
 		radioAll = new JRadioButton("전체");

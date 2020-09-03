@@ -70,6 +70,7 @@ public class SalesDetailView extends JPanel implements ActionListener {
 		beforeDate = new JDateChooser();
 		beforeDate.setBounds(194, 30, 125, 21);
 		add(beforeDate);
+		beforeDate.setDateFormatString("yyyy-MM-dd");
 		
 		JLabel lblDate2 = new JLabel("~");
 		lblDate2.setFont(new Font("굴림", Font.BOLD, 12));
@@ -79,6 +80,7 @@ public class SalesDetailView extends JPanel implements ActionListener {
 		
 		afterDate = new JDateChooser();
 		afterDate.setBounds(372, 30, 125, 21);
+		afterDate.setDateFormatString("yyyy-MM-dd");
 		add(afterDate);
 		
 		radioMonth = new JRadioButton("한달");
