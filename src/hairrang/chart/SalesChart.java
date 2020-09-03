@@ -80,7 +80,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		// 현재 날짜
 
 		int toyear = oCalendar.get(Calendar.YEAR);
-		 for(int i = toyear; i>= 1995; i--){
+		 for(int i = toyear; i>= 2015; i--){
 			  YearValues.add(i);
 		 }  
 		

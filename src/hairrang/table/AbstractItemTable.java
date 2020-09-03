@@ -26,6 +26,8 @@ public abstract class AbstractItemTable<T> extends JTable {
     private void initComponents() {
     	getTableHeader().setPreferredSize(new Dimension(700, 30));
     	setRowHeight(28);
+    	getTableHeader().setReorderingAllowed(false);
+    	getTableHeader().setResizingAllowed(false);
     	
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }

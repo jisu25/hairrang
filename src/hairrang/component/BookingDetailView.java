@@ -22,7 +22,7 @@ import hairrang.service.BookingService;
 import hairrang.table.BookingDetailTable;
 
 @SuppressWarnings("serial")
-public class BookingDetail extends JPanel implements ActionListener {
+public class BookingDetailView extends JPanel implements ActionListener {
 	private JRadioButton radioWeek;
 	private JRadioButton radioMonth;
 	private JRadioButton radioDay;
@@ -41,7 +41,7 @@ public class BookingDetail extends JPanel implements ActionListener {
 	Calendar toCal;
 	private JRadioButton radioAll;
 	
-	public BookingDetail() {
+	public BookingDetailView() {
 		bService = new BookingService();
 		
 		initComponents();
@@ -69,6 +69,7 @@ public class BookingDetail extends JPanel implements ActionListener {
 		
 		fromDate = new JDateChooser();
 		fromDate.setBounds(194, 30, 125, 21);
+//		fromDate.setDateFormatString("yyyy-MM-dd");
 		add(fromDate);
 		
 		JLabel lblDate2 = new JLabel("~");
@@ -78,6 +79,7 @@ public class BookingDetail extends JPanel implements ActionListener {
 		
 		toDate = new JDateChooser();
 		toDate.setBounds(372, 30, 125, 21);
+//		toDate.setDateFormatString("yyyy-MM-dd");
 		add(toDate);
 		
 		radioAll = new JRadioButton("전체");

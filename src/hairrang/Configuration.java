@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import hairrang.component.CustomFonts;
-
 public class Configuration {
 
 	public static Font GSANS_BOLD_16 = CustomFonts.getGSansBold(16);

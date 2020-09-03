@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.guest;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

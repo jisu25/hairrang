@@ -48,7 +48,7 @@ public class Booking {
 
 	
 	public void setBookDayStr(Date bookDay) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		this.bookDayStr = dateFormat.format(bookDay);
 	}
 	
