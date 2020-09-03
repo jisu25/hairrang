@@ -30,7 +30,7 @@ public class SidePanel extends JPanel {
 	}
 
 	public SidePanel() {
-		setBackground(new Color(255, 250, 205));
+		setBackground(Configuration.COLOR_LIGHTGRAY);
 		
 		sService = new SalesService();
 		todayCount = String.valueOf(sService.getTodaySalesCount());
@@ -46,6 +46,7 @@ public class SidePanel extends JPanel {
 		
 		JPanel pToday = new JPanel();
 		pToday.setBounds(new Rectangle(20, 20, 218, 60));
+		pToday.setBackground(Configuration.COLOR_TRANSPARENT);
 		add(pToday);
 		pToday.setLayout(new BoxLayout(pToday, BoxLayout.Y_AXIS));
 		
@@ -60,10 +61,12 @@ public class SidePanel extends JPanel {
 		
 		pNotice = new JPanel();
 		pNotice.setBounds(20, 100, 218, 140);
+		pNotice.setBackground(Configuration.COLOR_TRANSPARENT);
 		add(pNotice);
 		
 		pBooking = new BookingPanel();
 		pBooking.setSidePanel(this);
+		pBooking.setBackground(Configuration.COLOR_TRANSPARENT);
 		pBooking.setBounds(20, 260, 218, 360);
 		add(pBooking);
 	}

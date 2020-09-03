@@ -1,5 +1,6 @@
 package hairrang.table;
 
+import java.awt.Color;
 import java.util.Date;
 
 import javax.swing.ListSelectionModel;
@@ -38,8 +39,10 @@ public class BookingTable extends AbstractItemTable<Booking> {
 	@Override
 	void setWidthAndAlign() {
 		TableColumnModel tcm = getColumnModel();
+		
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		dtcr.setBackground(Color.WHITE);
 		tcm.getColumn(0).setCellRenderer(dtcr);
 		tcm.getColumn(1).setCellRenderer(dtcr);
 		tcm.getColumn(2).setCellRenderer(dtcr);
