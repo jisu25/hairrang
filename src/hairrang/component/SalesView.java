@@ -154,14 +154,16 @@ public class SalesView extends JPanel {
 			System.out.println(salesPanel.getSales());
 			for(Sales sales : salesPanel.getSales()) {
 				salesService.insertSales(sales);
+				
 			}
 			salesPanel.clearTf();
-			
+			JOptionPane.showMessageDialog(null, "주문이 완료되었습니다");
 			
 			
 		}
 
 	};
+
 
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
@@ -188,6 +190,13 @@ public class SalesView extends JPanel {
 		Hair selectHair = table.getSelectedRow(selectIndex);
 		table.removeRow(selectIndex);
 		salesPanel.subSumTotal(selectHair);
+		System.out.println(list);
+		
+		/*
+		 * for(int i=0; i<list.size(); ){ list.get(i).setHairNo(i++); }
+		 * table.resetList(); table.setItems(list);
+		 */
+		
 	}
 
 	public HairshopManagementProgram getProgram() {

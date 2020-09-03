@@ -357,7 +357,7 @@ public class SalesOrderPanel extends JPanel {
 		tfSumPrice.setText(sum + "원");
 
 		addEventItemResult(e);
-
+		
 	}
 
 	ItemListener itemlistener = new ItemListener() {
