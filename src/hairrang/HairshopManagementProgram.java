@@ -21,8 +21,6 @@ import javax.swing.border.EmptyBorder;
 
 import hairrang.chart.HairrangChart;
 import hairrang.component.BookingDetail;
-import hairrang.component.CustomFonts;
-
 import hairrang.component.GuestSearch;
 import hairrang.component.OrderDetail;
 import hairrang.component.SalesTest;
@@ -251,11 +249,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		//layeredPane.getComponent(0).getComponentAt(500, 20).setVisible(false);
 		repaint();
 		revalidate();
-		
-		//관리-검색 이동할때 테이블 리스트 재셋팅
-
-		
-		//검색에서 주문 누르면 해당 고객 정보 가지고 주문창으로 이동
 		
 	}
 

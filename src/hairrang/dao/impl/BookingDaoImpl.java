@@ -211,7 +211,7 @@ public class BookingDaoImpl implements BookingDao {
 	
 	@Override
 	public List<Booking> selectBookByDate(Date from, Date to) {
-		String sql = "SELECT * FROM SALES WHERE TO_CHAR(SALES_DAY , 'YYYY-MM-DD') BETWEEN TO_CHAR(?, 'YYYY-MM-DD') AND TO_CHAR(?, 'YYYY-MM-DD') ORDER BY SALES_DAY ";
+		String sql = "SELECT * FROM BOOKING WHERE TO_CHAR(BOOK_DAY , 'YYYY-MM-DD') BETWEEN TO_CHAR(?, 'YYYY-MM-DD') AND TO_CHAR(?, 'YYYY-MM-DD') ORDER BY BOOK_DAY ";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
