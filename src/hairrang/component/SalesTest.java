@@ -132,9 +132,6 @@ public class SalesTest extends JPanel {
 				salesService.insertSales(sales);
 			}
 			salesPanel.clearTf();
-			
-			
-			
 		}
 
 	};
