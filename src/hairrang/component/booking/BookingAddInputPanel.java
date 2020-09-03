@@ -20,6 +20,7 @@ import hairrang.Configuration;
 import hairrang.dto.Booking;
 import hairrang.dto.Guest;
 import hairrang.dto.Hair;
+import hairrang.exception.EmptyTfException;
 import hairrang.service.BookingService;
 import hairrang.service.GuestService;
 import hairrang.service.HairService;
@@ -28,8 +29,6 @@ import com.toedter.components.JSpinField;
 public class BookingAddInputPanel extends JPanel implements ActionListener {
 	private JTextField tfBookingNo;
 	private JTextField tfGuestName;
-	private JTextField tfBookDate;
-	private JTextField tfHairName;
 	private JButton btnSearch;
 	private JTextField tfPhone;
 	private JTextArea taNote;
@@ -72,6 +71,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		add(lblGuestName);
 		
 		tfBookingNo = new JTextField();
+		tfBookingNo.setEditable(false);
 		tfBookingNo.setText(bService.getBookingCurrVal() + "");
 		tfBookingNo.setBounds(100, 10, 116, 21);
 		add(tfBookingNo);
@@ -126,6 +126,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		add(taNote);
 		
 		chckbxGuest = new JCheckBox("비회원");
+		chckbxGuest.addActionListener(this);
 		chckbxGuest.setBounds(100, 90, 72, 23);
 		add(chckbxGuest);
 		
@@ -136,8 +137,11 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 //		spinField.set
 	}
 	
+	
+	// 콤보박스 리스트 불러오기
 	private void setHairModel() {
 		hairNames = hService.getHairNames();
+		hairNames.add(0, "");
 		String[] items = (String[]) hairNames.toArray(new String[hairNames.size()]);
 
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
@@ -148,8 +152,24 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		if (e.getSource() == btnSearch) {
 			btnSearchActionPerformed(e);
 		}
+		
+		if (e.getSource() == chckbxGuest) {
+			chckbxGuestActionPerfomred(e);
+		}
 	}
 	
+	
+	private void chckbxGuestActionPerfomred(ActionEvent e) {
+		boolean isSelected = chckbxGuest.isSelected();
+		
+		if(isSelected) {
+			setTfEditable(isSelected);
+		} else {
+			tfGuestName.setText("");
+			tfPhone.setText("");
+		}
+	}
+
 	protected void btnSearchActionPerformed(ActionEvent e) {
 		BookingGuestSearch searchDig = new BookingGuestSearch();
 		searchDig.setpBookingAddInput(this);
@@ -161,6 +181,8 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		guestNo = guest.getGuestNo();
 		tfGuestName.setText(guest.getGuestName());
 		tfPhone.setText(guest.getPhone());
+		setTfEditable(false);
+		chckbxGuest.setSelected(false);
 	}
 	
 	public Guest getGuest() {
@@ -170,21 +192,44 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 	// 필요한가...?
 	public void clearTf() {
 		tfBookingNo.setText(bService.getBookingCurrVal() + "");
-		Date date = new Date();
-		dcBookDate.setDate(date);
+		dcBookDate.setDate(new Date());
 		tfGuestName.setText("");
 		tfPhone.setText("");
 		setHairModel();
 		taNote.setText("");
+		
+		setTfEditable(true);
 	}
 	
 	protected Booking getBook() {
+		Guest guest = null;
+		
+		if(chckbxGuest.isSelected()) {
+			guest = new Guest(0);
+		} else {
+			guest = new Guest(guestNo);
+		}
+		
 		int no = Integer.parseInt(tfBookingNo.getText().trim());
-		Guest guest = getGuest();		
+		String bookedBy = tfGuestName.getText().trim();
+		String bookPhone = tfPhone.getText().trim();
 		Date day = dcBookDate.getDate();
 		Hair hair = hService.getHairByHairNo(new Hair(comboHair.getSelectedIndex()));
 		String note = taNote.getText().trim();
 		
-		return new Booking(no, guest, day, hair, note); 
+		Booking newBook = new Booking(no, guest, bookedBy, bookPhone, day, hair, note);
+		
+		System.out.println("combobox : " + comboHair.getSelectedIndex());
+		
+		if (hair == null || bookedBy.equals("") || bookPhone.equals("") ) {
+			throw new EmptyTfException("공란이 존재합니다.");
+		}
+		
+		return newBook; 
+	}
+	
+	public void setTfEditable(boolean editable) {
+		tfGuestName.setEditable(editable);
+		tfPhone.setEditable(editable);
 	}
 }

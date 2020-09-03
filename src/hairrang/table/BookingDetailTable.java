@@ -52,7 +52,7 @@ public class BookingDetailTable extends AbstractItemTable<Booking> {
 		tcm.getColumn(6).setCellRenderer(dtcr);
 		tcm.getColumn(7).setCellRenderer(dtcr);
 		
-		tableSetWidth(0, 0, 40, 180, 80, 120, 100, 180);
+		tableSetWidth(0, 0, 40, 220, 70, 120, 90, 180);
 		
 		tcm.getColumn(0).setMinWidth(0);
 		tcm.getColumn(0).setMaxWidth(0);

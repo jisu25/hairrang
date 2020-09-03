@@ -32,7 +32,7 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public List<Booking> selectBookAll() {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING ORDER BY BOOK_DAY";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOKED_BY, BOOK_PHONE, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING ORDER BY BOOK_DAY";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery() ) {
@@ -57,7 +57,7 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public List<Booking> selectBookByGuestNo(Guest guest) {
 		
-		String sql = "SELECT BOOK_NO, GUEST_NO, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING WHERE GUEST_NO = ?";
+		String sql = "SELECT BOOK_NO, GUEST_NO, BOOKED_BY, BOOK_PHONE, BOOK_DAY, HAIR_NO, BOOK_NOTE FROM BOOKING WHERE GUEST_NO = ?";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -84,15 +84,17 @@ public class BookingDaoImpl implements BookingDao {
 	public int insertBook(Booking book) {
 //		INSERT INTO BOOKING
 //		values(BOOKING_SEQ.NEXTVAL, 1, SYSDATE, 1, '10분 늦을 수도 있다고 하심');
-		String sql = "INSERT INTO BOOKING VALUES(BOOK_SEQ.NEXTVAL, ?, ?, ?, ?)";
+		String sql = "INSERT INTO BOOKING VALUES(BOOK_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
 			pstmt.setInt(1, book.getGuestNo().getGuestNo());
-			pstmt.setDate(2, new java.sql.Date(book.getBookDay().getTime()));
-			pstmt.setInt(3, book.getHairNo().getHairNo());
-			pstmt.setString(4, book.getBookNote());
+			pstmt.setString(2, book.getBookedBy());
+			pstmt.setString(3, book.getBookPhone());
+			pstmt.setDate(4, new java.sql.Date(book.getBookDay().getTime()));
+			pstmt.setInt(5, book.getHairNo().getHairNo());
+			pstmt.setString(6, book.getBookNote());
 			
 			return pstmt.executeUpdate();
 	
@@ -103,16 +105,18 @@ public class BookingDaoImpl implements BookingDao {
 
 	@Override
 	public int updateBook(Booking book) {
-		String sql = "UPDATE BOOKING SET GUEST_NO = ?, BOOK_DAY = ?, HAIR_NO = ?, BOOK_NOTE = ? WHERE BOOK_NO= ?";
+		String sql = "UPDATE BOOKING SET GUEST_NO = ?, BOOKED_BY = ?, BOOK_PHONE = ?, BOOK_DAY = ?, HAIR_NO = ?, BOOK_NOTE = ? WHERE BOOK_NO= ?";
 		
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 
 			pstmt.setInt(1, book.getGuestNo().getGuestNo());
-			pstmt.setDate(2, new java.sql.Date(book.getBookDay().getTime()));
-			pstmt.setInt(3, book.getHairNo().getHairNo());
-			pstmt.setString(4, book.getBookNote());
-			pstmt.setInt(5, book.getBookNo());
+			pstmt.setString(2, book.getBookedBy());
+			pstmt.setString(3, book.getBookPhone());
+			pstmt.setDate(4, new java.sql.Date(book.getBookDay().getTime()));
+			pstmt.setInt(5, book.getHairNo().getHairNo());
+			pstmt.setString(6, book.getBookNote());
+			pstmt.setInt(7, book.getBookNo());
 			
 			return pstmt.executeUpdate();
 	
@@ -139,26 +143,21 @@ public class BookingDaoImpl implements BookingDao {
 
 	private Booking getBook(ResultSet rs) throws SQLException {
 		
-		/*
-		 * java.util.Date utilDate = new java.util.Date(rs.getDate("regdate").getTime());
-			java.util.Date utilDate = rs.getTimestamp("regdate");
-			  //->java.sql.Timestamp가  Date을 상속하기 때문에 이렇게 쓸 수 있음
-		 */
-		
 		GuestDao gDao = GuestDaoImpl.getInstance();
 		HairDao hDao = HairDaoImpl.getInstance();
 		
 		Guest guestNo = gDao.selectGuestByNo(new Guest(rs.getInt("GUEST_NO")));
 		Hair hairNo = hDao.selectHairByNo(new Hair(rs.getInt("HAIR_NO")));
 		
+		String bookedBy = rs.getString("BOOKED_BY");
+		String bookPhone = rs.getString("BOOK_PHONE");
+		
 		int no = rs.getInt("BOOK_NO");
 		Date bookDay = new Date(rs.getDate("BOOK_DAY").getTime());
 		String note = rs.getString("BOOK_NOTE");
 		
-		Booking book = new Booking(no, guestNo, bookDay, hairNo, note);
+		Booking book = new Booking(no, guestNo, bookedBy, bookPhone, bookDay, hairNo, note);
 
-//		System.out.println(book);
-//		System.out.println(book.getBookDateStr() + " " + book.getBookTimeStr());
 		
 		return book;
 	}

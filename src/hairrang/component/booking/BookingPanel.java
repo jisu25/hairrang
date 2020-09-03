@@ -1,4 +1,4 @@
-package hairrang.component;
+package hairrang.component.booking;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import hairrang.Configuration;
-import hairrang.component.booking.BookingAddDialog;
+import hairrang.component.SidePanel;
 import hairrang.dto.Booking;
 import hairrang.service.BookingService;
 import hairrang.table.BookingTable;
@@ -146,6 +146,11 @@ public class BookingPanel extends JPanel implements ActionListener {
 	 */
 	protected void btnDelActionPerformed(ActionEvent e) {
 		int selIdx = table.getSelectedRow();
+		
+		if (selIdx == -1 ) {
+			JOptionPane.showMessageDialog(null, "삭제할 예약내역을 선택해주세요.");
+		}
+		
 		int bookNo = (int)table.getValueAt(selIdx, 0);
 		
 		Booking delBook = bookList.get(bookList.indexOf(new Booking(bookNo)));

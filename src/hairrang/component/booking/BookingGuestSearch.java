@@ -129,7 +129,6 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		
 		Guest guest = gService.selectGuestByNo(new Guest(no));
 		pBookingAddInput.setSelectedGuestToPanel(guest);
-		
 	}
 	
 	

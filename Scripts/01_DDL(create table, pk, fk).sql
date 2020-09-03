@@ -66,6 +66,8 @@ CREATE TABLE hairrang.SALES (
 CREATE TABLE hairrang.BOOKING (
 	book_no NUMBER(10) PRIMARY KEY, /* 예약번호 */
 	guest_no NUMBER(10), /* 고객번호 */
+	booked_by VARCHAR2(20), /* 예약자 이름 */
+	book_phone VARCHAR2(13), /* 예약자 연락처 */
 	book_day DATE NOT NULL, /* 예약 */
 	hair_no NUMBER(10), /* 헤어번호 */
 	book_note VARCHAR2(500) /* 예약비고 */

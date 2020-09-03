@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import hairrang.Configuration;
 import hairrang.HairshopManagementProgram;
+import hairrang.component.booking.BookingPanel;
 import hairrang.service.SalesService;
 
 public class SidePanel extends JPanel {

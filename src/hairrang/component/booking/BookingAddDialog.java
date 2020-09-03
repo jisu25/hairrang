@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import hairrang.component.BookingPanel;
 import hairrang.dto.Booking;
 import hairrang.dto.Guest;
 import hairrang.service.BookingService;
@@ -50,10 +49,14 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 		pBtns.add(okBtn);
 		
 		cancelBtn = new JButton("취소");
+		cancelBtn.addActionListener(this);
 		pBtns.add(cancelBtn);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cancelBtn) {
+			cancelBtnActionPerformed(e);
+		}
 		if (e.getSource() == okBtn) {
 			okBtnActionPerformed(e);
 		}
@@ -85,4 +88,7 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 		this.parentPanel = parentPanel;
 	}
 
+	protected void cancelBtnActionPerformed(ActionEvent e) {
+		dispose();
+	}
 }
