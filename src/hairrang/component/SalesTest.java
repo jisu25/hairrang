@@ -134,12 +134,7 @@ public class SalesTest extends JPanel {
 			 * dialog = new SalesDialog(); dialog.setBounds(300, 200, 700, 500);
 			 * dialog.setTitle("고객 등록"); dialog.setVisible(true);
 			 */
-			
-			/*
-			 * program.getP3().getSalesPanel().setGuest(no, name); program.switchPanel(2);
-			 */
-	
-			
+			 program.switchPanel(0);
 		}
 
 		private void btnOrderAction() {

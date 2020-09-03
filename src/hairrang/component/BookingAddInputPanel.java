@@ -23,6 +23,7 @@ import hairrang.dto.Hair;
 import hairrang.service.BookingService;
 import hairrang.service.GuestService;
 import hairrang.service.HairService;
+import com.toedter.components.JSpinField;
 
 public class BookingAddInputPanel extends JPanel implements ActionListener {
 	private JTextField tfBookingNo;
@@ -45,6 +46,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 	private BookingService bService;
 	private GuestService gService;
 	private HairService hService;
+	private JSpinField spinField;
 	
 	
 	public BookingAddInputPanel() {
@@ -88,7 +90,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		dcBookDate.setDateFormatString("yyyy-MM-dd");
 		Date date = new Date();
 		dcBookDate.setDate(date);
-		dcBookDate.setBounds(100, 45, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
+		dcBookDate.setBounds(100, 45, 116, 24);
 		add(dcBookDate);
 		
 		JLabel lblHairName = new JLabel("헤어명");
@@ -127,6 +129,11 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		chckbxGuest.setBounds(100, 90, 72, 23);
 		add(chckbxGuest);
 		
+		
+		spinField = new JSpinField();
+		spinField.setBounds(225, 48, 29, 21);
+		add(spinField);
+//		spinField.set
 	}
 	
 	private void setHairModel() {

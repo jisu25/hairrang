@@ -127,6 +127,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p3 = new SalesTest();
 		layeredPane.add(p3, "name_191036958001300");
 		p3.setLayout(null);
+		p3.setProgram(this);
 		
 		p4 = new OrderDetail();
 		layeredPane.add(p4, "name_779538988255300");
@@ -227,6 +228,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 //		}
 		 
 		if (e.getSource() == btnMenu2 || e.getSource() == btnMenu3 || e.getSource() == btnMenu4 || e.getSource() == btnMenu5 ) {
+			p2.listUpdate(); //야매메소드,,
 			btnsMenuActionPerformed(e);
 		}
 	}
@@ -234,6 +236,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	protected void btnsMenuActionPerformed(ActionEvent e) {
 		for (int i = 0; i < btnsMenu.length; i++) {
 			if (e.getSource() == btnsMenu[i]) {
+				
 				switchPanel(i);
 			}
 		}
@@ -250,7 +253,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		revalidate();
 		
 		//관리-검색 이동할때 테이블 리스트 재셋팅
-		p2.listUpdate(); //야매메소드,,
+
 		
 		//검색에서 주문 누르면 해당 고객 정보 가지고 주문창으로 이동
 		
