@@ -2,14 +2,11 @@ package hairrang.table;
 
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
-import org.hamcrest.core.SubstringMatcher;
 
 import hairrang.dto.Guest;
 import hairrang.dto.Sales;
@@ -17,28 +14,31 @@ import hairrang.service.GuestService;
 import hairrang.service.SalesService;
 
 @SuppressWarnings("serial")
-public class GuestOrderInfoTable extends JTable {
+public class GuestOrderInfoTable extends AbstractItemTable<Sales> {
 	private DefaultTableModel model;
 	private GuestService gService = new GuestService();
-	private List<Guest> guestList = gService.getGuestList();
 	private SalesService sService = new SalesService();
-	private List<Sales> salesList = sService.selectSalesByAll();
 
-	public GuestOrderInfoTable() {
-		initComponents();
+
+	@Override
+	Object[] getColName() {
+		return new String[] { "영업번호", "주문 일자", "주문명", "단가", "이벤트명", "금액" };
 	}
 
-	private void initComponents() {
-		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		getTableHeader().setReorderingAllowed(false);
-    	getTableHeader().setResizingAllowed(false);
+	@Override
+	Object[] toArray(Sales itemList) {
+		return new Object[] {
+			itemList.getSalesNo(), itemList.getSalesDay(), itemList.getHairNo().getHairName(), itemList.getHairNo().getPrice(),
+			itemList.getEventNo().getEventName(),
+			// 할인율적용된 단가 셋하기
+			// Math.round(sum)
+			itemList.getTotalPrice()
+
+		};
 	}
 
-	public void setItems(List<Sales> sales) {
-		
-		model = new DefaultTableModel(getRows(sales), getColNames());
-		setModel(model);
-
+	@Override
+	void setWidthAndAlign() {
 		TableColumnModel tcm = getColumnModel();
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -49,46 +49,8 @@ public class GuestOrderInfoTable extends JTable {
 		tcm.getColumn(4).setCellRenderer(dtcr);
 		tcm.getColumn(5).setCellRenderer(dtcr);
 
-		tableSetWidth(80, 100, 100, 100, 80, 100);
+		tableSetWidth(80, 100, 100, 100, 80, 100);		
 	}
 
-	private void tableSetWidth(int... width) {
-		TableColumnModel cModel = getColumnModel();
-		for (int i = 0; i < width.length; i++) {
-			cModel.getColumn(i).setPreferredWidth(width[i]);
-		}
-
-	}
-
-	private Object[][] getRows(List<Sales> sales) {
-		if (sales == null) {
-			return new Object[1][];
-		}
-		
-		Object[][] rows = new Object[sales.size()][];
-		for (int i = 0; i < rows.length; i++) {
-			rows[i] = toArray(sales.get(i));
-		}
-
-		return rows;
-	}
-
-	private Object[] getColNames() {
-		return new String[] { "영업번호", "주문 일자", "주문명", "단가", "이벤트명", "금액" };
-	}
-
-	private Object[] toArray(Sales sales) {
-		// double sum = sales.getHairNo().getPrice() * (1 -
-		// sales.getEventNo().getSale());
-		return new Object[] {
-
-				sales.getSalesNo(), sales.getSalesDay(), sales.getHairNo().getHairName(), sales.getHairNo().getPrice(),
-				sales.getEventNo().getEventName(),
-				// 할인율적용된 단가 셋하기
-				// Math.round(sum)
-				sales.getTotalPrice()
-
-		};
-	}
 
 }

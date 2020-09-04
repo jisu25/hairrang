@@ -356,6 +356,21 @@ public class SalesDaoImpl implements SalesDao{
 		return null;
 	}
 
+	@Override
+	public Date oldSalesDay() {
+		String sql = "SELECT MIN(SALES_DAY ) AS MINDAY FROM SALES";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				return rs.getDate("MINDAY");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 	
 		
 	}

@@ -3,6 +3,7 @@ package hairrang.table;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTable;
@@ -13,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import hairrang.Configuration;
+import hairrang.dto.Sales;
 
 
 @SuppressWarnings({ "serial", "hiding" })
@@ -23,7 +25,7 @@ public abstract class AbstractItemTable<T> extends JTable {
     	initComponents();
     }
     
-    private void initComponents() {
+    protected void initComponents() {
     	getTableHeader().setPreferredSize(new Dimension(700, 30));
     	setRowHeight(28);
     	getTableHeader().setReorderingAllowed(false);
@@ -62,8 +64,8 @@ public abstract class AbstractItemTable<T> extends JTable {
     abstract Object[] toArray(T itemList);
 
     
-    public void setItems(ArrayList<T> itemList) {
-        loadData(itemList);
+    public void setItems(ArrayList<T> list) {
+        loadData(list);
         setWidthAndAlign();
     } 
 
