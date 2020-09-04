@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import hairrang.Configuration;
 import hairrang.dto.Sales;
 import hairrang.service.SalesService;
 import hairrang.table.ChartTable;
@@ -65,10 +66,10 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		pSetSearch.setBounds(110, 28, 495, 37);
 		add(pSetSearch);
  
-		JLabel lbShowDate = new JLabel("조회년도 :");
-		lbShowDate.setFont(new Font("굴림", Font.BOLD, 20));
-		lbShowDate.setBounds(12, 0, 101, 37);
-		pSetSearch.add(lbShowDate);
+		JLabel lblShowDate = new JLabel("조회년도 :"); // 작아보임
+		lblShowDate.setFont(Configuration.NANUMSQ_EB_16);
+		lblShowDate.setBounds(12, 0, 101, 37);
+		pSetSearch.add(lblShowDate);
 
 		btnSearch = new JButton("조회");
 		btnSearch.addActionListener(this);
@@ -85,7 +86,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 
 		int toyear = oCalendar.get(Calendar.YEAR);
 		if(minYear == 0) {
-			System.out.println("Sales 데이터 없음 예외 처리해야함");
+		
 		} else {
 			for(int i = toyear; i >= minYear; i--){
 				YearValues.add(i);
@@ -131,7 +132,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		// #이벤트 등록 (라디오버튼)#
 		hcs = new ChartService(this);
 		JRadioButton rdbtnYear = new JRadioButton("연도별");
-		rdbtnYear.setFont(new Font("굴림", Font.BOLD, 20));
+		rdbtnYear.setFont(Configuration.NANUMSQ_EB_16);
 		rdbtnYear.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnYear.setSelected(true);
 		buttonGroup.add(rdbtnYear);
@@ -139,7 +140,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		add(rdbtnYear);
 		
 		JRadioButton rdbtnMonth = new JRadioButton("월별");
-		rdbtnMonth.setFont(new Font("굴림", Font.BOLD, 20));
+		rdbtnMonth.setFont(Configuration.NANUMSQ_EB_16);
 		rdbtnMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		buttonGroup.add(rdbtnMonth);
 		rdbtnMonth.setBounds(363, 254, 172, 37);
