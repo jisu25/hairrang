@@ -148,7 +148,7 @@ public class ChartService {
 			switch (type) {
 			case "월별":
 				for (int i = 0; i < results.size(); i++) {
-					dataset.addValue((Integer) results.get(i)[0], type, (Integer) results.get(i)[0]);
+					dataset.addValue((Integer) results.get(i)[1], type, (Integer) results.get(i)[0]);
 				}
 				break;
 			/*case "월별":

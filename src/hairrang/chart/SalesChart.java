@@ -42,6 +42,8 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	JPanel pGraph;
 	CardLayout graphCard = new CardLayout();
 	
+	private int minYear = sService.getSalesMinYear();
+	
 	final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	// 이게 차트네
@@ -80,9 +82,13 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		// 현재 날짜
 
 		int toyear = oCalendar.get(Calendar.YEAR);
-		 for(int i = toyear; i>= 2015; i--){
-			  YearValues.add(i);
-		 }  
+		if(minYear == 0) {
+			System.out.println("Sales 데이터 없음 예외 처리해야함");
+		} else {
+			for(int i = toyear; i >= minYear; i--){
+				YearValues.add(i);
+			}
+		}
 		
 		// 콤보박스 세팅
 		comboStartYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
@@ -135,20 +141,22 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		rdbtnMonth.addItemListener(this);
 		
 		// 테이블 setItems, 차트 setChart
-		searchTableChart();
+		searchYearTableChart();
 	}
+
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			// '검색' 버튼을 눌렀을 때
-			searchTableChart();
+			searchYearTableChart();
 		}
 		
 	}
 
 	// 콤보박스의 값을 받아서 serach(start, end)에 넘겨준다
-	private void searchTableChart() {
+	private void searchYearTableChart() {
 		int startYear = (int) comboStartYear.getItemAt(comboStartYear.getSelectedIndex());
 		int endYear = (int) comboEndYear.getItemAt(comboEndYear.getSelectedIndex());
 		
@@ -157,14 +165,41 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		chartList = (ArrayList<int[]>) sService.getChartDataByYear(startYear, endYear);
 		hcs.setChart(type, chartList);
+		System.out.println("연도별");
+	}
+	
+	
+	//월별 콤보박스의 값을 받아서 search에 (startMontYear)에 넘겨준다
+	private void searchMonthTableChart() {
+		int startMonthYear = (int) comboStartYear.getItemAt(comboStartYear.getSelectedIndex());
+		
+		ArrayList<Sales> list = (ArrayList<Sales>) sService.getTableDateByMonth(startMonthYear);
+		tableResult.setItems(list);
+		
+		chartList = (ArrayList<int[]>) sService.getChartDateByMonth(startMonthYear);
+		hcs.setChart(type, chartList);
+		System.out.println("월별");
+		
 	}
 
 	// 라디오 버튼의 글자를 읽는 itemListener
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		type = ((JRadioButton) e.getSource()).getText();
-		hcs.setChart(type, chartList); // 차트 생성 & pGraph패널의 카드 레이아웃으로 show()
+		
+		if (type.equals("월별")) {
+			searchMonthTableChart();
+		} else {
+			searchYearTableChart();
+		}
 	}
+
+
+
+	public JComboBox<Integer> getComboStartYear() {
+		return comboStartYear;
+	}
+	
 	
 	
 }
