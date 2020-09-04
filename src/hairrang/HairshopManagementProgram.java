@@ -93,8 +93,9 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("TableHeader.background", Configuration.COLOR_MAIN);
 		UIManager.put("TableHeader.foreground", Color.white);
 		
-//		UIManager.put("Panel.background", Configuration.COLOR_TRANSPARENT);
-		
+		UIManager.put("OptionPane.background", Color.white);
+		UIManager.put("OptionPane.border", BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		UIManager.put("OptionPane.messageAreaBorder", BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		
 		/* Frame 생성*/
 		initComponents();

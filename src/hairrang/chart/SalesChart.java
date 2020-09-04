@@ -21,9 +21,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import hairrang.Configuration;
 import hairrang.dto.Sales;
 import hairrang.service.SalesService;
 import hairrang.table.ChartTable;
+import javax.swing.SwingConstants;
 
 public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	
@@ -61,12 +63,13 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		JPanel pSetSearch = new JPanel();
 		pSetSearch.setLayout(null);
-		pSetSearch.setBounds(12, 27, 495, 37);
+		pSetSearch.setBounds(110, 28, 495, 37);
 		add(pSetSearch);
  
-		JLabel lbShowDate = new JLabel("조회년도 :");
-		lbShowDate.setBounds(12, 0, 101, 37);
-		pSetSearch.add(lbShowDate);
+		JLabel lblShowDate = new JLabel("조회년도 :"); // 작아보임
+		lblShowDate.setFont(Configuration.NANUMSQ_EB_16);
+		lblShowDate.setBounds(12, 0, 101, 37);
+		pSetSearch.add(lblShowDate);
 
 		btnSearch = new JButton("조회");
 		btnSearch.addActionListener(this);
@@ -83,7 +86,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 
 		int toyear = oCalendar.get(Calendar.YEAR);
 		if(minYear == 0) {
-			System.out.println("Sales 데이터 없음 예외 처리해야함");
+		
 		} else {
 			for(int i = toyear; i >= minYear; i--){
 				YearValues.add(i);
@@ -92,6 +95,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		// 콤보박스 세팅
 		comboStartYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+		comboStartYear.setSelectedIndex(0);
 		comboStartYear.setBounds(113, 0, 114, 37);
 		pSetSearch.add(comboStartYear);
 		 
@@ -102,6 +106,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		// 끝년도 콤보박스
 		comboEndYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+		comboEndYear.setSelectedIndex(0);
 		comboEndYear.setBounds(251, 0, 114, 37);
 		pSetSearch.add(comboEndYear);
 
@@ -119,7 +124,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		pGraph.setVisible(false);
 		pGraph.setLayout(graphCard);
 		
-		pGraph.setBounds(12, 258, 682, 291);
+		pGraph.setBounds(12, 289, 682, 248);
 		add(pGraph);
 		
 
@@ -127,14 +132,18 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		// #이벤트 등록 (라디오버튼)#
 		hcs = new ChartService(this);
 		JRadioButton rdbtnYear = new JRadioButton("연도별");
+		rdbtnYear.setFont(Configuration.NANUMSQ_EB_16);
+		rdbtnYear.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnYear.setSelected(true);
 		buttonGroup.add(rdbtnYear);
-		rdbtnYear.setBounds(511, 31, 82, 33);
+		rdbtnYear.setBounds(187, 254, 172, 33);
 		add(rdbtnYear);
 		
 		JRadioButton rdbtnMonth = new JRadioButton("월별");
+		rdbtnMonth.setFont(Configuration.NANUMSQ_EB_16);
+		rdbtnMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		buttonGroup.add(rdbtnMonth);
-		rdbtnMonth.setBounds(598, 27, 82, 37);
+		rdbtnMonth.setBounds(363, 254, 172, 37);
 		add(rdbtnMonth);
 		
 		rdbtnYear.addItemListener(this);
@@ -150,7 +159,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			// '검색' 버튼을 눌렀을 때
-			searchYearTableChart();
+			realSearch(type);
 		}
 		
 	}
@@ -165,7 +174,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		chartList = (ArrayList<int[]>) sService.getChartDataByYear(startYear, endYear);
 		hcs.setChart(type, chartList);
-		System.out.println("연도별");
+//		realSearch(type);
 	}
 	
 	
@@ -178,19 +187,23 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		chartList = (ArrayList<int[]>) sService.getChartDateByMonth(startMonthYear);
 		hcs.setChart(type, chartList);
-		System.out.println("월별");
-		
 	}
 
 	// 라디오 버튼의 글자를 읽는 itemListener
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		type = ((JRadioButton) e.getSource()).getText();
+		realSearch(type);
+	}
+
+
+
+	private void realSearch(String type) {
 		
-		if (type.equals("월별")) {
-			searchMonthTableChart();
-		} else {
+		if (type.equals("연도별")) {
 			searchYearTableChart();
+		} else {
+			searchMonthTableChart();
 		}
 	}
 

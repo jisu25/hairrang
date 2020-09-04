@@ -70,7 +70,7 @@ public class ChartService {
 		renderer.setBasePositiveItemLabelPosition(p_center);
 		renderer.setBaseItemLabelFont(f);
 		renderer.setBaseItemLabelPaint(Color.white); //막대 글씨 색
-		renderer.setSeriesPaint(0, new Color(167,153,177)); //막대 색
+		renderer.setSeriesPaint(0, new Color(35,43,153)); //막대 색
 
 		// [plot]
 		// plot 생성

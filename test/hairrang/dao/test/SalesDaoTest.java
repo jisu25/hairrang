@@ -98,4 +98,15 @@ public class SalesDaoTest {
 		daySales.stream().forEach(System.out::println);
 
 	}
+	
+	//@Test
+	public void testoldSalesDay() throws ParseException {
+		System.out.printf("%s()%n", "testoldSalesDay()");
+		
+		Date oldDay = dao.oldSalesDay();
+		System.out.println(oldDay);
+		
+	}
+	
+	
 }

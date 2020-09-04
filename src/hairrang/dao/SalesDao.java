@@ -47,6 +47,8 @@ public interface SalesDao {
 	
 	public List<Sales> selectSalesByMonth(int startMonthYear);
 	
+	public Date oldSalesDay();
+	
 	int selectSalesMinYear();
 
 }
