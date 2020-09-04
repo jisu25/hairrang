@@ -78,3 +78,9 @@ SELECT * FROM BOOKING WHERE TO_CHAR(BOOK_DAY, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, '
 >>>>>>> branch 'master' of https://github.com/jisu25/hairrang.git
 
 SELECT * FROM SALES WHERE TO_CHAR(SALES_DAY , 'YYYY-MM-DD') BETWEEN TO_CHAR(?, 'YYYY-MM-DD') AND TO_CHAR(?, 'YYYY-MM-DD') ORDER BY SALES_DAY 
+
+SELECT * FROM sales;
+
+
+SELECT min(to_char(sales_day, 'YYYY')) AS min_year
+FROM sales;
