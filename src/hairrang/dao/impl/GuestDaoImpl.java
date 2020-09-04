@@ -74,7 +74,7 @@ public class GuestDaoImpl implements GuestDao {
 	
 	@Override
 	public List<Guest> searchGuestByName(Guest guest){
-		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE GUEST_NAME LIKE '%' || ? || '%'";
+		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE GUEST_NAME LIKE '%' || ? || '%' AND NOT GUEST_NO = 0";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1,"%" + guest.getGuestName() + "%");
@@ -120,7 +120,7 @@ public class GuestDaoImpl implements GuestDao {
 	@Override
 	public List<Guest> searchGuestByBirthday(String test) {
 		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST "
-				+ "WHERE to_char(BIRTHDAY, 'yyyyMMdd') LIKE '%' || ? || '%'";
+				+ "WHERE to_char(BIRTHDAY, 'yyyyMMdd') LIKE '%' || ? || '%' AND NOT GUEST_NO = 0";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			
@@ -146,7 +146,7 @@ public class GuestDaoImpl implements GuestDao {
 
 	@Override
 	public List<Guest> searchGuestByPhone(String guest) {
-		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE REGEXP_REPLACE(phone, '[^0-9]+') LIKE '%' || ? || '%'";
+		String sql = "SELECT GUEST_NO, GUEST_NAME, BIRTHDAY, JOIN_DAY, PHONE, GENDER, GUEST_NOTE FROM GUEST WHERE REGEXP_REPLACE(phone, '[^0-9]+') LIKE '%' || ? || '%' AND NOT GUEST_NO = 0";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, guest);
