@@ -121,7 +121,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		pGraph.setVisible(false);
 		pGraph.setLayout(graphCard);
 		
-		pGraph.setBounds(12, 258, 682, 291);
+		pGraph.setBounds(12, 289, 682, 248);
 		add(pGraph);
 		
 
@@ -131,12 +131,12 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		JRadioButton rdbtnYear = new JRadioButton("연도별");
 		rdbtnYear.setSelected(true);
 		buttonGroup.add(rdbtnYear);
-		rdbtnYear.setBounds(511, 31, 82, 33);
+		rdbtnYear.setBounds(286, 254, 73, 33);
 		add(rdbtnYear);
 		
 		JRadioButton rdbtnMonth = new JRadioButton("월별");
 		buttonGroup.add(rdbtnMonth);
-		rdbtnMonth.setBounds(598, 27, 82, 37);
+		rdbtnMonth.setBounds(363, 254, 60, 37);
 		add(rdbtnMonth);
 		
 		rdbtnYear.addItemListener(this);
