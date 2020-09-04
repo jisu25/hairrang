@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import hairrang.chart.SalesChart;
 import hairrang.conn.JdbcUtil;
 import hairrang.dao.SalesDao;
 import hairrang.dto.Event;
@@ -17,7 +18,7 @@ import hairrang.dto.Sales;
 
 public class SalesDaoImpl implements SalesDao{
 	private static final SalesDaoImpl instance = new SalesDaoImpl();
-	
+	private SalesChart salesChart;
 	private SalesDaoImpl() {};
 	  
 	public static SalesDaoImpl getInstance() {
@@ -258,11 +259,11 @@ public class SalesDaoImpl implements SalesDao{
 				
 				try (ResultSet rs = pstmt.executeQuery()) {
 					
-					while (rs.next()) {
-						
-						List<int[]> list = new ArrayList<>();
-						
-						for(int i = startYear; i <= endYear; i++) {
+					List<int[]> list = new ArrayList<>();
+					
+					if (rs.next()) {
+						int i = startYear;
+						for(i = startYear; i <= endYear; i++) {
 							int year = rs.getInt("YEAR");
 							if (i != year) {
 								list.add(new int[] {i, 0});
@@ -270,17 +271,27 @@ public class SalesDaoImpl implements SalesDao{
 							}
 							
 							list.add(new int[] {rs.getInt("YEAR"), rs.getInt("SUM")});
-							rs.next();
+							if (!rs.next()) {
+								break;
+							}
 						}
 						
-						return list;
+						while(i < endYear) {
+							list.add(new int[] {++i, 0});
+							System.out.println(i);
+						}
+					} else {
+						// 아예 데이터가 없는 경우
+						for(int i = startYear; i <= endYear; i++) {
+							list.add(new int[] {i, 0});
+						}
 					}
+					return list;
 				}
 
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
-			return null;
 		}
 
 	@Override
@@ -288,28 +299,35 @@ public class SalesDaoImpl implements SalesDao{
 		String sql=" SELECT TO_CHAR(SALES_DAY, 'MM') MONTH , SUM(TOTAL_PRICE ) SUM " + 
 				" FROM SALES S " + 
 				" WHERE TO_CHAR(SALES_DAY, 'YYYY') = ? " + 
-				" GROUP BY TO_CHAR(SALES_DAY, 'MM')" + 
-				" ORDER BY MONTH ASC ";
+				" GROUP BY TO_CHAR(SALES_DAY, 'MM')"
+				+ " ORDER BY MONTH ASC" ;
+				
 		
-		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+		
 			pstmt.setInt(1, selectMonthYear);
-		
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
-				
-				while (rs.next()) {
-					
+				if(rs.next()) {
 					List<int[]> list = new ArrayList<>();
 					
-					for(int i = 0; i <= selectMonthYear; i++) {
-						int year = rs.getInt("MONTH");
-						if (i != year) {
+					for(int i = 1; i < 12; i++) {
+						int month = rs.getInt("MONTH");
+						
+						if (i != month) {
 							list.add(new int[] {i, 0});
 							continue;
 						}
 						
-						list.add(new int[] {rs.getInt("MONTH"), rs.getInt("SUM")});
-						rs.next();
+						list.add(new int[] {month, rs.getInt("SUM")});
+						
+						if (!rs.next()) {
+							for (int j = i+1; j <= 12; j++) {
+								list.add(new int[] {j, 0});
+							}
+							break;
+						}
 					}
 					
 					return list;
@@ -350,15 +368,25 @@ public class SalesDaoImpl implements SalesDao{
 		
 	}
 
-	@Override
-	public List<Sales> selectSalesBy(int before, int after) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	
+	public int selectSalesMinYear() {
+		String sql = "SELECT min(to_char(sales_day, 'YYYY')) AS MIN_YEAR FROM SALES";
+
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+
+			if(rs.next()) {
+				return rs.getInt("MIN_YEAR");
+			}
+		}
+		catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
 		
+		return 0;
 	}
+}
 	
 	/*
 	 * @Override public int updateSales(Sales sales) { String sql =
