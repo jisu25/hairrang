@@ -112,7 +112,7 @@ public class HairDaoImpl implements HairDao{
 	
 	@Override
 	public List<String> selectHairByName() {
-		String sql =  "SELECT HAIR_NO ,HAIR_NAME ,PRICE FROM hair";
+		String sql =  "SELECT HAIR_NO ,HAIR_NAME ,PRICE FROM hair ORDER BY HAIR_NO";
 		try(Connection con = JdbcUtil.getConnection();
 					PreparedStatement ptst =  con.prepareStatement(sql);
 					ResultSet rs = ptst.executeQuery()){
