@@ -9,21 +9,20 @@ import hairrang.dto.Sales;
 
 public interface SalesDao {
 
-	List<Sales> selectSalesByAll();
+	public List<Sales> selectSalesByAll();
 
 	// 날짜 조건 필요함
 	// where sales_day between ( and ) 아닐까... 잘 찾아봐
-	List<Sales> selectSalesByDate(Date before, Date after);
+	public List<Sales> selectSalesByDate(Date before, Date after);
 	
 	public List<Sales> selectSalesByDate(int before, int after);
 	
-	public List<Sales> selectSalesBy(int before, int after);
 	// 언니쪽(고객검색)에서 필요한 메서드임 만들어야 해
 	List<Sales> selectSalesByGuestNo(Sales sales);
 	
-	int sequencesLastNumber();
+	public int sequencesLastNumber();
 
-	int insertSales(Sales sales);
+	public int insertSales(Sales sales);
 	
 	// insert할 때 주의점
 	// 스윙에서는 List<Hair>로 갖고 있는데 이거 알아서 짜갈라서 잘 인서트 해주거라
@@ -42,12 +41,14 @@ public interface SalesDao {
 	
 	int getTodaySalesCount();
 
-	List<int[]> selectSalesByYearForChart(int startYear, int endYear);
+	public List<int[]> selectSalesByYearForChart(int startYear, int endYear);
 	
-	List<int[]> selectSalesByMonthForChart(int startMonthYear);
+	public List<int[]> selectSalesByMonthForChart(int startMonthYear);
 	
 	public List<Sales> selectSalesByMonth(int startMonthYear);
 	
 	public Date oldSalesDay();
+	
+	int selectSalesMinYear();
 
 }

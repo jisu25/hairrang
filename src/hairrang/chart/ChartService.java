@@ -70,7 +70,7 @@ public class ChartService {
 		renderer.setBasePositiveItemLabelPosition(p_center);
 		renderer.setBaseItemLabelFont(f);
 		renderer.setBaseItemLabelPaint(Color.white); //막대 글씨 색
-		renderer.setSeriesPaint(0, new Color(167,153,177)); //막대 색
+		renderer.setSeriesPaint(0, new Color(35,43,153)); //막대 색
 
 		// [plot]
 		// plot 생성
@@ -148,7 +148,7 @@ public class ChartService {
 			switch (type) {
 			case "월별":
 				for (int i = 0; i < results.size(); i++) {
-					dataset.addValue((Integer) results.get(i)[0], type, (Integer) results.get(i)[0]);
+					dataset.addValue((Integer) results.get(i)[1], type, (Integer) results.get(i)[0]);
 				}
 				break;
 			/*case "월별":

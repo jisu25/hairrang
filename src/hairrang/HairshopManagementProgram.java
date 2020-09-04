@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,7 +74,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Button.foreground", Configuration.COLOR_MAIN);
 		UIManager.put("Button.background", Color.WHITE);
-//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
 //		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_GRAY_LINE, 1));
 		
 		UIManager.put("CheckBox.background", Color.WHITE);
@@ -100,10 +102,10 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	}
 
 	private void initComponents() throws FontFormatException, IOException {
-		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("HAIRRANG 헤어랑 - 미용실 매출 관리 프로그램");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		this.addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				int exit = JOptionPane.showConfirmDialog(null, "프로그램을 종료하시겠습니까?", "종료",JOptionPane.YES_NO_OPTION);
@@ -114,17 +116,15 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 				}
 					
 			}
-			
 		});
 		
-		setBounds(100, 50, 1024, 768);
+		setSize(1024, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//		setTitle
 
 		/* panel 정의 */
 
@@ -297,4 +297,5 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 			}
 		}
 	}
+	
 }
