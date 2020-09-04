@@ -32,16 +32,25 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 	
 	private GuestService gService;
 	private BookingAddInputPanel pBookingAddInput;
-
+	private ArrayList<Guest> list;
+	private JButton cancelButton;
+	private JButton okButton;
+	
 	public BookingGuestSearch() {
 		
 		gService = new GuestService();
-		ArrayList<Guest> list = (ArrayList<Guest>)gService.getGuestList();
+		list = (ArrayList<Guest>)gService.getGuestList();
 		
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
 		
+		initComponents();
+	}
+
+
+	private void initComponents() {
 		setBounds(100, 100, 620, 480);
+		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -84,6 +93,12 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 					dispose();
 				}
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				tfName.setText((String) table.getValueAt(table.getSelectedRow(), 1));
+			}
+			
 		});
 		scrollPane.setViewportView(table);
 		
@@ -91,12 +106,14 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
-		JButton okButton = new JButton("OK");
+		okButton = new JButton("OK");
+		okButton.addActionListener(this);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		
 		getRootPane().setDefaultButton(okButton);
-		JButton cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(this);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 	}
@@ -105,6 +122,12 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 	/* ActionPerformed */
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == okButton) {
+			okButtonActionPerformed(e);
+		}
+		if (e.getSource() == cancelButton) {
+			cancelButtonActionPerformed(e);
+		}
 		if (e.getSource() == btnSearch) {
 			btnSearchActionPerformed(e);
 		}
@@ -118,8 +141,8 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 	
 	// 2. 넘겨받은 이름으로 회원 검색
 	public void searchGuest(Guest guest) {
-		ArrayList<Guest> result = (ArrayList<Guest>) gService.searchGuestByName(guest);
-		table.setItems(result);
+		list = (ArrayList<Guest>) gService.searchGuestByName(guest);
+		table.setItems(list);
 	}
 	
 	// 테이블에서 선택된 고객 정보를 얻어온 후, 이전의 입력 패널에 set 해줌 
@@ -142,4 +165,11 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		this.pBookingAddInput = pBookingAddInput;
 	}
 
+	protected void cancelButtonActionPerformed(ActionEvent e) {
+		dispose();
+	}
+	
+	protected void okButtonActionPerformed(ActionEvent e) {
+		
+	}
 }

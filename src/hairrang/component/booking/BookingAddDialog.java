@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,6 +35,10 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 
 	private void initComponets() {
 		setBounds(100, 100, 380, 360);
+		setTitle("예약 등록");
+		setModal(true);
+		setResizable(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		getContentPane().setLayout(new BorderLayout());
 		
@@ -51,6 +57,16 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 		cancelBtn = new JButton("취소");
 		cancelBtn.addActionListener(this);
 		pBtns.add(cancelBtn);
+		
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				dispose();
+			}
+			
+		});
 	}
 
 	public void actionPerformed(ActionEvent e) {
