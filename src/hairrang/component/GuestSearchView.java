@@ -208,8 +208,9 @@ public class GuestSearchView extends JPanel implements ActionListener {
 		int no = guest.getGuestNo();
 		String name = guest.getGuestName();
 
+//		program.switchPanel(1);
+		program.switchToSalesView();
 		program.getP3().getSalesPanel().setGuest(no, name);
-		program.switchPanel(1);
 
 	}
 

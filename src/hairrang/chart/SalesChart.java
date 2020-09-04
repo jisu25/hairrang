@@ -63,7 +63,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		JPanel pSetSearch = new JPanel();
 		pSetSearch.setLayout(null);
-		pSetSearch.setBounds(110, 28, 495, 37);
+		pSetSearch.setBounds(110, 0, 495, 37);
 		add(pSetSearch);
  
 		JLabel lblShowDate = new JLabel("조회년도 :"); // 작아보임
@@ -113,7 +113,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		// #테이블 스크롤 패널#
 		spTable = new JScrollPane();
-		spTable.setBounds(12, 74, 682, 174);
+		spTable.setBounds(12, 45, 682, 220);
 		add(spTable);
 		tableResult = new ChartTable();
 		spTable.setViewportView(tableResult);
@@ -124,7 +124,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		pGraph.setVisible(false);
 		pGraph.setLayout(graphCard);
 		
-		pGraph.setBounds(12, 289, 682, 248);
+		pGraph.setBounds(12, 320, 682, 250);
 		add(pGraph);
 		
 
@@ -136,14 +136,14 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		rdbtnYear.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtnYear.setSelected(true);
 		buttonGroup.add(rdbtnYear);
-		rdbtnYear.setBounds(187, 254, 172, 33);
+		rdbtnYear.setBounds(187, 280, 172, 33);
 		add(rdbtnYear);
 		
 		JRadioButton rdbtnMonth = new JRadioButton("월별");
 		rdbtnMonth.setFont(Configuration.NANUMSQ_EB_16);
 		rdbtnMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		buttonGroup.add(rdbtnMonth);
-		rdbtnMonth.setBounds(363, 254, 172, 37);
+		rdbtnMonth.setBounds(363, 280, 172, 37);
 		add(rdbtnMonth);
 		
 		rdbtnYear.addItemListener(this);
@@ -165,7 +165,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	}
 
 	// 콤보박스의 값을 받아서 serach(start, end)에 넘겨준다
-	private void searchYearTableChart() {
+	public void searchYearTableChart() {
 		int startYear = (int) comboStartYear.getItemAt(comboStartYear.getSelectedIndex());
 		int endYear = (int) comboEndYear.getItemAt(comboEndYear.getSelectedIndex());
 		

@@ -43,7 +43,7 @@ public class SalesDetailView extends JPanel implements ActionListener {
 	public SalesDetailView() {
 		initComponents();
 
-		clearTf();
+		listUpdate();
 	}
 
 	private void initComponents() {
@@ -169,7 +169,8 @@ public class SalesDetailView extends JPanel implements ActionListener {
 		}
 	}
 
-	public void clearTf() {
+	public void listUpdate() {
+		radioWeek.setSelected(true);
 		setPeriod(Calendar.DATE, -7);
 		changeTable();
 	}

@@ -22,13 +22,13 @@ public class GuestOrderInfoTable extends AbstractItemTable<Sales> {
 
 	@Override
 	Object[] getColName() {
-		return new String[] { "영업번호", "주문 일자", "주문명", "단가", "이벤트명", "금액" };
+		return new String[] { "영업번호", "주문 일자", "고객명", "주문명", "단가", "이벤트명", "금액" };
 	}
 
 	@Override
 	Object[] toArray(Sales itemList) {
 		return new Object[] {
-			itemList.getSalesNo(), itemList.getSalesDay(), itemList.getHairNo().getHairName(), itemList.getHairNo().getPrice(),
+			itemList.getSalesNo(), itemList.getSalesDay(), itemList.getGuestNo().getGuestName(), itemList.getHairNo().getHairName(), itemList.getHairNo().getPrice(),
 			itemList.getEventNo().getEventName(),
 			// 할인율적용된 단가 셋하기
 			// Math.round(sum)
@@ -48,8 +48,9 @@ public class GuestOrderInfoTable extends AbstractItemTable<Sales> {
 		tcm.getColumn(3).setCellRenderer(dtcr);
 		tcm.getColumn(4).setCellRenderer(dtcr);
 		tcm.getColumn(5).setCellRenderer(dtcr);
+		tcm.getColumn(6).setCellRenderer(dtcr);
 
-		tableSetWidth(80, 100, 100, 100, 80, 100);		
+		tableSetWidth(70, 100, 70, 100, 100, 80, 100);		
 	}
 
 

@@ -61,6 +61,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	private JPanel[] pArr;
 	private JLabel lblMenuName;
 	private SidePanel sidePanel;
+	private CardLayout card;
 
 	public HairshopManagementProgram() throws FontFormatException, IOException {
 
@@ -132,7 +133,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		layeredPane = new JPanel();
 		layeredPane.setBounds(30, 160, 700, 540);
 		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
+		card = new CardLayout(0, 0);
+		layeredPane.setLayout(card);
 
 		// dto 수정하면서 각 패널들 고장나서 기본 JPanel로 바꿔 넣음
 		// dto에 맞게 구현하고 나면 morph 하세요.
@@ -147,7 +149,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		p2.setProgram(this);
 
 		p3 = new SalesView();
-		layeredPane.add(p3, "name_191036958001300");
+		layeredPane.add(p3, "주문");
 		p3.setLayout(null);
 		p3.setProgram(this);
 		
@@ -274,8 +276,29 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		repaint();
 		revalidate();
 		
+		switch(i) {
+			case 0: p2.listUpdate();
+				break;
+			case 1: p3.listUpdate();
+				break;
+			case 2: p4.listUpdate();
+				break;
+			case 3: p5.searchYearTableChart();
+				break;
+			case 4: p6.listUpdate();
+				break;
+		}
+		
 	}
 
+	public void switchToSalesView() {
+		lblMenuName.setText(Configuration.MENU_NAMES[1]);
+		pArr[1].revalidate();
+		layeredPane.removeAll();
+		layeredPane.add(pArr[1]);
+		repaint();
+		revalidate();
+	}
 
 	public static void setUIFont(Font font) {
 		java.util.Enumeration keys = UIManager.getDefaults().keys();

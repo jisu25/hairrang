@@ -163,6 +163,10 @@ public class SalesView extends JPanel {
 
 	};
 
+	public void listUpdate() {
+		salesPanel.clearTf();
+	}
+	
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
 
