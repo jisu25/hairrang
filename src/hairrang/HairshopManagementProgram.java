@@ -69,7 +69,7 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
 		UIManager.put("Button.foreground", Configuration.COLOR_MAIN);
 		UIManager.put("Button.background", Color.WHITE);
-//		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
+		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_MAIN, 1));
 //		UIManager.put("Button.border", BorderFactory.createLineBorder(Configuration.COLOR_GRAY_LINE, 1));
 		
 		UIManager.put("CheckBox.background", Color.WHITE);
@@ -97,7 +97,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	}
 
 	private void initComponents() throws FontFormatException, IOException {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("HAIRRANG 헤어랑 - 미용실 매출 관리 프로그램");
 		setBounds(100, 50, 1024, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -105,7 +106,6 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//		setTitle
 
 		/* panel 정의 */
 
