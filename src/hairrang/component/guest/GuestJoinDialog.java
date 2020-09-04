@@ -180,9 +180,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(144, 115, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
-		contentPanel.add(dateChooser);
-		
-		dateChooser.setDate(date);
+		contentPanel.add(dateChooser);	
 
 		buttonPane = new JPanel();
 		buttonPane.setBounds(0, 360, 370, 43);

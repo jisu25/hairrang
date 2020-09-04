@@ -97,7 +97,8 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	}
 
 	private void initComponents() throws FontFormatException, IOException {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setBounds(100, 50, 1024, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
