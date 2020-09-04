@@ -309,17 +309,15 @@ public class SalesDaoImpl implements SalesDao{
 			pstmt.setInt(1, selectMonthYear);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
+				List<int[]> list = new ArrayList<>();
+				
 				if(rs.next()) {
-					List<int[]> list = new ArrayList<>();
-					
 					for(int i = 1; i < 12; i++) {
 						int month = rs.getInt("MONTH");
-						
 						if (i != month) {
 							list.add(new int[] {i, 0});
 							continue;
 						}
-						
 						list.add(new int[] {month, rs.getInt("SUM")});
 						
 						if (!rs.next()) {
@@ -328,16 +326,18 @@ public class SalesDaoImpl implements SalesDao{
 							}
 							break;
 						}
+					} 
+				} else {
+					for (int i = 1; i <=12; i++) {
+						list.add(new int[] {i, 0});
 					}
-					
-					return list;
 				}
+				return list;
 			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return null;
 	}
 	
 	

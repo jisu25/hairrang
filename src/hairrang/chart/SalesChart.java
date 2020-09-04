@@ -92,6 +92,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		// 콤보박스 세팅
 		comboStartYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+		comboStartYear.setSelectedIndex(0);
 		comboStartYear.setBounds(113, 0, 114, 37);
 		pSetSearch.add(comboStartYear);
 		 
@@ -102,6 +103,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		// 끝년도 콤보박스
 		comboEndYear = new JComboBox<Integer>(YearValues); //정수값만 넣는 콤보박스
+		comboEndYear.setSelectedIndex(0);
 		comboEndYear.setBounds(251, 0, 114, 37);
 		pSetSearch.add(comboEndYear);
 
@@ -150,7 +152,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			// '검색' 버튼을 눌렀을 때
-			searchYearTableChart();
+			realSearch(type);
 		}
 		
 	}
@@ -165,7 +167,7 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		chartList = (ArrayList<int[]>) sService.getChartDataByYear(startYear, endYear);
 		hcs.setChart(type, chartList);
-		System.out.println("연도별");
+//		realSearch(type);
 	}
 	
 	
@@ -178,19 +180,23 @@ public class SalesChart extends JPanel implements ActionListener, ItemListener {
 		
 		chartList = (ArrayList<int[]>) sService.getChartDateByMonth(startMonthYear);
 		hcs.setChart(type, chartList);
-		System.out.println("월별");
-		
 	}
 
 	// 라디오 버튼의 글자를 읽는 itemListener
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		type = ((JRadioButton) e.getSource()).getText();
+		realSearch(type);
+	}
+
+
+
+	private void realSearch(String type) {
 		
-		if (type.equals("월별")) {
-			searchMonthTableChart();
-		} else {
+		if (type.equals("연도별")) {
 			searchYearTableChart();
+		} else {
+			searchMonthTableChart();
 		}
 	}
 
