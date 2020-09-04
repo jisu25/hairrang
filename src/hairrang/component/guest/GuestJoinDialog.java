@@ -134,7 +134,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
@@ -145,7 +145,6 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
@@ -188,14 +187,14 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		buttonPane.setLayout(null);
 
 		btnAdd = new JButton("등록");
-		btnAdd.setBounds(124, 11, 65, 25);
+		btnAdd.setBounds(112, 10, 65, 25);
 		btnAdd.setActionCommand("OK");
 		btnAdd.addActionListener(this);
 		buttonPane.add(btnAdd);
 		getRootPane().setDefaultButton(btnAdd);
 
 		btnCancel = new JButton("취소");
-		btnCancel.setBounds(197, 11, 65, 25);
+		btnCancel.setBounds(185, 10, 65, 25);
 		btnCancel.setActionCommand("Cancel");
 		btnCancel.addActionListener(this);
 		buttonPane.add(btnCancel);
