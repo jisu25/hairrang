@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -170,6 +171,11 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 	}
 	
 	protected void okButtonActionPerformed(ActionEvent e) {
+		try {
+			getSelectedGuest();
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			JOptionPane.showMessageDialog(null, "고객을 선택해주세요.");
+		}
 		
 	}
 }

@@ -134,14 +134,12 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		spinField = new JSpinField();
 		spinField.setBounds(225, 48, 29, 21);
 		add(spinField);
-//		spinField.set
 	}
 	
 	
 	// 콤보박스 리스트 불러오기
 	private void setHairModel() {
 		hairNames = hService.getHairNames();
-		hairNames.add(0, "");
 		String[] items = (String[]) hairNames.toArray(new String[hairNames.size()]);
 
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
@@ -172,6 +170,7 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 
 	protected void btnSearchActionPerformed(ActionEvent e) {
 		BookingGuestSearch searchDig = new BookingGuestSearch();
+		searchDig.setLocationRelativeTo(null);
 		searchDig.setpBookingAddInput(this);
 		searchDig.setTitle("고객 검색");
 		searchDig.setVisible(true);
@@ -220,8 +219,8 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 		Booking newBook = new Booking(no, guest, bookedBy, bookPhone, day, hair, note);
 		
 		System.out.println("combobox : " + comboHair.getSelectedIndex());
-		
-		if (hair == null || bookedBy.equals("") || bookPhone.equals("") ) {
+
+		if (hair == null || hair == new Hair(0) || bookedBy.equals("") || bookPhone.equals("") ) {
 			throw new EmptyTfException("공란이 존재합니다.");
 		}
 		

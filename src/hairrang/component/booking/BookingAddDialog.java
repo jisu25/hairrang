@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import hairrang.dto.Booking;
 import hairrang.dto.Guest;
+import hairrang.exception.EmptyTfException;
 import hairrang.service.BookingService;
 
 public class BookingAddDialog extends JDialog implements ActionListener {
@@ -35,6 +36,7 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 
 	private void initComponets() {
 		setBounds(100, 100, 380, 360);
+		setLocationRelativeTo(null);
 		setTitle("예약 등록");
 		setModal(true);
 		setResizable(false);
@@ -81,15 +83,19 @@ public class BookingAddDialog extends JDialog implements ActionListener {
 	
 	// 등록 버튼을 눌렀을 때 패널에서 정보 가져오기
 	protected void okBtnActionPerformed(ActionEvent e) {
-		Booking newBook = pBookAdd.getBook();
-		int res = JOptionPane.showConfirmDialog(null, String.format("다음 예약 내역을 추가하시겠습니까?\n\n %s", newBook.getBookInfo()), "예약확인", JOptionPane.YES_NO_OPTION);
-		System.out.println(newBook);
-		// Yes: 0, No: 1
-		if (res == 0) {
-			bService.addBook(newBook);
-			parentPanel.updateList();
-			JOptionPane.showMessageDialog(null, "예약이 등록되었습니다!");
-			dispose();
+		try {
+			Booking newBook = pBookAdd.getBook();
+			int res = JOptionPane.showConfirmDialog(null, String.format("다음 예약 내역을 추가하시겠습니까?\n\n %s", newBook.getBookInfo()), "예약확인", JOptionPane.YES_NO_OPTION);
+			System.out.println(newBook);
+			// Yes: 0, No: 1
+			if (res == 0) {
+				bService.addBook(newBook);
+				parentPanel.updateList();
+				JOptionPane.showMessageDialog(null, "예약이 등록되었습니다!");
+				dispose();
+			}
+		} catch (EmptyTfException ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
 	}
 	
