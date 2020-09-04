@@ -207,6 +207,7 @@ public class GuestUpdateDialog extends JDialog implements ActionListener {
 			return;
 		}
 		guestSearch.listUpdate();
+		dispose();
 		
 	}
 
