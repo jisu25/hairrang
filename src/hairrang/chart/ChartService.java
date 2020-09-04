@@ -17,6 +17,7 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
 
@@ -54,7 +55,7 @@ public class ChartService {
 
 		// [렌더링]
 		// 렌더링 생성
-		final BarRenderer renderer = new BarRenderer();
+		final BarRenderer3D renderer = new BarRenderer3D();
 		
 
 		// 공통 옵션 정의
@@ -108,6 +109,7 @@ public class ChartService {
 
 		switch (type) {
 		case "월별":
+			
 			salesChart.pGraph.add("graphMonth", chartp);
 			salesChart.graphCard.show(salesChart.pGraph, "graphMonth");
 			salesChart.comboEndYear.setVisible(false);
@@ -137,7 +139,7 @@ public class ChartService {
 		DefaultCategoryDataset dataset = null;
 
 		if (results != null) { // 조회 결과 있을 때만 그래프 값 설정
-			System.out.println("그래프 값 설정!!!!!");
+		
 			Vector<String> date = new Vector<String>(); // 날짜 (한 행)
 			Vector<Integer> values = new Vector<Integer>(); // 분류별 값 (한 행)
 
