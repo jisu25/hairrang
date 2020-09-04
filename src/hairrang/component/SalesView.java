@@ -35,7 +35,7 @@ public class SalesView extends JPanel {
 	private SalesOrderPanel salesPanel;
 	private SalesService salesService = new SalesService();
 	private HairshopManagementProgram program;
-	
+
 	/**
 	 * Create the panel.
 	 */
@@ -122,7 +122,7 @@ public class SalesView extends JPanel {
 			}
 			if (e.getSource() == btnOrder) {
 				btnOrderAction();
-				
+
 			}
 			if (e.getActionCommand().equals("상품삭제")) {
 				deleteHairItem(e);
@@ -135,35 +135,33 @@ public class SalesView extends JPanel {
 			 * dialog = new SalesDialog(); dialog.setBounds(300, 200, 700, 500);
 			 * dialog.setTitle("고객 등록"); dialog.setVisible(true);
 			 */
-			 program.switchPanel(0);
+			program.switchPanel(0);
 		}
 
 		private void btnOrderAction() {
-			if(salesPanel.getComboHair().getSelectedItem() == null) {
+			if (salesPanel.getComboHair().getSelectedItem() == null) {
 				JOptionPane.showMessageDialog(null, "상품을 선택해 주세요");
 				return;
 			}
-			
-			if(salesPanel.getCheckMember().isSelected() == false) {
-				if(salesPanel.getTfGuestNo().getText().trim().equals("")) { 
+
+			if (salesPanel.getCheckMember().isSelected() == false) {
+				if (salesPanel.getTfGuestNo().getText().trim().equals("")) {
 					JOptionPane.showMessageDialog(null, "고객을 선택해주세요");
 					return;
 				}
 			}
 
 			System.out.println(salesPanel.getSales());
-			for(Sales sales : salesPanel.getSales()) {
+			for (Sales sales : salesPanel.getSales()) {
 				salesService.insertSales(sales);
-				
+
 			}
 			salesPanel.clearTf();
 			JOptionPane.showMessageDialog(null, "주문이 완료되었습니다");
-			
-			
+
 		}
 
 	};
-
 
 	public JPopupMenu createPopMenu() {
 		JPopupMenu popMenu = new JPopupMenu();
@@ -184,18 +182,25 @@ public class SalesView extends JPanel {
 	private void deleteHairItem(ActionEvent e) {
 		int selectIndex = table.getSelectedRow();
 		if (selectIndex == -1) {
+			JOptionPane.showMessageDialog(null, "상품을 선택해주세요");
 			return;
 		}
 		System.out.println(selectIndex);
-		Hair selectHair = table.getSelectedRow(selectIndex);
-		table.removeRow(selectIndex);
-		salesPanel.subSumTotal(selectHair);
-		System.out.println(list);
+//		Hair selectHair = table.getSelectedRow(selectIndex);
+//		System.out.println("몇번이야 " + table.getValueAt(table.getSelectedRow(), 0));
+//		table.removeRow(selectIndex);
+//		salesPanel.subSumTotal(selectHair);
+//		System.out.println(list);
+
+		List<Hair> list = salesPanel.getItemList();
+		list.remove(selectIndex);
+		salesPanel.setItemList(list);
+		table.setCount(0);
+		table.setItems((ArrayList<Hair>) list);
 		
-		/*
-		 * for(int i=0; i<list.size(); ){ list.get(i).setHairNo(i++); }
-		 * table.resetList(); table.setItems(list);
-		 */
+		
+		
+		
 		
 	}
 
@@ -206,8 +211,6 @@ public class SalesView extends JPanel {
 	public void setProgram(HairshopManagementProgram program) {
 		this.program = program;
 	}
-	
-	
 
 	/*
 	 * public void setProgram(HairshopManagementProgram hairshopManagementProgram) {
@@ -215,5 +218,4 @@ public class SalesView extends JPanel {
 	 * }
 	 */
 
-	
 }

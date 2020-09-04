@@ -183,6 +183,7 @@ public class GuestSearchView extends JPanel implements ActionListener {
 		orderInfo.setBounds(220, 200, 515, 480);
 		orderInfo.setTitle("이용내역");
 		orderInfo.setVisible(true);
+		orderInfo.setLocationRelativeTo(program);
 
 		// String guestName = pGuest.tfName().trim();
 		// String guestNo = pGuest.tfNo().trim();
@@ -288,7 +289,6 @@ public class GuestSearchView extends JPanel implements ActionListener {
 				try {
 					actionUpdate();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

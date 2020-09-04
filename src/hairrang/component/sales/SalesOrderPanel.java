@@ -1,12 +1,9 @@
 package hairrang.component.sales;
 
-import java.awt.Font;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.peer.PopupMenuPeer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,9 +14,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.TabableView;
 
 import hairrang.dto.Event;
 import hairrang.dto.Guest;
@@ -53,6 +50,7 @@ public class SalesOrderPanel extends JPanel {
 	private JTextField tfTotalPrice = new JTextField();
 	private List<Hair> hairList = hairService.getHairList();
 	private List<Event> eventList = eventService.getEventList();
+	private List<Hair> itemList = new ArrayList<Hair>();
 	
 
 	public SalesOrderPanel() {
@@ -336,6 +334,7 @@ public class SalesOrderPanel extends JPanel {
 	}
 
 	private void addHairItemTable(ActionEvent e) {
+		System.out.println(itemList);
 		int selectIndex = comboHair.getSelectedIndex();
 		if (selectIndex == -1) {
 			return;
@@ -343,13 +342,19 @@ public class SalesOrderPanel extends JPanel {
 
 		for (int i = 0; i < hairList.size(); i++) {
 			if (hairList.get(i).getHairName().equals(comboHair.getSelectedItem().toString())) {
-				htable.addRow(hairList.get(i));
-				tfHairPrice.setText((hairList.get(i).getPrice()) + "원");
-				System.out.println(hairList.get(i));
-				System.out.println(comboHair.getSelectedItem().toString());
-
+				itemList.add(hairList.get(i));
+				
+//				htable.addRow(hairList.get(i));
+//				tfHairPrice.setText((hairList.get(i).getPrice()) + "원");
+//				System.out.println(hairList.get(i));
+//				System.out.println(comboHair.getSelectedItem().toString());
 			}
 		}
+		htable.setCount(0);
+		htable.setItems((ArrayList<Hair>) itemList);
+		
+		
+		
 		int sum = 0;
 		for (int i = 0; i < htable.getHairList().size(); i++) {
 			sum += htable.getHairList().get(i).getPrice();
@@ -422,5 +427,20 @@ public class SalesOrderPanel extends JPanel {
 		}
 
 	}
+
+	public List<Hair> getHairList() {
+		return hairList;
+	}
+
+	public List<Hair> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(List<Hair> itemList) {
+		this.itemList = itemList;
+	}
+	
+	
+	
 
 }

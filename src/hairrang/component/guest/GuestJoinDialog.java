@@ -3,6 +3,8 @@ package hairrang.component.guest;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,7 +105,8 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		contentPanel.add(lblJoinDay);
 
 		tfJoinDay = new JTextField();
-		tfJoinDay.setText("2020-09-01");
+		Date date = new Date();
+		tfJoinDay.setText(new SimpleDateFormat("yyyy-MM-dd").format(date));
 		tfJoinDay.setEditable(false);
 		tfJoinDay.setColumns(10);
 		tfJoinDay.setBounds(144, 155, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
@@ -119,7 +122,40 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 
 		tfPhone = new JTextField();
 		tfPhone.setColumns(10);
+		tfPhone.setText("ex)010-1234-5678");
 		tfPhone.setBounds(134, 235, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
+		tfPhone.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tfPhone.setText("ex)010-1234-5678");
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfPhone.setText("");
+				
+				
+			}
+		});
 		contentPanel.add(tfPhone);
 
 		JLabel lblNote = new JLabel("메      모  : ");
@@ -144,7 +180,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(144, 115, Configuration.DIM_TF.width, Configuration.DIM_TF.height);
-		contentPanel.add(dateChooser);
+		contentPanel.add(dateChooser);	
 
 		buttonPane = new JPanel();
 		buttonPane.setBounds(0, 360, 370, 43);
@@ -243,6 +279,11 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog(null, String.format("%s을 입력하세요.",error));
 			throw new EmptyTfException("공란존재");
 		}
+		if(dateChooser.getDate() == null) {
+			error="생년월일";
+			JOptionPane.showMessageDialog(null, String.format("%s을 입력하세요.",error));
+			throw new EmptyTfException("공란존재");
+		}
 		if(buttonGroup.isSelected(null)) {
 			error = "성별";
 			JOptionPane.showMessageDialog(null, String.format("%s을 선택하세요.",error));
@@ -253,6 +294,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 			JOptionPane.showMessageDialog(null, String.format("%s를 입력하세요.",error));
 			throw new EmptyTfException("공란존재");
 		}
+		
 		
 		setTfNo(curr);
 		
