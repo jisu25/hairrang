@@ -9,12 +9,15 @@ import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -97,7 +100,22 @@ public class HairshopManagementProgram extends JFrame implements ActionListener 
 	}
 
 	private void initComponents() throws FontFormatException, IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int exit = JOptionPane.showConfirmDialog(null, "프로그램을 종료하시겠습니까?", "종료",JOptionPane.YES_NO_OPTION);
+				if(exit == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}else if(exit == JOptionPane.NO_OPTION){
+					return;
+				}
+					
+			}
+			
+		});
 		
 		setBounds(100, 50, 1024, 768);
 		contentPane = new JPanel();
