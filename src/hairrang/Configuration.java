@@ -16,8 +16,12 @@ public class Configuration {
 	public static Font NANUMSQ_REG_20 = CustomFonts.getNanumSqReg(20);
 	public static Font NANUMSQ_REG_28 = CustomFonts.getNanumSqReg(28);
 	
-	public static Font NANUMSQ_BOLD_28 = CustomFonts.getNanumSqReg(28);
+	public static Font NANUMSQ_BOLD_16 = CustomFonts.getNanumSqBold(16);
+	public static Font NANUMSQ_BOLD_20 = CustomFonts.getNanumSqBold(20);
+	public static Font NANUMSQ_BOLD_28 = CustomFonts.getNanumSqBold(28);
 	
+	public static Font NANUMSQ_EB_14 = CustomFonts.getNanumSqEB(14);
+	public static Font NANUMSQ_EB_16 = CustomFonts.getNanumSqEB(16);
 	public static Font NANUMSQ_EB_20 = CustomFonts.getNanumSqEB(20);
 	public static Font NANUMSQ_EB_28 = CustomFonts.getNanumSqEB(28);
 	

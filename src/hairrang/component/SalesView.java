@@ -186,10 +186,11 @@ public class SalesView extends JPanel {
 			return;
 		}
 		System.out.println(selectIndex);
-//		Hair selectHair = table.getSelectedRow(selectIndex);
+		Hair selectHair = table.getSelectedRow(selectIndex);
+		salesPanel.subSumTotal(selectHair);
 //		System.out.println("몇번이야 " + table.getValueAt(table.getSelectedRow(), 0));
 //		table.removeRow(selectIndex);
-//		salesPanel.subSumTotal(selectHair);
+		
 //		System.out.println(list);
 
 		List<Hair> list = salesPanel.getItemList();

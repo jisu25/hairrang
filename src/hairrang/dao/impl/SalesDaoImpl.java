@@ -309,17 +309,15 @@ public class SalesDaoImpl implements SalesDao{
 			pstmt.setInt(1, selectMonthYear);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
+				List<int[]> list = new ArrayList<>();
+				
 				if(rs.next()) {
-					List<int[]> list = new ArrayList<>();
-					
 					for(int i = 1; i < 12; i++) {
 						int month = rs.getInt("MONTH");
-						
 						if (i != month) {
 							list.add(new int[] {i, 0});
 							continue;
 						}
-						
 						list.add(new int[] {month, rs.getInt("SUM")});
 						
 						if (!rs.next()) {
@@ -328,16 +326,18 @@ public class SalesDaoImpl implements SalesDao{
 							}
 							break;
 						}
+					} 
+				} else {
+					for (int i = 1; i <=12; i++) {
+						list.add(new int[] {i, 0});
 					}
-					
-					return list;
 				}
+				return list;
 			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return null;
 	}
 	
 	
@@ -368,6 +368,24 @@ public class SalesDaoImpl implements SalesDao{
 		
 	}
 
+
+
+	@Override
+	public Date oldSalesDay() {
+		String sql = "SELECT MIN(SALES_DAY ) AS MINDAY FROM SALES";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				return rs.getDate("MINDAY");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	
 
 	public int selectSalesMinYear() {
 		String sql = "SELECT min(to_char(sales_day, 'YYYY')) AS MIN_YEAR FROM SALES";
