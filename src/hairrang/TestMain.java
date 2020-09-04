@@ -16,7 +16,8 @@ public class TestMain {
 			public void run() {
 				try {
 					HairshopManagementProgram frame = new HairshopManagementProgram();
-					setWindowPosition(frame, 1); // 주모니터에 띄우기
+//					setWindowPosition(frame, 0); // 주모니터에 띄우기
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

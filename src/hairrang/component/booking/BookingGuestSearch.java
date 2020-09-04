@@ -42,15 +42,15 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		gService = new GuestService();
 		list = (ArrayList<Guest>)gService.getGuestList();
 		
-		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
-		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
+//		UIManager.put("Button.font", CustomFonts.getNanumSqBold(14));
+//		UIManager.put("Label.font", CustomFonts.getNanumSqBold(14));
 		
 		initComponents();
 	}
 
 
 	private void initComponents() {
-		setBounds(100, 100, 620, 480);
+		setBounds(100, 100, 760, 480);
 		setModal(true);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,7 +59,7 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		
 		JPanel pSearchInput = new JPanel();
 		pSearchInput.setLayout(null);
-		pSearchInput.setBounds(160, 0, 280, 50);
+		pSearchInput.setBounds(190, 0, 280, 50);
 		contentPanel.add(pSearchInput);
 		
 		lblName = new JLabel("고객명 :");
@@ -77,15 +77,17 @@ public class BookingGuestSearch extends JDialog implements ActionListener {
 		pSearchInput.add(btnSearch);
 		
 		JPanel pTable = new JPanel();
-		pTable.setBounds(0, 50, 590, 340);
+		pTable.setBounds(0, 50, 730, 340);
 		contentPanel.add(pTable);
-		pTable.setLayout(new BorderLayout(0, 0));
+		pTable.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		pTable.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(14, 0, 734, 358);
+		pTable.add(scrollPane);
 		
 		table = new GuestSearchTable();
 		table.setItems(list);
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

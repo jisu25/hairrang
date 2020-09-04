@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -89,13 +90,13 @@ public class SalesOrderPanel extends JPanel {
 		JLabel lblHairPrice = new JLabel("단가 :");
 		lblHairPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHairPrice.setBounds(213, 82, 62, 25);
-		add(lblHairPrice);
+//		add(lblHairPrice);
 
 		tfHairPrice = new JTextField();
 		tfHairPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		tfHairPrice.setColumns(10);
 		tfHairPrice.setBounds(287, 84, 117, 21);
-		add(tfHairPrice);
+//		add(tfHairPrice);
 
 		JLabel lblMemberCheck = new JLabel("회원체크 :");
 		lblMemberCheck.setHorizontalAlignment(SwingConstants.CENTER);
@@ -152,7 +153,7 @@ public class SalesOrderPanel extends JPanel {
 		add(checkMember);
 
 		comboHair = new JComboBox<String>();
-		setHairDateModel();
+		setHairDataModel();
 		comboHair.setBounds(287, 49, 117, 21);
 		comboHair.setSelectedIndex(-1);
 		add(comboHair);
@@ -271,9 +272,9 @@ public class SalesOrderPanel extends JPanel {
 
 	}
 
-	private void setHairDateModel() {
+	private void setHairDataModel() {
 		String[] items = new String[hairService.getHairNames().size()];
-
+		
 		int size = 0;
 		for (String HairName : hairService.getHairNames()) {
 			items[size++] = HairName;
@@ -281,6 +282,7 @@ public class SalesOrderPanel extends JPanel {
 		;
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		comboHair.setModel(model);
+		comboHair.setSelectedIndex(0);
 	}
 
 	ActionListener addActionlistener = new ActionListener() {
@@ -306,15 +308,22 @@ public class SalesOrderPanel extends JPanel {
 		}
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		comboEvent.setModel(model);
+		comboEvent.setSelectedIndex(0);
 
 	}
 
 	protected void addEventItemResult(ActionEvent e) {
 		int selectIndex = comboEvent.getSelectedIndex();
-		if (selectIndex == -1) {
+		int selecth = comboHair.getSelectedIndex();
+		System.out.println(selectIndex);
+		if ( selecth == -1 || selecth == 0 || selectIndex == -1 || selectIndex == -1) {
+//			JOptionPane.showMessageDialog(null, "상품을 선택해주세요");
 			tfTotalPrice.setText(tfSumPrice.getText().trim());
 			return;
 		}
+		System.out.println(selectIndex);
+		eventList.get(comboEvent.getSelectedIndex());
+		
 		for (int i = 0; i < eventList.size(); i++) {
 			if (eventList.get(i).getEventName().equals(comboEvent.getSelectedItem().toString())) {
 				String str = tfSumPrice.getText().trim();
@@ -336,7 +345,11 @@ public class SalesOrderPanel extends JPanel {
 	private void addHairItemTable(ActionEvent e) {
 		System.out.println(itemList);
 		int selectIndex = comboHair.getSelectedIndex();
-		if (selectIndex == -1) {
+		
+		System.out.println(e.getSource());
+		System.out.println(e.getClass());
+		if (selectIndex == -1 || selectIndex == 0) {
+//			JOptionPane.showMessageDialog(null, "상품을 선택해주세요");
 			return;
 		}
 
@@ -389,8 +402,6 @@ public class SalesOrderPanel extends JPanel {
 		tfHairPrice.setText("");
 		tfSale.setText("");
 		checkMember.setSelected(false);
-		comboHair.setSelectedIndex(-1);
-		comboEvent.setSelectedIndex(-1);
 		System.out.println("aaaaaaaaaaaaaaaaaa" + htable.getHairList().size());
 //		for (int i = 0; i < htable.getHairList().size(); i++) {
 //			htable.removeRow(i);
@@ -400,7 +411,10 @@ public class SalesOrderPanel extends JPanel {
 		}
 		tfSumPrice.setText("");
 		tfTotalPrice.setText("");
-
+		
+		setHairDataModel();	
+		setEventDateModel();
+		
 	}
 
 	public void subSumTotal(Hair hair) {

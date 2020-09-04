@@ -124,6 +124,7 @@ public class BookingPanel extends JPanel implements ActionListener {
 
 	// 데이터 삽입하고 삭제할 때 씀. 화면 패널 전환시에도 쓸 예정.
 	public void updateList() {
+		System.out.println("updateList를 보자 " + bookList);
 		bookList = (ArrayList<Booking>) bService.getTodayBookList();
 		table.setItems(bookList);
 	}
@@ -132,9 +133,9 @@ public class BookingPanel extends JPanel implements ActionListener {
 	// + 버튼을 눌렀을 때 : 예약 등록하는 대화상자 띄우기
 	protected void btnAddActionPerformed(ActionEvent e) {
 		addDialog = new BookingAddDialog();
+		addDialog.setParentPanel(this);
 		addDialog.setTitle("이용내역");
 		addDialog.setVisible(true);
-		addDialog.setParentPanel(this);
 	}
 	
 	

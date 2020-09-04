@@ -25,7 +25,7 @@ public class EventDaoImpl implements EventDao {
 	@Override
 	public List<Event> selectEventByAll() {
 		
-		String sql =  "SELECT * FROM EVENT";
+		String sql =  "SELECT * FROM EVENT ORDER BY EVENT_NO";
 		
 		try(Connection con = JdbcUtil.getConnection();
 			PreparedStatement ptst =  con.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class EventDaoImpl implements EventDao {
 	
 	@Override
 	public List<String> selectEventNames() {
-		String sql =  "SELECT EVENT_NAME FROM EVENT";
+		String sql =  "SELECT EVENT_NAME FROM EVENT ORDER BY EVENT_NO";
 		try(Connection con = JdbcUtil.getConnection();
 			PreparedStatement ptst =  con.prepareStatement(sql);
 			ResultSet rs = ptst.executeQuery()){

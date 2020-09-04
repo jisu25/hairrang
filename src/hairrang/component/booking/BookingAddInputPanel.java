@@ -209,16 +209,22 @@ public class BookingAddInputPanel extends JPanel implements ActionListener {
 			guest = new Guest(guestNo);
 		}
 		
+		int hairIdx = comboHair.getSelectedIndex();
+		if ( hairIdx == 0 || hairIdx == -1) {
+			throw new EmptyTfException("공란이 존재합니다.");
+		}
+		
 		int no = Integer.parseInt(tfBookingNo.getText().trim());
 		String bookedBy = tfGuestName.getText().trim();
 		String bookPhone = tfPhone.getText().trim();
 		Date day = dcBookDate.getDate();
-		Hair hair = hService.getHairByHairNo(new Hair(comboHair.getSelectedIndex()));
+		Hair hair = hService.getHairByHairNo(new Hair(hairIdx));
 		String note = taNote.getText().trim();
 		
 		Booking newBook = new Booking(no, guest, bookedBy, bookPhone, day, hair, note);
 		
 		System.out.println("combobox : " + comboHair.getSelectedIndex());
+		System.out.println(newBook);
 
 		if (hair == null || hair == new Hair(0) || bookedBy.equals("") || bookPhone.equals("") ) {
 			throw new EmptyTfException("공란이 존재합니다.");
