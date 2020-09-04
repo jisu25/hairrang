@@ -65,4 +65,8 @@ public class SalesService {
 		return dao.selectSalesByMonthForChart(startMonthYear);
 		
 	}
+	
+	public int getSalesMinYear() {
+		return dao.selectSalesMinYear();
+	}
 }
