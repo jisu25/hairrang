@@ -140,7 +140,7 @@ public class GuestJoinDialog extends JDialog implements ActionListener{
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				tfPhone.setText("ex)010-1234-5678");
+				
 			}
 			
 			@Override
