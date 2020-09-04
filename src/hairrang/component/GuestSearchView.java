@@ -288,7 +288,6 @@ public class GuestSearchView extends JPanel implements ActionListener {
 				try {
 					actionUpdate();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
