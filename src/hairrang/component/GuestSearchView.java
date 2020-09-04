@@ -157,7 +157,7 @@ public class GuestSearchView extends JPanel implements ActionListener {
 	private void btnJoinActionPerformed(ActionEvent e) {
 
 		joinDialog = new GuestJoinDialog();
-		joinDialog.setBounds(300, 200, 370, 500);
+		joinDialog.setBounds(750, 300, 370, 500);
 		joinDialog.setTitle("고객 등록");
 		joinDialog.setVisible(true);
 		joinDialog.setGuestSearch(this);
@@ -180,7 +180,7 @@ public class GuestSearchView extends JPanel implements ActionListener {
 		}
 
 		orderInfo = new GuestOrderInfoDialog();
-		orderInfo.setBounds(220, 200, 515, 480);
+		orderInfo.setBounds(500, 550, 515, 480);
 		orderInfo.setTitle("이용내역");
 		orderInfo.setVisible(true);
 		orderInfo.setLocationRelativeTo(program);
@@ -311,7 +311,7 @@ public class GuestSearchView extends JPanel implements ActionListener {
 		Guest update = getSelectedGuest();
 
 		UpdateDialog = new GuestUpdateDialog();
-		UpdateDialog.setBounds(300, 200, 370, 500);
+		UpdateDialog.setBounds(750, 300, 370, 500);
 		UpdateDialog.setTitle("고객 정보 수정");
 		UpdateDialog.setVisible(true);
 		UpdateDialog.setGuestSearch(this);
